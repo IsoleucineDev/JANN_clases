@@ -432,6 +432,7 @@
       <button class="btn btn-teal" onclick="empezarBonusRecta()">Intentarlo</button>
     </div>
     <button class="btn btn-morado btn-grande" onclick="mostrarResultadosFinales()">🏁 Ver resultado final</button>
+    <button class="btn btn-teal" onclick="mostrarPantalla('screen-mas-ejercicios')">🔄 O practicar más ejercicios</button>
   </div>
 
   <!-- BONUS: SUMAS CON NEGATIVOS -->
@@ -480,6 +481,19 @@
     <button class="btn btn-teal" id="btnSiguienteRecta" style="display:none;" onclick="siguienteRecta()">Siguiente ➡️</button>
   </div>
 
+  <!-- PRACTICAR MAS (generar ejercicios nuevos al instante) -->
+  <div class="screen" id="screen-mas-ejercicios">
+    <div class="mascota">🔄🐱🚀</div>
+    <h1>¿Qué quieres practicar más?</h1>
+    <p class="lead">Elige una misión y te genero 10 ejercicios nuevos al instante</p>
+    <button class="btn btn-rosa" onclick="practicarMas('sumas')">➕ Más sumas</button><br>
+    <button class="btn btn-naranja" onclick="practicarMas('restas')">➖ Más restas</button><br>
+    <button class="btn btn-azul" onclick="practicarMas('comparar')">🔢 Más mayor y menor</button><br>
+    <button class="btn btn-teal" onclick="practicarMas('negativos')">🌡️ Más negativos</button><br>
+    <button class="btn btn-morado" onclick="practicarMas('recta')">🎯 Más recta numérica</button><br>
+    <button class="btn btn-azul btn-grande" onclick="mostrarPantalla('screen-final')">⬅️ Volver al resultado</button>
+  </div>
+
   <!-- FINAL -->
   <div class="screen" id="screen-final">
     <div class="final-emoji">🎉🐱🚀🏆</div>
@@ -488,6 +502,7 @@
     <div class="final-pct" id="finalPorcentaje">100%</div>
     <div class="motivacion" id="finalBonus" style="display:none; font-size:1.1em; color:var(--morado); font-weight:bold;"></div>
     <p class="motivacion" id="finalMotivacion">¡Eres un verdadero astronauta matemático! 🚀</p>
+    <button class="btn btn-teal btn-grande" onclick="mostrarPantalla('screen-mas-ejercicios')">🔄 Generar más ejercicios</button>
     <button class="btn btn-morado btn-grande" onclick="reiniciarTodo()">🔁 Volver a jugar</button>
   </div>
 
@@ -612,6 +627,28 @@ const TOTAL_EJERCICIOS_MODULO = 10;
 
 let modulo = { nombre:null, ejercicios:[], indice:0, correctas:0 };
 let comp = { ejercicios:[], indice:0, correctas:0 };
+let pantallaRetorno = null; // si está activo, al terminar la ronda regresamos aquí en vez de seguir la secuencia normal
+
+function practicarMas(tipo){
+  sonidoClick();
+  pantallaRetorno = 'screen-mas-ejercicios';
+  if(tipo === 'sumas' || tipo === 'restas'){ empezarModulo(tipo); }
+  else if(tipo === 'comparar'){ empezarModulo('comparar'); }
+  else if(tipo === 'negativos'){ empezarBonusNegativos(); }
+  else if(tipo === 'recta'){ empezarBonusRecta(); }
+}
+
+function terminarRondaPractica(correctas, total){
+  const destino = pantallaRetorno || 'screen-mas-ejercicios';
+  pantallaRetorno = null;
+  document.getElementById('moduloCompletoEmoji').textContent = '🎉⭐';
+  document.getElementById('moduloCompletoTitulo').textContent = '¡Ronda completada!';
+  document.getElementById('moduloCompletoTexto').textContent = `Conseguiste ${correctas} de ${total} estrellas. ¿Quieres practicar algo más?`;
+  const btn = document.getElementById('btnSiguienteModulo');
+  btn.textContent = '🔄 Elegir otra práctica';
+  btn.onclick = ()=>{ sonidoClick(); mostrarPantalla(destino); };
+  mostrarPantalla('screen-modulo-completo');
+}
 
 let respuestaActual = '';
 let timerInterval = null;
@@ -851,6 +888,10 @@ function siguienteEjercicio(){
 
 /* ============ MODULO COMPLETO (transicion) ============ */
 function mostrarModuloCompleto(){
+  if(pantallaRetorno){
+    terminarRondaPractica(modulo.correctas, TOTAL_EJERCICIOS_MODULO);
+    return;
+  }
   const emoji = document.getElementById('moduloCompletoEmoji');
   const titulo = document.getElementById('moduloCompletoTitulo');
   const texto = document.getElementById('moduloCompletoTexto');
@@ -913,6 +954,7 @@ function siguienteComparacion(){
   comp.indice++;
   if(comp.indice >= TOTAL_EJERCICIOS_MODULO){
     document.getElementById('playProgresoComp').style.width='100%';
+    if(pantallaRetorno){ terminarRondaPractica(comp.correctas, TOTAL_EJERCICIOS_MODULO); return; }
     mostrarPantalla('screen-extra-menu');
     return;
   }
@@ -1009,6 +1051,7 @@ function siguienteNeg(){
   bonusNeg.indice++;
   if(bonusNeg.indice >= TOTAL_EJERCICIOS_MODULO){
     document.getElementById('negProgreso').style.width='100%';
+    if(pantallaRetorno){ terminarRondaPractica(bonusNeg.correctas, TOTAL_EJERCICIOS_MODULO); return; }
     mostrarPantalla('screen-extra-menu');
     return;
   }
@@ -1085,6 +1128,7 @@ function siguienteRecta(){
   bonusRecta.indice++;
   if(bonusRecta.indice >= TOTAL_EJERCICIOS_MODULO){
     document.getElementById('rectaProgreso').style.width='100%';
+    if(pantallaRetorno){ terminarRondaPractica(bonusRecta.correctas, TOTAL_EJERCICIOS_MODULO); return; }
     mostrarPantalla('screen-extra-menu');
     return;
   }
@@ -1131,6 +1175,7 @@ function reiniciarTodo(){
   comp = { ejercicios:[], indice:0, correctas:0 };
   bonusNeg = { ejercicios:[], indice:0, correctas:0, jugado:false };
   bonusRecta = { ejercicios:[], indice:0, correctas:0, jugado:false };
+  pantallaRetorno = null;
   slideActual = 0;
   for(let i=0;i<TOTAL_SLIDES;i++){
     document.getElementById('slide'+i).classList.toggle('activo', i===0);
