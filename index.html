@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🚀 Clase 1: Aventura Matemática Espacial 🐱</title>
+<style>
+  :root{
+    --morado: #7b2ff7;
+    --rosa: #ff5e9c;
+    --amarillo: #ffd23f;
+    --teal: #2de1c2;
+    --naranja: #ff8c42;
+    --verde: #4CAF50;
+    --rojo: #ff5252;
+    --azul: #3a86ff;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
+  html,body{
+    margin:0; padding:0; height:100%;
+    font-family: 'Comic Sans MS', 'Trebuchet MS', Verdana, sans-serif;
+    overflow-x:hidden;
+    background: radial-gradient(ellipse at top, #1b2a6b 0%, #0b1026 60%, #05061a 100%);
+    color:#222;
+  }
+  #stars-bg{
+    position:fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none;
+  }
+  .star{
+    position:absolute; background:#fff; border-radius:50%;
+    animation: twinkle 2.5s infinite ease-in-out;
+  }
+  @keyframes twinkle{
+    0%,100%{opacity:.2; transform:scale(1);}
+    50%{opacity:1; transform:scale(1.4);}
+  }
+  .planet{
+    position:fixed; border-radius:50%; z-index:0; pointer-events:none;
+    opacity:0.85; filter: blur(0.3px);
+    animation: float 8s ease-in-out infinite;
+  }
+  @keyframes float{
+    0%,100%{transform:translateY(0px);}
+    50%{transform:translateY(-18px);}
+  }
+  #app{
+    position:relative; z-index:2; min-height:100vh;
+    display:flex; align-items:center; justify-content:center;
+    padding:20px;
+  }
+  .screen{
+    display:none;
+    width:100%; max-width:780px;
+    background: rgba(255,255,255,0.97);
+    border-radius:34px;
+    padding:32px 28px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.45), 0 0 0 8px rgba(255,255,255,0.06);
+    text-align:center;
+    animation: popIn .5s ease;
+    position:relative;
+  }
+  .screen.active{display:block;}
+  @keyframes popIn{
+    0%{opacity:0; transform:scale(0.85) translateY(20px);}
+    100%{opacity:1; transform:scale(1) translateY(0);}
+  }
+  h1{
+    font-size:2.1em; margin:0 0 6px; color:var(--morado);
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.05);
+  }
+  h2{ font-size:1.7em; color:var(--rosa); margin:6px 0 14px;}
+  p.lead{ font-size:1.3em; color:#444; line-height:1.5;}
+  .emoji-row{ font-size:2.4em; margin:14px 0; letter-spacing:10px;}
+  .btn{
+    border:none; border-radius:22px; cursor:pointer;
+    font-family:inherit; font-weight:bold;
+    font-size:1.3em; padding:18px 34px;
+    color:#fff; box-shadow: 0 8px 0 rgba(0,0,0,0.15), 0 12px 20px rgba(0,0,0,0.2);
+    transition: transform .12s ease, box-shadow .12s ease;
+    margin:10px;
+  }
+  .btn:active{ transform: translateY(6px); box-shadow: 0 2px 0 rgba(0,0,0,0.15);}
+  .btn-grande{ font-size:1.6em; padding:24px 50px; border-radius:28px;}
+  .btn-morado{ background: linear-gradient(145deg, #9b5cff, var(--morado)); }
+  .btn-rosa{ background: linear-gradient(145deg, #ff85b3, var(--rosa)); }
+  .btn-teal{ background: linear-gradient(145deg, #6df5df, var(--teal)); color:#053b33;}
+  .btn-naranja{ background: linear-gradient(145deg, #ffb066, var(--naranja)); }
+  .btn-azul{ background: linear-gradient(145deg, #6fa8ff, var(--azul)); }
+  .btn:disabled{ opacity:.5; cursor:default; }
+
+  .topbar{
+    display:flex; justify-content:space-between; align-items:center;
+    margin-bottom:10px; font-size:1.1em; font-weight:bold; color:var(--morado);
+  }
+  .progress-wrap{
+    background:#eee; border-radius:20px; height:22px; overflow:hidden;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);
+    margin:10px 0 4px;
+  }
+  .progress-bar{
+    height:100%; width:0%;
+    background: linear-gradient(90deg, var(--teal), var(--azul));
+    border-radius:20px; transition: width .4s ease;
+  }
+  .stars-earned{ font-size:1.4em; margin:6px 0 14px; min-height:1.4em;}
+  .star-icon{ display:inline-block; transition: transform .3s; }
+  .star-icon.pop{ animation: starPop .5s ease; }
+  @keyframes starPop{ 0%{transform:scale(0.3) rotate(-20deg);} 60%{transform:scale(1.4) rotate(10deg);} 100%{transform:scale(1);} }
+
+  .card-ejercicio{
+    background: linear-gradient(145deg, #fff, #f2f0ff);
+    border-radius:26px; padding:26px 20px; margin:16px 0;
+    box-shadow: 0 10px 25px rgba(123,47,247,0.15);
+    border:3px dashed #d9c6ff;
+  }
+  .cuenta{ font-size:3em; font-weight:bold; color:#2b2d42; margin:10px 0;}
+  .cuenta .op{ color:var(--rosa); }
+
+  /* ==== ANIMACION DE CANASTA (manzanas/gatos) ==== */
+  .canasta-escena{
+    display:flex; flex-direction:column; align-items:center; justify-content:flex-end;
+    min-height:110px; margin-bottom:6px;
+  }
+  .canasta-items{
+    display:flex; flex-wrap:wrap; justify-content:center; gap:6px;
+    max-width:340px; min-height:44px; margin-bottom:2px;
+  }
+  .canasta-item{ font-size:1.8em; opacity:0; transform:scale(0); display:inline-block; }
+  .canasta-item.aparece{ animation: itemPop .35s ease forwards; }
+  .canasta-item.nuevo{ animation: itemPopNuevo .35s ease forwards; }
+  .canasta-item.se-va{ animation: itemSeVa .4s ease forwards; }
+  .canasta-icono{ font-size:2.6em; }
+  @keyframes itemPop{ 0%{opacity:0; transform:scale(0) translateY(-20px);} 70%{transform:scale(1.3) translateY(0);} 100%{opacity:1; transform:scale(1);} }
+  @keyframes itemPopNuevo{ 0%{opacity:0; transform:scale(0) translateX(30px);} 70%{transform:scale(1.3) translateX(0);} 100%{opacity:1; transform:scale(1);} }
+  @keyframes itemSeVa{ 0%{opacity:1; transform:scale(1) translateY(0);} 100%{opacity:0; transform:scale(0.2) translateY(-40px);} }
+
+  /* ==== RETO EXTRA: NEGATIVOS Y RECTA NUMERICA ==== */
+  .linea-numerica{
+    display:flex; flex-wrap:wrap; justify-content:center; gap:6px;
+    max-width:520px; margin:16px auto;
+  }
+  .linea-btn{
+    min-width:42px; padding:10px 4px; border-radius:12px; border:none;
+    background: linear-gradient(145deg,#eef,#dde); font-weight:bold; font-size:1.1em;
+    cursor:pointer; color:#333; box-shadow:0 4px 0 rgba(0,0,0,0.1);
+  }
+  .linea-btn:active{ transform:translateY(3px); box-shadow:none; }
+  .linea-btn.negativo{ background: linear-gradient(145deg,#cfe8ff,#9fd3ff); }
+  .rocket-marker{ font-size:1.8em; transition: transform .6s ease; display:inline-block; }
+  .signo-toggle{ background: linear-gradient(145deg,#ffd9ec,var(--rosa)); color:#fff; }
+  .extra-card{
+    background: linear-gradient(145deg,#fff,#f2f0ff); border-radius:24px; padding:20px;
+    margin:14px 0; box-shadow:0 8px 20px rgba(0,0,0,0.08); border:3px solid #e0d4ff;
+  }
+  .badge-extra{
+    display:inline-block; background:var(--amarillo); color:#7a5a00; font-weight:bold;
+    padding:4px 12px; border-radius:14px; font-size:0.85em; margin-bottom:8px;
+  }
+
+  /* ==== SLIDES DE BIENVENIDA ==== */
+  .slide-dots{ display:flex; justify-content:center; gap:8px; margin-bottom:14px; }
+  .dot{ width:12px; height:12px; border-radius:50%; background:#ddd; transition:.3s; }
+  .dot.activo{ background:var(--morado); transform:scale(1.3); }
+  .slide-contenido{ display:none; animation: popIn .4s ease; }
+  .slide-contenido.activo{ display:block; }
+  .slide-nav{ display:flex; justify-content:space-between; align-items:center; margin-top:16px; }
+  .concepto-fila{
+    display:flex; align-items:center; gap:14px; text-align:left;
+    background: linear-gradient(145deg,#fff,#f7f3ff); border:3px solid #e8dcff;
+    border-radius:20px; padding:14px 18px; margin:10px 0; font-size:1.15em; color:#333;
+  }
+  .concepto-fila .icono-grande{ font-size:2.2em; flex-shrink:0; }
+
+  .answer-display{
+    font-size:2.6em; font-weight:bold; letter-spacing:4px;
+    background:#fff; border:4px solid var(--morado); border-radius:20px;
+    padding:8px 20px; min-width:120px; display:inline-block; margin:10px 0;
+    color: var(--morado);
+  }
+  .keypad{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap:10px;
+    max-width:320px; margin: 14px auto;
+  }
+  .key-btn{
+    font-size:1.5em; padding:16px 0; border-radius:16px; border:none;
+    background: linear-gradient(145deg,#eef,#dde);
+    color:#333; font-weight:bold; cursor:pointer;
+    box-shadow: 0 5px 0 rgba(0,0,0,0.1);
+  }
+  .key-btn:active{ transform: translateY(4px); box-shadow:none; }
+  .key-borrar{ background: linear-gradient(145deg, #ffb3b3, var(--rojo)); color:#fff;}
+  .key-check{ background: linear-gradient(145deg, #7be89b, var(--verde)); color:#fff; grid-column: span 3; font-size:1.3em;}
+
+  .compare-buttons{ display:flex; justify-content:center; gap:16px; margin:20px 0; flex-wrap:wrap;}
+  .compare-btn{
+    font-size:2.2em; font-weight:bold; padding:16px 34px; border-radius:20px;
+    border:none; cursor:pointer; color:#fff;
+    background: linear-gradient(145deg, #9b5cff, var(--morado));
+    box-shadow: 0 8px 0 rgba(0,0,0,0.15);
+  }
+  .compare-btn:active{ transform: translateY(6px); box-shadow:none; }
+
+  .feedback{
+    margin-top:16px; font-size:1.4em; font-weight:bold; min-height:70px;
+    border-radius:18px; padding:14px; display:none;
+  }
+  .feedback.correcto{ display:block; background:#e3fbe8; color:#1d7a2e; animation: bounce .5s ease;}
+  .feedback.incorrecto{ display:block; background:#ffe8e8; color:#a91b1b; animation: shake .4s ease;}
+  @keyframes bounce{ 0%{transform:scale(0.7);} 50%{transform:scale(1.15);} 100%{transform:scale(1);} }
+  @keyframes shake{ 0%,100%{transform:translateX(0);} 25%{transform:translateX(-8px);} 75%{transform:translateX(8px);} }
+
+  .timer-bar-wrap{ background:#eee; height:10px; border-radius:10px; overflow:hidden; margin:8px 0 0;}
+  .timer-bar{ height:100%; background:var(--naranja); width:100%; transition: width 1s linear; }
+
+  .example-box{
+    background: linear-gradient(145deg,#fff7e0,#fff);
+    border:3px solid var(--amarillo); border-radius:20px;
+    padding:18px; margin:14px 0; font-size:1.25em; color:#444;
+  }
+  .example-box .fila{ font-size:1.7em; margin:6px 0;}
+
+  .final-emoji{ font-size:4em; margin:10px 0; animation: bounce 1s ease infinite alternate;}
+  .final-score{ font-size:2.4em; color:var(--morado); font-weight:bold; margin:10px 0;}
+  .final-pct{ font-size:1.6em; color:var(--teal); font-weight:bold;}
+  .motivacion{ font-size:1.3em; color:#555; margin:14px 0;}
+
+  .setting-row{ display:flex; align-items:center; justify-content:center; gap:10px; margin:10px 0; font-size:1.1em; color:#555;}
+  .switch{ position:relative; width:56px; height:30px; }
+  .switch input{ opacity:0; width:0; height:0; }
+  .slider-toggle{ position:absolute; cursor:pointer; top:0;left:0;right:0;bottom:0; background:#ccc; border-radius:30px; transition:.3s;}
+  .slider-toggle:before{ position:absolute; content:""; height:22px; width:22px; left:4px; bottom:4px; background:white; border-radius:50%; transition:.3s;}
+  input:checked + .slider-toggle{ background: var(--teal); }
+  input:checked + .slider-toggle:before{ transform: translateX(26px); }
+
+  #confetti-container{ position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:99; overflow:hidden;}
+  .confetti-piece{ position:absolute; top:-20px; width:12px; height:12px; opacity:0.95; }
+
+  .mascota{ font-size:2.2em; }
+
+  @media (max-width:600px){
+    h1{font-size:1.5em;}
+    h2{font-size:1.25em;}
+    .cuenta{font-size:2.1em;}
+    .screen{padding:22px 14px; border-radius:24px;}
+    .compare-btn{font-size:1.6em; padding:12px 22px;}
+  }
+</style>
+</head>
+<body>
+
+<div id="stars-bg"></div>
+
+<div id="app">
+
+  <!-- PANTALLA BIENVENIDA (3 SLIDES) -->
+  <div class="screen active" id="screen-welcome">
+    <div class="slide-dots">
+      <span class="dot activo" id="dot0"></span>
+      <span class="dot" id="dot1"></span>
+      <span class="dot" id="dot2"></span>
+    </div>
+
+    <!-- SLIDE 1 -->
+    <div class="slide-contenido activo" id="slide0">
+      <div class="mascota">🐱🚀</div>
+      <h1>¡Bienvenido a la Clase 1!</h1>
+      <p class="lead">Hoy viajaremos por el espacio aprendiendo matemáticas con nuestros amigos astro-gatos 🐈‍⬛✨</p>
+      <div class="example-box">
+        <div style="font-size:1.3em; font-weight:bold; color:var(--morado);">Hoy aprenderemos:</div>
+        <div class="fila">➕ Sumas</div>
+        <div class="fila">➖ Restas</div>
+        <div class="fila">🔢 Mayor y menor</div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2 -->
+    <div class="slide-contenido" id="slide1">
+      <div class="mascota">🌟🐱🌟</div>
+      <h1>¿Qué significa cada cosa?</h1>
+      <div class="concepto-fila">
+        <span class="icono-grande">➕</span>
+        <span><b>Sumar</b> es juntar cosas. Si tienes gatitos y llegan más, ¡los juntas todos!</span>
+      </div>
+      <div class="concepto-fila">
+        <span class="icono-grande">➖</span>
+        <span><b>Restar</b> es quitar cosas. Algunos gatitos regresan a su nave 🚀</span>
+      </div>
+      <div class="concepto-fila">
+        <span class="icono-grande">🔢</span>
+        <span><b>Comparar</b> es ver cuál número es más grande, más chico o igual</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 3 -->
+    <div class="slide-contenido" id="slide2">
+      <div class="mascota">🚀🐱🪐</div>
+      <h1>¿Listo para despegar?</h1>
+      <p class="lead">Vamos a jugar, ganar estrellas ⭐ y pasarla muy bien. ¡Tú puedes con todo!</p>
+      <div class="setting-row">
+        <span>⏱️ Activar temporizador</span>
+        <label class="switch">
+          <input type="checkbox" id="timerToggle">
+          <span class="slider-toggle"></span>
+        </label>
+      </div>
+      <button class="btn btn-morado btn-grande" onclick="iniciarAventura()">🚀 Comenzar</button>
+    </div>
+
+    <div class="slide-nav">
+      <button class="btn btn-azul" id="btnAnteriorSlide" style="visibility:hidden;" onclick="cambiarSlide(-1)">⬅️ Anterior</button>
+      <button class="btn btn-teal" id="btnSiguienteSlide" onclick="cambiarSlide(1)">Siguiente ➡️</button>
+    </div>
+  </div>
+
+  <!-- INTRO SUMAS -->
+  <div class="screen" id="screen-intro-sumas">
+    <div class="mascota">🐱➕🐱</div>
+    <h1>Módulo 1: Sumas</h1>
+    <p class="lead">Sumar es juntar cosas. ¡Vamos a contar gatitos astronautas! 🐱🚀</p>
+    <div class="example-box">
+      <div>Si tienes 3 gatitos 🐱🐱🐱</div>
+      <div>y llegan 2 gatitos más 🐱🐱</div>
+      <div class="fila">3 + 2 = 5 🎉</div>
+    </div>
+    <p class="lead">Ahora te toca a ti resolver 10 sumas. ¡Tú puedes! 💪</p>
+    <button class="btn btn-rosa btn-grande" onclick="empezarModulo('sumas')">¡Vamos a sumar! ➕</button>
+  </div>
+
+  <!-- JUEGO SUMAS / RESTAS (plantilla compartida) -->
+  <div class="screen" id="screen-play">
+    <div class="topbar">
+      <span id="playTitulo">➕ Sumas</span>
+      <span>⭐ <span id="playPuntos">0</span></span>
+    </div>
+    <div class="progress-wrap"><div class="progress-bar" id="playProgreso"></div></div>
+    <div class="timer-bar-wrap" id="timerWrap" style="display:none;">
+      <div class="timer-bar" id="timerBar"></div>
+    </div>
+    <div class="card-ejercicio">
+      <div class="canasta-escena" id="canastaEscena"></div>
+      <div class="cuenta" id="playCuenta">4 <span class="op">+</span> 2 = ?</div>
+      <div class="answer-display" id="answerDisplay">_</div>
+      <div class="keypad">
+        <button class="key-btn" onclick="tecla('1')">1</button>
+        <button class="key-btn" onclick="tecla('2')">2</button>
+        <button class="key-btn" onclick="tecla('3')">3</button>
+        <button class="key-btn" onclick="tecla('4')">4</button>
+        <button class="key-btn" onclick="tecla('5')">5</button>
+        <button class="key-btn" onclick="tecla('6')">6</button>
+        <button class="key-btn" onclick="tecla('7')">7</button>
+        <button class="key-btn" onclick="tecla('8')">8</button>
+        <button class="key-btn" onclick="tecla('9')">9</button>
+        <button class="key-btn key-borrar" onclick="borrarTecla()">⌫</button>
+        <button class="key-btn" onclick="tecla('0')">0</button>
+        <button class="key-btn key-check" onclick="comprobarRespuesta()">✅ Comprobar</button>
+      </div>
+    </div>
+    <div class="feedback" id="playFeedback"></div>
+    <button class="btn btn-teal" id="btnSiguiente" style="display:none;" onclick="siguienteEjercicio()">Siguiente ➡️</button>
+  </div>
+
+  <!-- MODULO COMPLETO (transicion) -->
+  <div class="screen" id="screen-modulo-completo">
+    <div class="final-emoji" id="moduloCompletoEmoji">🎉🐱</div>
+    <h1 id="moduloCompletoTitulo">¡Módulo completado!</h1>
+    <p class="lead" id="moduloCompletoTexto">¡Excelente trabajo, astronauta!</p>
+    <button class="btn btn-naranja btn-grande" id="btnSiguienteModulo" onclick="irSiguienteModulo()">Continuar 🚀</button>
+  </div>
+
+  <!-- INTRO RESTAS -->
+  <div class="screen" id="screen-intro-restas">
+    <div class="mascota">🐱➖🐱</div>
+    <h1>Módulo 2: Restas</h1>
+    <p class="lead">Restar es quitar cosas. ¡Algunos gatitos regresan a su nave! 🚀🐱</p>
+    <div class="example-box">
+      <div>Si tienes 5 gatitos 🐱🐱🐱🐱🐱</div>
+      <div>y 2 regresan a la nave 🚀🐱🐱</div>
+      <div class="fila">5 − 2 = 3 🎉</div>
+    </div>
+    <p class="lead">Resolverás 10 restas. ¡Nunca serán negativas! 😉</p>
+    <button class="btn btn-rosa btn-grande" onclick="empezarModulo('restas')">¡Vamos a restar! ➖</button>
+  </div>
+
+  <!-- INTRO COMPARAR -->
+  <div class="screen" id="screen-intro-comparar">
+    <div class="mascota">🪐🔭🐱</div>
+    <h1>Módulo 3: Mayor y menor</h1>
+    <p class="lead">Compararemos planetas 🪐 para saber cuál número es mayor, menor o igual.</p>
+    <div class="example-box">
+      <div class="fila">7 &nbsp; ___ &nbsp; 4</div>
+      <div>7 tiene más que 4, así que usamos <b>&gt;</b></div>
+      <div class="fila">7 &gt; 4 🎉</div>
+    </div>
+    <p class="lead">Usarás los botones &gt;, &lt; e =. ¡10 comparaciones espaciales! 🛸</p>
+    <button class="btn btn-rosa btn-grande" onclick="empezarModulo('comparar')">¡Vamos a comparar! 🔢</button>
+  </div>
+
+  <!-- JUEGO COMPARAR -->
+  <div class="screen" id="screen-play-comparar">
+    <div class="topbar">
+      <span>🔢 Mayor y menor</span>
+      <span>⭐ <span id="playPuntosComp">0</span></span>
+    </div>
+    <div class="progress-wrap"><div class="progress-bar" id="playProgresoComp"></div></div>
+    <div class="card-ejercicio">
+      <div class="cuenta" id="compCuenta">7 <span class="op">___</span> 4</div>
+      <div class="compare-buttons">
+        <button class="compare-btn" onclick="comprobarComparacion('>')">&gt;</button>
+        <button class="compare-btn" onclick="comprobarComparacion('<')">&lt;</button>
+        <button class="compare-btn" onclick="comprobarComparacion('=')">=</button>
+      </div>
+    </div>
+    <div class="feedback" id="compFeedback"></div>
+    <button class="btn btn-teal" id="btnSiguienteComp" style="display:none;" onclick="siguienteComparacion()">Siguiente ➡️</button>
+  </div>
+
+  <!-- MENU DE RETOS EXTRA -->
+  <div class="screen" id="screen-extra-menu">
+    <div class="mascota">🐱🚀🌟</div>
+    <h1>¡Misión principal completada!</h1>
+    <p class="lead">¿Quieres intentar unos retos extra súper divertidos antes de ver tu resultado final?</p>
+    <div class="extra-card">
+      <span class="badge-extra">RETO EXTRA</span>
+      <h2>🌡️ Sumas con números negativos</h2>
+      <p class="lead" style="font-size:1.05em;">Aprende qué pasa cuando un gatito debe manzanas 🐱📉</p>
+      <button class="btn btn-azul" onclick="empezarBonusNegativos()">Intentarlo</button>
+    </div>
+    <div class="extra-card">
+      <span class="badge-extra">RETO EXTRA</span>
+      <h2>🎯 Recta numérica espacial</h2>
+      <p class="lead" style="font-size:1.05em;">Ayuda al gato-astronauta a encontrar el planeta correcto</p>
+      <button class="btn btn-teal" onclick="empezarBonusRecta()">Intentarlo</button>
+    </div>
+    <button class="btn btn-morado btn-grande" onclick="mostrarResultadosFinales()">🏁 Ver resultado final</button>
+  </div>
+
+  <!-- BONUS: SUMAS CON NEGATIVOS -->
+  <div class="screen" id="screen-bonus-negativos">
+    <div class="topbar">
+      <span>🌡️ Reto: Negativos</span>
+      <span>⭐ <span id="negPuntos">0</span></span>
+    </div>
+    <div class="progress-wrap"><div class="progress-bar" id="negProgreso"></div></div>
+    <div class="card-ejercicio">
+      <p class="lead" style="font-size:1.05em; margin:4px 0 10px;">Un número negativo significa que el gatito "debe" manzanas 🐱📉</p>
+      <div class="cuenta" id="negCuenta">(-3) <span class="op">+</span> 5 = ?</div>
+      <div class="answer-display" id="negDisplay">_</div>
+      <div class="keypad">
+        <button class="key-btn signo-toggle" onclick="toggleSignoNeg()">±</button>
+        <button class="key-btn" onclick="teclaNeg('0')">0</button>
+        <button class="key-btn key-borrar" onclick="borrarTeclaNeg()">⌫</button>
+        <button class="key-btn" onclick="teclaNeg('1')">1</button>
+        <button class="key-btn" onclick="teclaNeg('2')">2</button>
+        <button class="key-btn" onclick="teclaNeg('3')">3</button>
+        <button class="key-btn" onclick="teclaNeg('4')">4</button>
+        <button class="key-btn" onclick="teclaNeg('5')">5</button>
+        <button class="key-btn" onclick="teclaNeg('6')">6</button>
+        <button class="key-btn" onclick="teclaNeg('7')">7</button>
+        <button class="key-btn" onclick="teclaNeg('8')">8</button>
+        <button class="key-btn" onclick="teclaNeg('9')">9</button>
+        <button class="key-btn key-check" onclick="comprobarNeg()">✅ Comprobar</button>
+      </div>
+    </div>
+    <div class="feedback" id="negFeedback"></div>
+    <button class="btn btn-teal" id="btnSiguienteNeg" style="display:none;" onclick="siguienteNeg()">Siguiente ➡️</button>
+  </div>
+
+  <!-- BONUS: RECTA NUMERICA -->
+  <div class="screen" id="screen-bonus-recta">
+    <div class="topbar">
+      <span>🎯 Recta numérica</span>
+      <span>⭐ <span id="rectaPuntos">0</span></span>
+    </div>
+    <div class="progress-wrap"><div class="progress-bar" id="rectaProgreso"></div></div>
+    <div class="card-ejercicio">
+      <p class="lead" style="font-size:1.2em; margin:4px 0 12px;" id="rectaPregunta">🐱🚀 busca el planeta número <b>7</b></p>
+      <div class="linea-numerica" id="lineaNumerica"></div>
+    </div>
+    <div class="feedback" id="rectaFeedback"></div>
+    <button class="btn btn-teal" id="btnSiguienteRecta" style="display:none;" onclick="siguienteRecta()">Siguiente ➡️</button>
+  </div>
+
+  <!-- FINAL -->
+  <div class="screen" id="screen-final">
+    <div class="final-emoji">🎉🐱🚀🏆</div>
+    <h1>¡Excelente trabajo!</h1>
+    <div class="final-score" id="finalPuntaje">30 de 30 estrellas ⭐</div>
+    <div class="final-pct" id="finalPorcentaje">100%</div>
+    <div class="motivacion" id="finalBonus" style="display:none; font-size:1.1em; color:var(--morado); font-weight:bold;"></div>
+    <p class="motivacion" id="finalMotivacion">¡Eres un verdadero astronauta matemático! 🚀</p>
+    <button class="btn btn-morado btn-grande" onclick="reiniciarTodo()">🔁 Volver a jugar</button>
+  </div>
+
+</div>
+
+<div id="confetti-container"></div>
+
+<script>
+/* ============ FONDO ESPACIAL: ESTRELLAS Y PLANETAS ============ */
+(function crearFondo(){
+  const starsBg = document.getElementById('stars-bg');
+  for(let i=0;i<70;i++){
+    const s = document.createElement('div');
+    s.className='star';
+    const size = Math.random()*3+1;
+    s.style.width = size+'px';
+    s.style.height = size+'px';
+    s.style.left = Math.random()*100+'%';
+    s.style.top = Math.random()*100+'%';
+    s.style.animationDelay = (Math.random()*2.5)+'s';
+    starsBg.appendChild(s);
+  }
+  const planetas = [
+    {emoji:null, color:'radial-gradient(circle at 30% 30%, #ff8c42, #a83e00)', size:70, top:'8%', left:'6%'},
+    {emoji:null, color:'radial-gradient(circle at 30% 30%, #2de1c2, #0a6e5f)', size:50, top:'70%', left:'85%'},
+    {emoji:null, color:'radial-gradient(circle at 30% 30%, #ff5e9c, #8a0f45)', size:40, top:'80%', left:'8%'},
+    {emoji:null, color:'radial-gradient(circle at 30% 30%, #7b2ff7, #2c0a5e)', size:60, top:'12%', left:'88%'}
+  ];
+  planetas.forEach((p,idx)=>{
+    const d = document.createElement('div');
+    d.className='planet';
+    d.style.width=p.size+'px'; d.style.height=p.size+'px';
+    d.style.top=p.top; d.style.left=p.left;
+    d.style.background=p.color;
+    d.style.animationDelay=(idx*1.3)+'s';
+    document.body.appendChild(d);
+  });
+})();
+
+/* ============ SONIDOS CON WEB AUDIO API ============ */
+let audioCtx = null;
+function getCtx(){
+  if(!audioCtx){ audioCtx = new (window.AudioContext||window.webkitAudioContext)(); }
+  return audioCtx;
+}
+function playTone(freq, duration=0.15, type='sine', when=0, vol=0.2){
+  try{
+    const ctx = getCtx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = type;
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(vol, ctx.currentTime + when);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + when + duration);
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start(ctx.currentTime + when);
+    osc.stop(ctx.currentTime + when + duration + 0.02);
+  }catch(e){}
+}
+function sonidoClick(){ playTone(500, 0.06, 'square', 0, 0.08); }
+function sonidoCorrecto(){
+  playTone(523.25, 0.12, 'sine', 0);
+  playTone(659.25, 0.12, 'sine', 0.12);
+  playTone(783.99, 0.18, 'sine', 0.24);
+}
+function sonidoIncorrecto(){
+  playTone(200, 0.25, 'sawtooth', 0, 0.15);
+  playTone(150, 0.3, 'sawtooth', 0.1, 0.12);
+}
+function sonidoFanfarria(){
+  const notas = [523.25,523.25,523.25,659.25,783.99,880,1046.5];
+  notas.forEach((n,i)=> playTone(n, 0.2, 'triangle', i*0.15, 0.18));
+}
+
+/* ============ CONFETI ============ */
+function lanzarConfeti(){
+  const colores = ['#ff5e9c','#ffd23f','#2de1c2','#ff8c42','#7b2ff7','#3a86ff'];
+  const cont = document.getElementById('confetti-container');
+  for(let i=0;i<45;i++){
+    const pieza = document.createElement('div');
+    pieza.className='confetti-piece';
+    pieza.style.left = Math.random()*100+'%';
+    pieza.style.background = colores[Math.floor(Math.random()*colores.length)];
+    pieza.style.borderRadius = Math.random()>0.5 ? '50%' : '3px';
+    const duracion = 1.8 + Math.random()*1.4;
+    const rotacion = Math.random()*720 - 360;
+    pieza.animate([
+      { transform:`translateY(0) rotate(0deg)`, opacity:1 },
+      { transform:`translateY(100vh) rotate(${rotacion}deg)`, opacity:0.9 }
+    ], { duration: duracion*1000, easing:'ease-in' });
+    cont.appendChild(pieza);
+    setTimeout(()=>pieza.remove(), duracion*1000+100);
+  }
+}
+
+/* ============ NAVEGACION DE PANTALLAS ============ */
+function mostrarPantalla(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+/* ============ SLIDES DE BIENVENIDA ============ */
+let slideActual = 0;
+const TOTAL_SLIDES = 3;
+function cambiarSlide(direccion){
+  sonidoClick();
+  slideActual += direccion;
+  if(slideActual < 0) slideActual = 0;
+  if(slideActual > TOTAL_SLIDES-1) slideActual = TOTAL_SLIDES-1;
+  for(let i=0;i<TOTAL_SLIDES;i++){
+    document.getElementById('slide'+i).classList.toggle('activo', i===slideActual);
+    document.getElementById('dot'+i).classList.toggle('activo', i===slideActual);
+  }
+  document.getElementById('btnAnteriorSlide').style.visibility = slideActual===0 ? 'hidden' : 'visible';
+  document.getElementById('btnSiguienteSlide').style.display = slideActual===TOTAL_SLIDES-1 ? 'none' : 'inline-block';
+}
+
+/* ============ ESTADO GLOBAL ============ */
+let timerActivado = false;
+let estrellasTotales = 0;
+const TOTAL_EJERCICIOS_MODULO = 10;
+
+let modulo = { nombre:null, ejercicios:[], indice:0, correctas:0 };
+let comp = { ejercicios:[], indice:0, correctas:0 };
+
+let respuestaActual = '';
+let timerInterval = null;
+const TIEMPO_LIMITE = 20;
+
+/* ============ INICIO ============ */
+function iniciarAventura(){
+  sonidoClick();
+  timerActivado = document.getElementById('timerToggle').checked;
+  estrellasTotales = 0;
+  mostrarPantalla('screen-intro-sumas');
+}
+
+/* ============ GENERADORES DE EJERCICIOS ============ */
+function generarSumas(){
+  const usados = new Set();
+  const lista = [];
+  while(lista.length < TOTAL_EJERCICIOS_MODULO){
+    const a = Math.floor(Math.random()*9)+1;
+    const b = Math.floor(Math.random()*9)+1;
+    const clave = a+'+'+b;
+    if(usados.has(clave)) continue;
+    usados.add(clave);
+    lista.push({a, b, resultado: a+b, tipo:'suma'});
+  }
+  return lista;
+}
+function generarRestas(){
+  const usados = new Set();
+  const lista = [];
+  while(lista.length < TOTAL_EJERCICIOS_MODULO){
+    const a = Math.floor(Math.random()*17)+2; // 2..18
+    const b = Math.floor(Math.random()*(a+1)); // 0..a (nunca negativo)
+    const clave = a+'-'+b;
+    if(usados.has(clave)) continue;
+    usados.add(clave);
+    lista.push({a, b, resultado: a-b, tipo:'resta'});
+  }
+  return lista;
+}
+function generarComparaciones(){
+  const usados = new Set();
+  const lista = [];
+  while(lista.length < TOTAL_EJERCICIOS_MODULO){
+    let a = Math.floor(Math.random()*20)+1;
+    let b = Math.floor(Math.random()*20)+1;
+    if(Math.random()<0.2) b = a; // a veces iguales
+    const clave = a+'_'+b;
+    const claveInv = b+'_'+a;
+    if(usados.has(clave) || usados.has(claveInv)) continue;
+    usados.add(clave);
+    let simbolo = a>b ? '>' : (a<b ? '<' : '=');
+    lista.push({a, b, simbolo});
+  }
+  return lista;
+}
+
+/* ============ INICIAR MODULO (sumas / restas) ============ */
+function empezarModulo(nombre){
+  sonidoClick();
+  modulo.nombre = nombre;
+  modulo.indice = 0;
+  modulo.correctas = 0;
+  modulo.ejercicios = nombre === 'sumas' ? generarSumas() : (nombre === 'restas' ? generarRestas() : null);
+
+  if(nombre === 'comparar'){
+    comp.indice = 0;
+    comp.correctas = 0;
+    comp.ejercicios = generarComparaciones();
+    mostrarPantalla('screen-play-comparar');
+    renderComparacion();
+    return;
+  }
+
+  document.getElementById('playTitulo').textContent = nombre==='sumas' ? '➕ Sumas' : '➖ Restas';
+  mostrarPantalla('screen-play');
+  renderEjercicio();
+}
+
+/* ============ ANIMACION DE CANASTA (manzanas/gatos) ============ */
+function animarCanasta(a, b, tipo, contenedorId, onDone){
+  const cont = document.getElementById(contenedorId);
+  cont.innerHTML='';
+  const emoji = Math.random()<0.5 ? '🍎' : '🐱';
+  const canastaIcono = document.createElement('div');
+  canastaIcono.className='canasta-icono';
+  canastaIcono.textContent='🧺';
+  const zona = document.createElement('div');
+  zona.className='canasta-items';
+  cont.appendChild(zona);
+  cont.appendChild(canastaIcono);
+
+  let delay = 0;
+  for(let i=0;i<a;i++){
+    setTimeout(()=>{
+      const it = document.createElement('span');
+      it.className='canasta-item aparece';
+      it.textContent = emoji;
+      zona.appendChild(it);
+      sonidoClick();
+    }, delay);
+    delay += 650;
+  }
+  delay += 900;
+
+  if(tipo === 'suma'){
+    for(let i=0;i<b;i++){
+      setTimeout(()=>{
+        const it = document.createElement('span');
+        it.className='canasta-item nuevo';
+        it.textContent = emoji;
+        zona.appendChild(it);
+        sonidoClick();
+      }, delay);
+      delay += 650;
+    }
+  } else {
+    for(let i=0;i<b;i++){
+      setTimeout(()=>{
+        const items = zona.querySelectorAll('.canasta-item:not(.se-va)');
+        const ultimo = items[items.length-1];
+        if(ultimo){
+          ultimo.classList.add('se-va');
+          sonidoClick();
+        }
+      }, delay);
+      delay += 700;
+    }
+  }
+  delay += 900;
+  setTimeout(()=>{ if(onDone) onDone(); }, delay);
+}
+
+/* ============ RENDER EJERCICIO SUMA/RESTA ============ */
+function renderEjercicio(){
+  const ej = modulo.ejercicios[modulo.indice];
+  const op = ej.tipo === 'suma' ? '+' : '−';
+  document.getElementById('playCuenta').innerHTML = `${ej.a} <span class="op">${op}</span> ${ej.b} = ?`;
+  document.getElementById('playProgreso').style.width = (modulo.indice/TOTAL_EJERCICIOS_MODULO*100)+'%';
+  document.getElementById('playPuntos').textContent = modulo.correctas;
+  respuestaActual = '';
+  actualizarDisplay();
+  const feedback = document.getElementById('playFeedback');
+  feedback.className='feedback';
+  feedback.textContent='';
+  document.getElementById('btnSiguiente').style.display='none';
+  habilitarTeclado(false);
+  clearInterval(timerInterval);
+  document.getElementById('timerWrap').style.display='none';
+  animarCanasta(ej.a, ej.b, ej.tipo, 'canastaEscena', ()=>{
+    habilitarTeclado(true);
+    iniciarTimerSiCorresponde();
+  });
+}
+function actualizarDisplay(){
+  document.getElementById('answerDisplay').textContent = respuestaActual.length ? respuestaActual : '_';
+}
+function tecla(d){
+  sonidoClick();
+  if(respuestaActual.length>=3) return;
+  respuestaActual += d;
+  actualizarDisplay();
+}
+function borrarTecla(){
+  sonidoClick();
+  respuestaActual = respuestaActual.slice(0,-1);
+  actualizarDisplay();
+}
+function habilitarTeclado(activo){
+  document.querySelectorAll('#screen-play .key-btn').forEach(b=> b.disabled = !activo);
+}
+
+document.addEventListener('keydown', (e)=>{
+  if(!document.getElementById('screen-play').classList.contains('active')) return;
+  if(e.key >= '0' && e.key <= '9') tecla(e.key);
+  else if(e.key === 'Backspace') borrarTecla();
+  else if(e.key === 'Enter') comprobarRespuesta();
+});
+
+function iniciarTimerSiCorresponde(){
+  clearInterval(timerInterval);
+  const wrap = document.getElementById('timerWrap');
+  if(!timerActivado){ wrap.style.display='none'; return; }
+  wrap.style.display='block';
+  let tiempoRestante = TIEMPO_LIMITE;
+  const barra = document.getElementById('timerBar');
+  barra.style.transition='none';
+  barra.style.width='100%';
+  void barra.offsetWidth;
+  barra.style.transition='width 1s linear';
+  timerInterval = setInterval(()=>{
+    tiempoRestante--;
+    barra.style.width = Math.max(0,(tiempoRestante/TIEMPO_LIMITE*100))+'%';
+    if(tiempoRestante<=0){
+      clearInterval(timerInterval);
+      comprobarRespuesta(true);
+    }
+  },1000);
+}
+
+function comprobarRespuesta(porTiempo){
+  clearInterval(timerInterval);
+  const ej = modulo.ejercicios[modulo.indice];
+  const feedback = document.getElementById('playFeedback');
+  habilitarTeclado(false);
+  const userVal = parseInt(respuestaActual, 10);
+  const esCorrecta = !porTiempo && userVal === ej.resultado;
+
+  if(esCorrecta){
+    modulo.correctas++;
+    estrellasTotales++;
+    sonidoCorrecto();
+    lanzarConfeti();
+    feedback.className='feedback correcto';
+    feedback.textContent = '🎉 ¡Muy bien, astronauta! ¡Correcto! ⭐';
+  } else {
+    sonidoIncorrecto();
+    feedback.className='feedback incorrecto';
+    const op = ej.tipo === 'suma' ? '+' : '−';
+    const mensajeTiempo = porTiempo ? '⏰ ¡Se acabó el tiempo! ' : '🤔 Casi, ¡sigue intentando! ';
+    feedback.textContent = `${mensajeTiempo} La respuesta correcta es: ${ej.a} ${op} ${ej.b} = ${ej.resultado}`;
+  }
+  document.getElementById('playPuntos').textContent = modulo.correctas;
+  document.getElementById('btnSiguiente').style.display='inline-block';
+}
+
+function siguienteEjercicio(){
+  sonidoClick();
+  modulo.indice++;
+  if(modulo.indice >= TOTAL_EJERCICIOS_MODULO){
+    document.getElementById('playProgreso').style.width='100%';
+    mostrarModuloCompleto();
+    return;
+  }
+  renderEjercicio();
+}
+
+/* ============ MODULO COMPLETO (transicion) ============ */
+function mostrarModuloCompleto(){
+  const emoji = document.getElementById('moduloCompletoEmoji');
+  const titulo = document.getElementById('moduloCompletoTitulo');
+  const texto = document.getElementById('moduloCompletoTexto');
+  const btn = document.getElementById('btnSiguienteModulo');
+
+  if(modulo.nombre === 'sumas'){
+    emoji.textContent = '🎉🐱➕';
+    titulo.textContent = '¡Sumas completadas!';
+    texto.textContent = `Conseguiste ${modulo.correctas} de ${TOTAL_EJERCICIOS_MODULO} estrellas. ¡Ahora vamos con las restas!`;
+    btn.textContent = 'Ir a Restas ➖';
+    btn.onclick = ()=>{ sonidoClick(); mostrarPantalla('screen-intro-restas'); };
+  } else if(modulo.nombre === 'restas'){
+    emoji.textContent = '🎉🐱➖';
+    titulo.textContent = '¡Restas completadas!';
+    texto.textContent = `Conseguiste ${modulo.correctas} de ${TOTAL_EJERCICIOS_MODULO} estrellas. ¡Ahora comparemos planetas!`;
+    btn.textContent = 'Ir a Mayor y menor 🔢';
+    btn.onclick = ()=>{ sonidoClick(); mostrarPantalla('screen-intro-comparar'); };
+  }
+  mostrarPantalla('screen-modulo-completo');
+}
+function irSiguienteModulo(){ /* asignado dinámicamente arriba */ }
+
+/* ============ RENDER COMPARACION ============ */
+function renderComparacion(){
+  const ej = comp.ejercicios[comp.indice];
+  document.getElementById('compCuenta').innerHTML = `${ej.a} <span class="op">___</span> ${ej.b}`;
+  document.getElementById('playProgresoComp').style.width = (comp.indice/TOTAL_EJERCICIOS_MODULO*100)+'%';
+  document.getElementById('playPuntosComp').textContent = comp.correctas;
+  const feedback = document.getElementById('compFeedback');
+  feedback.className='feedback'; feedback.textContent='';
+  document.getElementById('btnSiguienteComp').style.display='none';
+  document.querySelectorAll('#screen-play-comparar .compare-btn').forEach(b=>b.disabled=false);
+}
+
+function comprobarComparacion(simboloElegido){
+  sonidoClick();
+  const ej = comp.ejercicios[comp.indice];
+  const feedback = document.getElementById('compFeedback');
+  document.querySelectorAll('#screen-play-comparar .compare-btn').forEach(b=>b.disabled=true);
+
+  const esCorrecta = simboloElegido === ej.simbolo;
+  if(esCorrecta){
+    comp.correctas++;
+    estrellasTotales++;
+    sonidoCorrecto();
+    lanzarConfeti();
+    feedback.className='feedback correcto';
+    feedback.textContent = '🚀 ¡Correcto! Buen ojo de astronauta ⭐';
+  } else {
+    sonidoIncorrecto();
+    feedback.className='feedback incorrecto';
+    feedback.textContent = `🤔 Casi! La respuesta correcta es: ${ej.a} ${ej.simbolo} ${ej.b}`;
+  }
+  document.getElementById('playPuntosComp').textContent = comp.correctas;
+  document.getElementById('btnSiguienteComp').style.display='inline-block';
+}
+
+function siguienteComparacion(){
+  sonidoClick();
+  comp.indice++;
+  if(comp.indice >= TOTAL_EJERCICIOS_MODULO){
+    document.getElementById('playProgresoComp').style.width='100%';
+    mostrarPantalla('screen-extra-menu');
+    return;
+  }
+  renderComparacion();
+}
+
+/* ============ BONUS: SUMAS CON NEGATIVOS ============ */
+let bonusNeg = { ejercicios:[], indice:0, correctas:0, jugado:false };
+let respuestaNegDigitos = '';
+let negativoActivo = false;
+
+function generarNegativos(){
+  const usados = new Set();
+  const lista = [];
+  while(lista.length < TOTAL_EJERCICIOS_MODULO){
+    let a = Math.floor(Math.random()*13)-6; // -6..6
+    let b = Math.floor(Math.random()*13)-6; // -6..6
+    if(a===0 && b===0) continue;
+    const clave = a+'_'+b;
+    if(usados.has(clave)) continue;
+    usados.add(clave);
+    lista.push({a, b, resultado: a+b});
+  }
+  return lista;
+}
+
+function empezarBonusNegativos(){
+  sonidoClick();
+  bonusNeg.indice = 0;
+  bonusNeg.correctas = 0;
+  bonusNeg.jugado = true;
+  bonusNeg.ejercicios = generarNegativos();
+  mostrarPantalla('screen-bonus-negativos');
+  renderNeg();
+}
+
+function formatearNumero(n){ return n < 0 ? `(${n})` : `${n}`; }
+
+function renderNeg(){
+  const ej = bonusNeg.ejercicios[bonusNeg.indice];
+  document.getElementById('negCuenta').innerHTML = `${formatearNumero(ej.a)} <span class="op">+</span> ${formatearNumero(ej.b)} = ?`;
+  document.getElementById('negProgreso').style.width = (bonusNeg.indice/TOTAL_EJERCICIOS_MODULO*100)+'%';
+  document.getElementById('negPuntos').textContent = bonusNeg.correctas;
+  respuestaNegDigitos = '';
+  negativoActivo = false;
+  actualizarDisplayNeg();
+  const feedback = document.getElementById('negFeedback');
+  feedback.className='feedback'; feedback.textContent='';
+  document.getElementById('btnSiguienteNeg').style.display='none';
+  document.querySelectorAll('#screen-bonus-negativos .key-btn').forEach(b=>b.disabled=false);
+}
+function actualizarDisplayNeg(){
+  const texto = (negativoActivo?'-':'') + (respuestaNegDigitos.length?respuestaNegDigitos:'_');
+  document.getElementById('negDisplay').textContent = texto;
+}
+function teclaNeg(d){
+  sonidoClick();
+  if(respuestaNegDigitos.length>=3) return;
+  respuestaNegDigitos += d;
+  actualizarDisplayNeg();
+}
+function borrarTeclaNeg(){
+  sonidoClick();
+  respuestaNegDigitos = respuestaNegDigitos.slice(0,-1);
+  actualizarDisplayNeg();
+}
+function toggleSignoNeg(){
+  sonidoClick();
+  negativoActivo = !negativoActivo;
+  actualizarDisplayNeg();
+}
+function comprobarNeg(){
+  const ej = bonusNeg.ejercicios[bonusNeg.indice];
+  const feedback = document.getElementById('negFeedback');
+  document.querySelectorAll('#screen-bonus-negativos .key-btn').forEach(b=>b.disabled=true);
+  const valorTexto = (negativoActivo?'-':'') + respuestaNegDigitos;
+  const userVal = parseInt(valorTexto, 10);
+  const esCorrecta = userVal === ej.resultado;
+  if(esCorrecta){
+    bonusNeg.correctas++;
+    sonidoCorrecto(); lanzarConfeti();
+    feedback.className='feedback correcto';
+    feedback.textContent = '🎉 ¡Correcto! Entendiste los números bajo cero ⭐';
+  } else {
+    sonidoIncorrecto();
+    feedback.className='feedback incorrecto';
+    feedback.textContent = `🤔 La respuesta correcta es: ${formatearNumero(ej.a)} + ${formatearNumero(ej.b)} = ${ej.resultado}`;
+  }
+  document.getElementById('negPuntos').textContent = bonusNeg.correctas;
+  document.getElementById('btnSiguienteNeg').style.display='inline-block';
+}
+function siguienteNeg(){
+  sonidoClick();
+  bonusNeg.indice++;
+  if(bonusNeg.indice >= TOTAL_EJERCICIOS_MODULO){
+    document.getElementById('negProgreso').style.width='100%';
+    mostrarPantalla('screen-extra-menu');
+    return;
+  }
+  renderNeg();
+}
+
+/* ============ BONUS: RECTA NUMERICA ============ */
+let bonusRecta = { ejercicios:[], indice:0, correctas:0, jugado:false };
+
+function generarRecta(){
+  const usados = new Set();
+  const lista = [];
+  while(lista.length < TOTAL_EJERCICIOS_MODULO){
+    const n = Math.floor(Math.random()*21); // 0..20
+    if(usados.has(n)) continue;
+    usados.add(n);
+    lista.push({ objetivo:n });
+  }
+  return lista;
+}
+
+function empezarBonusRecta(){
+  sonidoClick();
+  bonusRecta.indice = 0;
+  bonusRecta.correctas = 0;
+  bonusRecta.jugado = true;
+  bonusRecta.ejercicios = generarRecta();
+  mostrarPantalla('screen-bonus-recta');
+  renderRecta();
+}
+
+function renderRecta(){
+  const ej = bonusRecta.ejercicios[bonusRecta.indice];
+  document.getElementById('rectaPregunta').innerHTML = `🐱🚀 busca el planeta número <b>${ej.objetivo}</b>`;
+  document.getElementById('rectaProgreso').style.width = (bonusRecta.indice/TOTAL_EJERCICIOS_MODULO*100)+'%';
+  document.getElementById('rectaPuntos').textContent = bonusRecta.correctas;
+  const linea = document.getElementById('lineaNumerica');
+  linea.innerHTML='';
+  for(let n=0;n<=20;n++){
+    const btn = document.createElement('button');
+    btn.className = 'linea-btn' + (n<0?' negativo':'');
+    btn.textContent = n;
+    btn.onclick = ()=>elegirRecta(n, btn);
+    linea.appendChild(btn);
+  }
+  const feedback = document.getElementById('rectaFeedback');
+  feedback.className='feedback'; feedback.textContent='';
+  document.getElementById('btnSiguienteRecta').style.display='none';
+}
+
+function elegirRecta(n, btnElegido){
+  sonidoClick();
+  const ej = bonusRecta.ejercicios[bonusRecta.indice];
+  const feedback = document.getElementById('rectaFeedback');
+  document.querySelectorAll('#lineaNumerica .linea-btn').forEach(b=>b.disabled=true);
+  const esCorrecta = n === ej.objetivo;
+  if(esCorrecta){
+    bonusRecta.correctas++;
+    sonidoCorrecto(); lanzarConfeti();
+    btnElegido.textContent = '🚀';
+    feedback.className='feedback correcto';
+    feedback.textContent = `🎉 ¡Aterrizaste en el planeta ${ej.objetivo}! ⭐`;
+  } else {
+    sonidoIncorrecto();
+    feedback.className='feedback incorrecto';
+    feedback.textContent = `🤔 Ese no era. El planeta correcto era el número ${ej.objetivo}`;
+  }
+  document.getElementById('rectaPuntos').textContent = bonusRecta.correctas;
+  document.getElementById('btnSiguienteRecta').style.display='inline-block';
+}
+
+function siguienteRecta(){
+  sonidoClick();
+  bonusRecta.indice++;
+  if(bonusRecta.indice >= TOTAL_EJERCICIOS_MODULO){
+    document.getElementById('rectaProgreso').style.width='100%';
+    mostrarPantalla('screen-extra-menu');
+    return;
+  }
+  renderRecta();
+}
+
+/* ============ RESULTADOS FINALES ============ */
+function mostrarResultadosFinales(){
+  sonidoFanfarria();
+  const totalPosible = TOTAL_EJERCICIOS_MODULO * 3;
+  const totalObtenido = estrellasTotales;
+  const porcentaje = Math.round((totalObtenido/totalPosible)*100);
+
+  document.getElementById('finalPuntaje').textContent = `${totalObtenido} de ${totalPosible} estrellas ⭐`;
+  document.getElementById('finalPorcentaje').textContent = `${porcentaje}%`;
+
+  let mensaje = '';
+  if(porcentaje >= 90) mensaje = '¡Eres un verdadero genio astro-matemático! 🚀🐱🏆';
+  else if(porcentaje >= 70) mensaje = '¡Excelente misión espacial! Sigue practicando 🌟';
+  else if(porcentaje >= 50) mensaje = '¡Buen trabajo! Cada vez lo harás mejor 💪🐱';
+  else mensaje = '¡Gran esfuerzo, astronauta! La práctica te hará brillar como una estrella ✨';
+  document.getElementById('finalMotivacion').textContent = mensaje;
+
+  const bonusDiv = document.getElementById('finalBonus');
+  let bonusHtml = '';
+  if(bonusNeg.jugado){
+    bonusHtml += `<div>🌡️ Reto negativos: ${bonusNeg.correctas} de ${TOTAL_EJERCICIOS_MODULO} ⭐</div>`;
+  }
+  if(bonusRecta.jugado){
+    bonusHtml += `<div>🎯 Recta numérica: ${bonusRecta.correctas} de ${TOTAL_EJERCICIOS_MODULO} ⭐</div>`;
+  }
+  bonusDiv.innerHTML = bonusHtml;
+  bonusDiv.style.display = bonusHtml ? 'block' : 'none';
+
+  setTimeout(()=>lanzarConfeti(), 200);
+  setTimeout(()=>lanzarConfeti(), 700);
+  mostrarPantalla('screen-final');
+}
+
+function reiniciarTodo(){
+  sonidoClick();
+  estrellasTotales = 0;
+  modulo = { nombre:null, ejercicios:[], indice:0, correctas:0 };
+  comp = { ejercicios:[], indice:0, correctas:0 };
+  bonusNeg = { ejercicios:[], indice:0, correctas:0, jugado:false };
+  bonusRecta = { ejercicios:[], indice:0, correctas:0, jugado:false };
+  slideActual = 0;
+  for(let i=0;i<TOTAL_SLIDES;i++){
+    document.getElementById('slide'+i).classList.toggle('activo', i===0);
+    document.getElementById('dot'+i).classList.toggle('activo', i===0);
+  }
+  document.getElementById('btnAnteriorSlide').style.visibility='hidden';
+  document.getElementById('btnSiguienteSlide').style.display='inline-block';
+  mostrarPantalla('screen-welcome');
+}
+</script>
+</body>
+</html>
