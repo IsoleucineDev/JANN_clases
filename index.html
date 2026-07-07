@@ -2,1189 +2,1175 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🚀 Clase 1: Aventura Matemática Espacial 🐱</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Clase 2 · Fracciones y Divisiones 🚀</title>
 <style>
-  :root{
-    --morado: #7b2ff7;
-    --rosa: #ff5e9c;
-    --amarillo: #ffd23f;
-    --teal: #2de1c2;
-    --naranja: #ff8c42;
-    --verde: #4CAF50;
-    --rojo: #ff5252;
-    --azul: #3a86ff;
-  }
-  *{box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
-  html,body{
-    margin:0; padding:0; height:100%;
-    font-family: 'Comic Sans MS', 'Trebuchet MS', Verdana, sans-serif;
-    overflow-x:hidden;
-    background: radial-gradient(ellipse at top, #1b2a6b 0%, #0b1026 60%, #05061a 100%);
-    color:#222;
-  }
-  #stars-bg{
-    position:fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none;
-  }
-  .star{
-    position:absolute; background:#fff; border-radius:50%;
-    animation: twinkle 2.5s infinite ease-in-out;
-  }
-  @keyframes twinkle{
-    0%,100%{opacity:.2; transform:scale(1);}
-    50%{opacity:1; transform:scale(1.4);}
-  }
-  .planet{
-    position:fixed; border-radius:50%; z-index:0; pointer-events:none;
-    opacity:0.85; filter: blur(0.3px);
-    animation: float 8s ease-in-out infinite;
-  }
-  @keyframes float{
-    0%,100%{transform:translateY(0px);}
-    50%{transform:translateY(-18px);}
-  }
-  #app{
-    position:relative; z-index:2; min-height:100vh;
-    display:flex; align-items:center; justify-content:center;
-    padding:20px;
-  }
-  .screen{
-    display:none;
-    width:100%; max-width:780px;
-    background: rgba(255,255,255,0.97);
-    border-radius:34px;
-    padding:32px 28px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.45), 0 0 0 8px rgba(255,255,255,0.06);
-    text-align:center;
-    animation: popIn .5s ease;
-    position:relative;
-  }
-  .screen.active{display:block;}
-  @keyframes popIn{
-    0%{opacity:0; transform:scale(0.85) translateY(20px);}
-    100%{opacity:1; transform:scale(1) translateY(0);}
-  }
-  h1{
-    font-size:2.1em; margin:0 0 6px; color:var(--morado);
-    text-shadow: 2px 2px 0 rgba(0,0,0,0.05);
-  }
-  h2{ font-size:1.7em; color:var(--rosa); margin:6px 0 14px;}
-  p.lead{ font-size:1.3em; color:#444; line-height:1.5;}
-  .emoji-row{ font-size:2.4em; margin:14px 0; letter-spacing:10px;}
-  .btn{
-    border:none; border-radius:22px; cursor:pointer;
-    font-family:inherit; font-weight:bold;
-    font-size:1.3em; padding:18px 34px;
-    color:#fff; box-shadow: 0 8px 0 rgba(0,0,0,0.15), 0 12px 20px rgba(0,0,0,0.2);
-    transition: transform .12s ease, box-shadow .12s ease;
-    margin:10px;
-  }
-  .btn:active{ transform: translateY(6px); box-shadow: 0 2px 0 rgba(0,0,0,0.15);}
-  .btn-grande{ font-size:1.6em; padding:24px 50px; border-radius:28px;}
-  .btn-morado{ background: linear-gradient(145deg, #9b5cff, var(--morado)); }
-  .btn-rosa{ background: linear-gradient(145deg, #ff85b3, var(--rosa)); }
-  .btn-teal{ background: linear-gradient(145deg, #6df5df, var(--teal)); color:#053b33;}
-  .btn-naranja{ background: linear-gradient(145deg, #ffb066, var(--naranja)); }
-  .btn-azul{ background: linear-gradient(145deg, #6fa8ff, var(--azul)); }
-  .btn:disabled{ opacity:.5; cursor:default; }
+/* ==========================================================================
+   VARIABLES GLOBALES DE DISEÑO
+   ========================================================================== */
+:root{
+  --morado:#5B3A9E;
+  --morado-osc:#3D2570;
+  --amarillo:#FFD23F;
+  --verde:#3CCB7F;
+  --rosa:#FF6FA5;
+  --azul:#3EC6FF;
+  --naranja:#FF8C42;
+  --crema:#FFF8EC;
+  --texto:#2E1A47;
+  --rojo:#FF5A5F;
+  --sombra: 0 8px 0 rgba(0,0,0,0.15);
+  --font: 'Baloo 2','Comic Sans MS','Segoe UI Rounded','Trebuchet MS',sans-serif;
+}
+*{box-sizing:border-box;}
+html,body{
+  margin:0;padding:0;height:100%;
+  font-family:var(--font);
+  background:linear-gradient(160deg,#7A4FD1 0%,#5B3A9E 45%,#3D2570 100%);
+  color:var(--texto);
+  overflow-x:hidden;
+  -webkit-tap-highlight-color:transparent;
+  user-select:none;
+}
+body::before{
+  /* estrellas de fondo fijas */
+  content:"";
+  position:fixed;inset:0;
+  background-image:
+    radial-gradient(2px 2px at 10% 20%, #ffffffaa 50%, transparent 51%),
+    radial-gradient(2px 2px at 80% 10%, #ffffff88 50%, transparent 51%),
+    radial-gradient(3px 3px at 60% 70%, #ffffff66 50%, transparent 51%),
+    radial-gradient(2px 2px at 30% 80%, #ffffff99 50%, transparent 51%),
+    radial-gradient(2px 2px at 90% 60%, #ffffff77 50%, transparent 51%),
+    radial-gradient(2px 2px at 45% 40%, #ffffff55 50%, transparent 51%);
+  background-size:100% 100%;
+  animation: twinkle 4s ease-in-out infinite alternate;
+  pointer-events:none;
+  z-index:0;
+}
+@keyframes twinkle{ from{opacity:.6;} to{opacity:1;} }
 
-  .topbar{
-    display:flex; justify-content:space-between; align-items:center;
-    margin-bottom:10px; font-size:1.1em; font-weight:bold; color:var(--morado);
-  }
-  .progress-wrap{
-    background:#eee; border-radius:20px; height:22px; overflow:hidden;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);
-    margin:10px 0 4px;
-  }
-  .progress-bar{
-    height:100%; width:0%;
-    background: linear-gradient(90deg, var(--teal), var(--azul));
-    border-radius:20px; transition: width .4s ease;
-  }
-  .stars-earned{ font-size:1.4em; margin:6px 0 14px; min-height:1.4em;}
-  .star-icon{ display:inline-block; transition: transform .3s; }
-  .star-icon.pop{ animation: starPop .5s ease; }
-  @keyframes starPop{ 0%{transform:scale(0.3) rotate(-20deg);} 60%{transform:scale(1.4) rotate(10deg);} 100%{transform:scale(1);} }
+button{font-family:var(--font);cursor:pointer;}
+h1,h2,h3,p{margin:0;}
 
-  .card-ejercicio{
-    background: linear-gradient(145deg, #fff, #f2f0ff);
-    border-radius:26px; padding:26px 20px; margin:16px 0;
-    box-shadow: 0 10px 25px rgba(123,47,247,0.15);
-    border:3px dashed #d9c6ff;
-  }
-  .cuenta{ font-size:3em; font-weight:bold; color:#2b2d42; margin:10px 0;}
-  .cuenta .op{ color:var(--rosa); }
+#app{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;}
 
-  /* ==== ANIMACION DE CANASTA (manzanas/gatos) ==== */
-  .canasta-escena{
-    display:flex; flex-direction:column; align-items:center; justify-content:flex-end;
-    min-height:110px; margin-bottom:6px;
-  }
-  .canasta-items{
-    display:flex; flex-wrap:wrap; justify-content:center; gap:6px;
-    max-width:340px; min-height:44px; margin-bottom:2px;
-  }
-  .canasta-item{ font-size:1.8em; opacity:0; transform:scale(0); display:inline-block; }
-  .canasta-item.aparece{ animation: itemPop .35s ease forwards; }
-  .canasta-item.nuevo{ animation: itemPopNuevo .35s ease forwards; }
-  .canasta-item.se-va{ animation: itemSeVa .4s ease forwards; }
-  .canasta-icono{ font-size:2.6em; }
-  @keyframes itemPop{ 0%{opacity:0; transform:scale(0) translateY(-20px);} 70%{transform:scale(1.3) translateY(0);} 100%{opacity:1; transform:scale(1);} }
-  @keyframes itemPopNuevo{ 0%{opacity:0; transform:scale(0) translateX(30px);} 70%{transform:scale(1.3) translateX(0);} 100%{opacity:1; transform:scale(1);} }
-  @keyframes itemSeVa{ 0%{opacity:1; transform:scale(1) translateY(0);} 100%{opacity:0; transform:scale(0.2) translateY(-40px);} }
+/* ==========================================================================
+   BARRA SUPERIOR
+   ========================================================================== */
+#topbar{
+  display:none;
+  align-items:center;
+  gap:14px;
+  padding:14px 18px;
+  background:rgba(0,0,0,0.18);
+  backdrop-filter:blur(4px);
+}
+#topbar.show{display:flex;}
+.btn-back{
+  background:var(--crema);
+  border:none;border-radius:16px;
+  width:52px;height:52px;font-size:26px;
+  box-shadow:var(--sombra);
+  flex-shrink:0;
+  transition:transform .1s;
+}
+.btn-back:active{transform:translateY(6px);box-shadow:none;}
+.progress-outer{
+  flex:1;background:rgba(255,255,255,0.25);
+  border-radius:20px;height:22px;overflow:hidden;
+  border:2px solid rgba(255,255,255,0.4);
+}
+.progress-inner{
+  height:100%;
+  background:linear-gradient(90deg,var(--verde),var(--azul));
+  width:0%;
+  border-radius:20px;
+  transition:width .4s ease;
+}
+#hud-stats{
+  display:flex;gap:10px;color:#fff;font-weight:700;font-size:15px;flex-shrink:0;
+  white-space:nowrap;
+}
+#hud-stats span{background:rgba(255,255,255,0.18);padding:6px 10px;border-radius:12px;}
 
-  /* ==== RETO EXTRA: NEGATIVOS Y RECTA NUMERICA ==== */
-  .linea-numerica{
-    display:flex; flex-wrap:wrap; justify-content:center; gap:6px;
-    max-width:520px; margin:16px auto;
-  }
-  .linea-btn{
-    min-width:42px; padding:10px 4px; border-radius:12px; border:none;
-    background: linear-gradient(145deg,#eef,#dde); font-weight:bold; font-size:1.1em;
-    cursor:pointer; color:#333; box-shadow:0 4px 0 rgba(0,0,0,0.1);
-  }
-  .linea-btn:active{ transform:translateY(3px); box-shadow:none; }
-  .linea-btn.negativo{ background: linear-gradient(145deg,#cfe8ff,#9fd3ff); }
-  .rocket-marker{ font-size:1.8em; transition: transform .6s ease; display:inline-block; }
-  .signo-toggle{ background: linear-gradient(145deg,#ffd9ec,var(--rosa)); color:#fff; }
-  .extra-card{
-    background: linear-gradient(145deg,#fff,#f2f0ff); border-radius:24px; padding:20px;
-    margin:14px 0; box-shadow:0 8px 20px rgba(0,0,0,0.08); border:3px solid #e0d4ff;
-  }
-  .badge-extra{
-    display:inline-block; background:var(--amarillo); color:#7a5a00; font-weight:bold;
-    padding:4px 12px; border-radius:14px; font-size:0.85em; margin-bottom:8px;
-  }
+/* ==========================================================================
+   PANTALLAS
+   ========================================================================== */
+.screen{display:none;flex:1;flex-direction:column;align-items:center;padding:20px;animation:fadeIn .35s ease;}
+.screen.active{display:flex;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
 
-  /* ==== SLIDES DE BIENVENIDA ==== */
-  .slide-dots{ display:flex; justify-content:center; gap:8px; margin-bottom:14px; }
-  .dot{ width:12px; height:12px; border-radius:50%; background:#ddd; transition:.3s; }
-  .dot.activo{ background:var(--morado); transform:scale(1.3); }
-  .slide-contenido{ display:none; animation: popIn .4s ease; }
-  .slide-contenido.activo{ display:block; }
-  .slide-nav{ display:flex; justify-content:space-between; align-items:center; margin-top:16px; }
-  .concepto-fila{
-    display:flex; align-items:center; gap:14px; text-align:left;
-    background: linear-gradient(145deg,#fff,#f7f3ff); border:3px solid #e8dcff;
-    border-radius:20px; padding:14px 18px; margin:10px 0; font-size:1.15em; color:#333;
-  }
-  .concepto-fila .icono-grande{ font-size:2.2em; flex-shrink:0; }
+/* ---------- HOME ---------- */
+#screen-home{justify-content:center;text-align:center;gap:26px;}
+.home-title{
+  color:#fff;font-size:56px;font-weight:800;
+  text-shadow:0 4px 0 rgba(0,0,0,0.25);
+  letter-spacing:1px;
+}
+.home-sub{color:var(--amarillo);font-size:22px;font-weight:700;margin-top:-10px;}
+.home-buttons{display:flex;gap:28px;flex-wrap:wrap;justify-content:center;margin-top:10px;}
+.big-btn{
+  border:none;border-radius:28px;
+  padding:34px 42px;
+  font-size:30px;font-weight:800;
+  color:#fff;min-width:230px;
+  box-shadow:0 10px 0 rgba(0,0,0,0.25);
+  transition:transform .12s, box-shadow .12s;
+  animation:floaty 3s ease-in-out infinite;
+}
+.big-btn:active{transform:translateY(10px);box-shadow:0 0 0 rgba(0,0,0,0.25);}
+.big-btn.clase{background:linear-gradient(145deg,var(--azul),#2196c9);}
+.big-btn.practica{background:linear-gradient(145deg,var(--naranja),#e6672a);animation-delay:.4s;}
+@keyframes floaty{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
 
-  .answer-display{
-    font-size:2.6em; font-weight:bold; letter-spacing:4px;
-    background:#fff; border:4px solid var(--morado); border-radius:20px;
-    padding:8px 20px; min-width:120px; display:inline-block; margin:10px 0;
-    color: var(--morado);
-  }
-  .keypad{
-    display:grid; grid-template-columns: repeat(3, 1fr); gap:10px;
-    max-width:320px; margin: 14px auto;
-  }
-  .key-btn{
-    font-size:1.5em; padding:16px 0; border-radius:16px; border:none;
-    background: linear-gradient(145deg,#eef,#dde);
-    color:#333; font-weight:bold; cursor:pointer;
-    box-shadow: 0 5px 0 rgba(0,0,0,0.1);
-  }
-  .key-btn:active{ transform: translateY(4px); box-shadow:none; }
-  .key-borrar{ background: linear-gradient(145deg, #ffb3b3, var(--rojo)); color:#fff;}
-  .key-check{ background: linear-gradient(145deg, #7be89b, var(--verde)); color:#fff; grid-column: span 3; font-size:1.3em;}
+/* ---------- MASCOTA ---------- */
+#mascot-wrap{
+  position:fixed;bottom:14px;left:14px;
+  display:flex;align-items:flex-end;gap:10px;
+  z-index:50;pointer-events:none;
+}
+#mascot{
+  font-size:70px;
+  animation:bounce 2.2s ease-in-out infinite;
+  filter:drop-shadow(0 6px 4px rgba(0,0,0,0.35));
+}
+@keyframes bounce{0%,100%{transform:translateY(0) rotate(-4deg);}50%{transform:translateY(-14px) rotate(4deg);}}
+#speech{
+  background:var(--crema);
+  border-radius:18px 18px 18px 4px;
+  padding:10px 16px;
+  font-weight:700;font-size:16px;
+  max-width:220px;
+  box-shadow:var(--sombra);
+  opacity:0;transform:scale(0.7);
+  transition:all .25s cubic-bezier(.34,1.56,.64,1);
+}
+#speech.show{opacity:1;transform:scale(1);}
 
-  .compare-buttons{ display:flex; justify-content:center; gap:16px; margin:20px 0; flex-wrap:wrap;}
-  .compare-btn{
-    font-size:2.2em; font-weight:bold; padding:16px 34px; border-radius:20px;
-    border:none; cursor:pointer; color:#fff;
-    background: linear-gradient(145deg, #9b5cff, var(--morado));
-    box-shadow: 0 8px 0 rgba(0,0,0,0.15);
-  }
-  .compare-btn:active{ transform: translateY(6px); box-shadow:none; }
+/* ---------- TARJETAS GENERALES ---------- */
+.card{
+  background:var(--crema);
+  border-radius:26px;
+  padding:26px;
+  box-shadow:var(--sombra);
+  width:100%;max-width:640px;
+}
+.pill{
+  display:inline-block;background:var(--amarillo);color:var(--morado-osc);
+  padding:6px 16px;border-radius:20px;font-weight:800;font-size:14px;
+  margin-bottom:8px;
+}
 
-  .feedback{
-    margin-top:16px; font-size:1.4em; font-weight:bold; min-height:70px;
-    border-radius:18px; padding:14px; display:none;
-  }
-  .feedback.correcto{ display:block; background:#e3fbe8; color:#1d7a2e; animation: bounce .5s ease;}
-  .feedback.incorrecto{ display:block; background:#ffe8e8; color:#a91b1b; animation: shake .4s ease;}
-  @keyframes bounce{ 0%{transform:scale(0.7);} 50%{transform:scale(1.15);} 100%{transform:scale(1);} }
-  @keyframes shake{ 0%,100%{transform:translateX(0);} 25%{transform:translateX(-8px);} 75%{transform:translateX(8px);} }
+/* ---------- SLIDES ---------- */
+#screen-slides{gap:16px;width:100%;}
+.slide-card{
+  width:100%;max-width:680px;
+  background:var(--crema);
+  border-radius:28px;
+  padding:30px;
+  box-shadow:var(--sombra);
+  text-align:center;
+  min-height:400px;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:14px;
+}
+.slide-title{font-size:30px;font-weight:800;color:var(--morado);}
+.slide-sub{font-size:17px;color:#666;font-weight:600;}
+.slide-visual{margin:10px 0;display:flex;gap:18px;align-items:center;justify-content:center;flex-wrap:wrap;}
+.slide-nav{display:flex;gap:16px;margin-top:16px;width:100%;max-width:680px;justify-content:space-between;}
+.nav-btn{
+  border:none;border-radius:18px;padding:16px 26px;font-size:18px;font-weight:800;color:#fff;
+  box-shadow:0 6px 0 rgba(0,0,0,0.2);
+  transition:transform .1s;
+}
+.nav-btn:active{transform:translateY(6px);box-shadow:none;}
+.nav-btn.prev{background:#9b8bbf;}
+.nav-btn.next{background:var(--verde);}
+.nav-btn:disabled{opacity:0.35;pointer-events:none;}
+.dots{display:flex;gap:8px;justify-content:center;}
+.dot{width:12px;height:12px;border-radius:50%;background:#ddd;}
+.dot.active{background:var(--rosa);transform:scale(1.3);}
 
-  .timer-bar-wrap{ background:#eee; height:10px; border-radius:10px; overflow:hidden; margin:8px 0 0;}
-  .timer-bar{ height:100%; background:var(--naranja); width:100%; transition: width 1s linear; }
+/* pastel / pie chart */
+.pie{width:130px;height:130px;border-radius:50%;box-shadow:inset 0 0 0 4px #fff, 0 4px 10px rgba(0,0,0,0.2);}
+.bar-row{display:flex;gap:4px;}
+.bar-box{width:34px;height:44px;border-radius:6px;border:2px solid #fff;}
+.label-tag{font-size:13px;font-weight:700;color:#fff;background:var(--morado);padding:4px 10px;border-radius:10px;}
 
-  .example-box{
-    background: linear-gradient(145deg,#fff7e0,#fff);
-    border:3px solid var(--amarillo); border-radius:20px;
-    padding:18px; margin:14px 0; font-size:1.25em; color:#444;
-  }
-  .example-box .fila{ font-size:1.7em; margin:6px 0;}
+/* mini reto dentro de slide */
+.mini-reto{background:#eee7fb;border-radius:18px;padding:16px;width:100%;}
+.mini-reto-opts{display:flex;gap:10px;justify-content:center;margin-top:10px;flex-wrap:wrap;}
+.mini-opt{
+  border:none;border-radius:14px;padding:12px 20px;font-size:16px;font-weight:800;
+  background:#fff;box-shadow:0 4px 0 rgba(0,0,0,0.15);color:var(--morado);
+}
+.mini-feedback{margin-top:10px;font-weight:800;min-height:24px;}
 
-  .final-emoji{ font-size:4em; margin:10px 0; animation: bounce 1s ease infinite alternate;}
-  .final-score{ font-size:2.4em; color:var(--morado); font-weight:bold; margin:10px 0;}
-  .final-pct{ font-size:1.6em; color:var(--teal); font-weight:bold;}
-  .motivacion{ font-size:1.3em; color:#555; margin:14px 0;}
+/* ---------- EJERCICIOS / EXAMEN ---------- */
+#screen-exercise{gap:18px;width:100%;}
+.exercise-header{color:#fff;text-align:center;}
+.exercise-header .tema-label{font-size:16px;font-weight:700;opacity:.85;}
+.exercise-header .streak{font-size:15px;color:var(--amarillo);font-weight:800;}
+.q-card{width:100%;max-width:640px;text-align:center;}
+.q-visual{margin:14px 0;display:flex;justify-content:center;gap:16px;flex-wrap:wrap;}
+.q-text{font-size:24px;font-weight:800;color:var(--morado);line-height:1.4;}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px;}
+@media(max-width:520px){.options{grid-template-columns:1fr;}}
+.opt-btn{
+  border:none;border-radius:20px;padding:22px 14px;font-size:22px;font-weight:800;
+  background:#fff;color:var(--morado);
+  box-shadow:0 6px 0 #d8d0ec;
+  transition:transform .1s, box-shadow .1s;
+  border:3px solid #e6def7;
+}
+.opt-btn:active{transform:translateY(6px);box-shadow:none;}
+.opt-btn.correct{background:var(--verde);color:#fff;border-color:#2aa863;animation:pop .4s;}
+.opt-btn.wrong{background:var(--rojo);color:#fff;border-color:#c94044;animation:shake .4s;}
+.opt-btn.dim{opacity:.45;}
+@keyframes pop{0%{transform:scale(1);}50%{transform:scale(1.08);}100%{transform:scale(1);}}
+@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-8px);}75%{transform:translateX(8px);}}
 
-  .setting-row{ display:flex; align-items:center; justify-content:center; gap:10px; margin:10px 0; font-size:1.1em; color:#555;}
-  .switch{ position:relative; width:56px; height:30px; }
-  .switch input{ opacity:0; width:0; height:0; }
-  .slider-toggle{ position:absolute; cursor:pointer; top:0;left:0;right:0;bottom:0; background:#ccc; border-radius:30px; transition:.3s;}
-  .slider-toggle:before{ position:absolute; content:""; height:22px; width:22px; left:4px; bottom:4px; background:white; border-radius:50%; transition:.3s;}
-  input:checked + .slider-toggle{ background: var(--teal); }
-  input:checked + .slider-toggle:before{ transform: translateX(26px); }
+.feedback-box{
+  margin-top:16px;padding:14px 18px;border-radius:16px;font-weight:700;font-size:16px;
+  display:none;text-align:left;
+}
+.feedback-box.show{display:block;animation:fadeIn .3s;}
+.feedback-box.ok{background:#d8f7e6;color:#1f7a49;}
+.feedback-box.bad{background:#ffe1e2;color:#a13438;}
 
-  #confetti-container{ position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:99; overflow:hidden;}
-  .confetti-piece{ position:absolute; top:-20px; width:12px; height:12px; opacity:0.95; }
+.btn-siguiente{
+  margin-top:16px;border:none;border-radius:18px;padding:16px 30px;font-size:18px;font-weight:800;
+  background:var(--amarillo);color:var(--morado-osc);box-shadow:0 6px 0 #c99f1e;
+  display:none;
+}
+.btn-siguiente.show{display:inline-block;}
+.btn-siguiente:active{transform:translateY(6px);box-shadow:none;}
 
-  .mascota{ font-size:2.2em; }
+/* ---------- INTERSTITIAL / TRANSICIONES ---------- */
+.interstitial{justify-content:center;align-items:center;text-align:center;gap:20px;}
+.interstitial .emoji-big{font-size:90px;animation:bounce 1.6s ease-in-out infinite;}
+.interstitial h2{color:#fff;font-size:32px;}
+.interstitial p{color:var(--amarillo);font-size:18px;font-weight:700;}
 
-  @media (max-width:600px){
-    h1{font-size:1.5em;}
-    h2{font-size:1.25em;}
-    .cuenta{font-size:2.1em;}
-    .screen{padding:22px 14px; border-radius:24px;}
-    .compare-btn{font-size:1.6em; padding:12px 22px;}
-  }
+/* ---------- RESULTADOS ---------- */
+#screen-results{justify-content:center;align-items:center;text-align:center;gap:14px;}
+.medal{font-size:100px;animation:medalPop .6s cubic-bezier(.34,1.56,.64,1);}
+@keyframes medalPop{0%{transform:scale(0) rotate(-30deg);}100%{transform:scale(1) rotate(0);}}
+.result-title{color:#fff;font-size:34px;font-weight:800;}
+.result-pct{font-size:60px;font-weight:900;color:var(--amarillo);text-shadow:0 3px 0 rgba(0,0,0,.2);}
+.result-stats{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:6px;}
+.result-stats .stat{background:rgba(255,255,255,.15);color:#fff;padding:10px 16px;border-radius:14px;font-weight:700;min-width:110px;}
+.result-msg{color:#fff;font-size:18px;font-weight:700;max-width:500px;}
+.btn-replay{
+  margin-top:10px;border:none;border-radius:20px;padding:20px 34px;font-size:22px;font-weight:800;
+  background:linear-gradient(145deg,var(--verde),#28a866);color:#fff;box-shadow:0 8px 0 rgba(0,0,0,0.25);
+}
+.btn-replay:active{transform:translateY(8px);box-shadow:none;}
+
+/* ---------- CONFETI ---------- */
+#confetti-layer{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:200;}
+.confetti-piece{position:absolute;top:-20px;width:10px;height:16px;opacity:0.95;animation-name:confettiFall;animation-timing-function:ease-in;animation-fill-mode:forwards;}
+@keyframes confettiFall{
+  from{transform:translateY(-10vh) rotate(0deg);}
+  to{transform:translateY(110vh) rotate(680deg);}
+}
+.star-burst{position:absolute;font-size:22px;animation:starBurst .8s ease-out forwards;pointer-events:none;}
+@keyframes starBurst{
+  0%{transform:translate(0,0) scale(0.3);opacity:1;}
+  100%{transform:translate(var(--sx),var(--sy)) scale(1.3);opacity:0;}
+}
+
+/* responsive */
+@media(max-width:600px){
+  .home-title{font-size:38px;}
+  .big-btn{font-size:24px;padding:26px 30px;min-width:170px;}
+  .q-text{font-size:19px;}
+  .slide-title{font-size:24px;}
+  #mascot{font-size:52px;}
+  #speech{font-size:13px;max-width:150px;}
+}
 </style>
 </head>
 <body>
-
-<div id="stars-bg"></div>
-
 <div id="app">
 
-  <!-- PANTALLA BIENVENIDA (3 SLIDES) -->
-  <div class="screen active" id="screen-welcome">
-    <div class="slide-dots">
-      <span class="dot activo" id="dot0"></span>
-      <span class="dot" id="dot1"></span>
-      <span class="dot" id="dot2"></span>
-    </div>
+  <!-- CAPA DE CONFETI -->
+  <div id="confetti-layer"></div>
 
-    <!-- SLIDE 1 -->
-    <div class="slide-contenido activo" id="slide0">
-      <div class="mascota">🐱🚀</div>
-      <h1>¡Bienvenido a la Clase 1!</h1>
-      <p class="lead">Hoy viajaremos por el espacio aprendiendo matemáticas con nuestros amigos astro-gatos 🐈‍⬛✨</p>
-      <div class="example-box">
-        <div style="font-size:1.3em; font-weight:bold; color:var(--morado);">Hoy aprenderemos:</div>
-        <div class="fila">➕ Sumas</div>
-        <div class="fila">➖ Restas</div>
-        <div class="fila">🔢 Mayor y menor</div>
+  <!-- BARRA SUPERIOR -->
+  <div id="topbar">
+    <button class="btn-back" onclick="goHome()">⬅️</button>
+    <div class="progress-outer"><div class="progress-inner" id="progress-bar"></div></div>
+    <div id="hud-stats"></div>
+  </div>
+
+  <main id="main">
+
+    <!-- ============ PANTALLA DE INICIO ============ -->
+    <section id="screen-home" class="screen active">
+      <h1 class="home-title">✨ Clase 2 ✨</h1>
+      <p class="home-sub">🟡 Fracciones &nbsp; · &nbsp; 🟢 Divisiones</p>
+      <div class="home-buttons">
+        <button class="big-btn clase" onclick="startClase()">📚 Clase</button>
+        <button class="big-btn practica" onclick="startPractica()">🎮 Práctica</button>
       </div>
-    </div>
+    </section>
 
-    <!-- SLIDE 2 -->
-    <div class="slide-contenido" id="slide1">
-      <div class="mascota">🌟🐱🌟</div>
-      <h1>¿Qué significa cada cosa?</h1>
-      <div class="concepto-fila">
-        <span class="icono-grande">➕</span>
-        <span><b>Sumar</b> es juntar cosas. Si tienes gatitos y llegan más, ¡los juntas todos!</span>
+    <!-- ============ PANTALLA DE DIAPOSITIVAS ============ -->
+    <section id="screen-slides" class="screen">
+      <div class="slide-card" id="slide-card"></div>
+      <div class="dots" id="slide-dots"></div>
+      <div class="slide-nav">
+        <button class="nav-btn prev" id="slide-prev" onclick="prevSlide()">⬅️ Anterior</button>
+        <button class="nav-btn next" id="slide-next" onclick="nextSlide()">Siguiente ➡️</button>
       </div>
-      <div class="concepto-fila">
-        <span class="icono-grande">➖</span>
-        <span><b>Restar</b> es quitar cosas. Algunos gatitos regresan a su nave 🚀</span>
+    </section>
+
+    <!-- ============ PANTALLA DE EJERCICIO / EXAMEN ============ -->
+    <section id="screen-exercise" class="screen">
+      <div class="exercise-header">
+        <div class="tema-label" id="exercise-tema-label">FRACCIONES</div>
+        <div class="streak" id="exercise-streak">🔥 Racha: 0</div>
       </div>
-      <div class="concepto-fila">
-        <span class="icono-grande">🔢</span>
-        <span><b>Comparar</b> es ver cuál número es más grande, más chico o igual</span>
+      <div class="card q-card">
+        <div class="pill" id="q-counter">Pregunta 1</div>
+        <div class="q-text" id="q-text"></div>
+        <div class="q-visual" id="q-visual"></div>
+        <div class="options" id="q-options"></div>
+        <div class="feedback-box" id="q-feedback"></div>
+        <button class="btn-siguiente" id="btn-siguiente" onclick="nextQuestion()">Siguiente ➡️</button>
       </div>
-    </div>
+    </section>
 
-    <!-- SLIDE 3 -->
-    <div class="slide-contenido" id="slide2">
-      <div class="mascota">🚀🐱🪐</div>
-      <h1>¿Listo para despegar?</h1>
-      <p class="lead">Vamos a jugar, ganar estrellas ⭐ y pasarla muy bien. ¡Tú puedes con todo!</p>
-      <div class="setting-row">
-        <span>⏱️ Activar temporizador</span>
-        <label class="switch">
-          <input type="checkbox" id="timerToggle">
-          <span class="slider-toggle"></span>
-        </label>
-      </div>
-      <button class="btn btn-morado btn-grande" onclick="iniciarAventura()">🚀 Comenzar</button>
-    </div>
+    <!-- ============ INTERSTITIAL (transición entre temas) ============ -->
+    <section id="screen-inter" class="screen interstitial">
+      <div class="emoji-big" id="inter-emoji">🎉</div>
+      <h2 id="inter-title"></h2>
+      <p id="inter-sub"></p>
+      <button class="nav-btn next" onclick="interContinue()">Continuar ➡️</button>
+    </section>
 
-    <div class="slide-nav">
-      <button class="btn btn-azul" id="btnAnteriorSlide" style="visibility:hidden;" onclick="cambiarSlide(-1)">⬅️ Anterior</button>
-      <button class="btn btn-teal" id="btnSiguienteSlide" onclick="cambiarSlide(1)">Siguiente ➡️</button>
-    </div>
-  </div>
+    <!-- ============ PANTALLA DE RESULTADOS ============ -->
+    <section id="screen-results" class="screen">
+      <div class="medal" id="result-medal">🥇</div>
+      <div class="result-title" id="result-title">¡Resultados!</div>
+      <div class="result-pct" id="result-pct">0%</div>
+      <div class="result-stats" id="result-stats"></div>
+      <p class="result-msg" id="result-msg"></p>
+      <button class="btn-replay" onclick="goHome()">🔄 Volver a jugar</button>
+    </section>
 
-  <!-- INTRO SUMAS -->
-  <div class="screen" id="screen-intro-sumas">
-    <div class="mascota">🐱➕🐱</div>
-    <h1>Módulo 1: Sumas</h1>
-    <p class="lead">Sumar es juntar cosas. ¡Vamos a contar gatitos astronautas! 🐱🚀</p>
-    <div class="example-box">
-      <div>Si tienes 3 gatitos 🐱🐱🐱</div>
-      <div>y llegan 2 gatitos más 🐱🐱</div>
-      <div class="fila">3 + 2 = 5 🎉</div>
-    </div>
-    <p class="lead">Ahora te toca a ti resolver 10 sumas. ¡Tú puedes! 💪</p>
-    <button class="btn btn-rosa btn-grande" onclick="empezarModulo('sumas')">¡Vamos a sumar! ➕</button>
-  </div>
+  </main>
 
-  <!-- JUEGO SUMAS / RESTAS (plantilla compartida) -->
-  <div class="screen" id="screen-play">
-    <div class="topbar">
-      <span id="playTitulo">➕ Sumas</span>
-      <span>⭐ <span id="playPuntos">0</span></span>
-    </div>
-    <div class="progress-wrap"><div class="progress-bar" id="playProgreso"></div></div>
-    <div class="timer-bar-wrap" id="timerWrap" style="display:none;">
-      <div class="timer-bar" id="timerBar"></div>
-    </div>
-    <div class="card-ejercicio">
-      <div class="canasta-escena" id="canastaEscena"></div>
-      <div class="cuenta" id="playCuenta">4 <span class="op">+</span> 2 = ?</div>
-      <div class="answer-display" id="answerDisplay">_</div>
-      <div class="keypad">
-        <button class="key-btn" onclick="tecla('1')">1</button>
-        <button class="key-btn" onclick="tecla('2')">2</button>
-        <button class="key-btn" onclick="tecla('3')">3</button>
-        <button class="key-btn" onclick="tecla('4')">4</button>
-        <button class="key-btn" onclick="tecla('5')">5</button>
-        <button class="key-btn" onclick="tecla('6')">6</button>
-        <button class="key-btn" onclick="tecla('7')">7</button>
-        <button class="key-btn" onclick="tecla('8')">8</button>
-        <button class="key-btn" onclick="tecla('9')">9</button>
-        <button class="key-btn key-borrar" onclick="borrarTecla()">⌫</button>
-        <button class="key-btn" onclick="tecla('0')">0</button>
-        <button class="key-btn key-check" onclick="comprobarRespuesta()">✅ Comprobar</button>
-      </div>
-    </div>
-    <div class="feedback" id="playFeedback"></div>
-    <button class="btn btn-teal" id="btnSiguiente" style="display:none;" onclick="siguienteEjercicio()">Siguiente ➡️</button>
-  </div>
-
-  <!-- MODULO COMPLETO (transicion) -->
-  <div class="screen" id="screen-modulo-completo">
-    <div class="final-emoji" id="moduloCompletoEmoji">🎉🐱</div>
-    <h1 id="moduloCompletoTitulo">¡Módulo completado!</h1>
-    <p class="lead" id="moduloCompletoTexto">¡Excelente trabajo, astronauta!</p>
-    <button class="btn btn-naranja btn-grande" id="btnSiguienteModulo" onclick="irSiguienteModulo()">Continuar 🚀</button>
-  </div>
-
-  <!-- INTRO RESTAS -->
-  <div class="screen" id="screen-intro-restas">
-    <div class="mascota">🐱➖🐱</div>
-    <h1>Módulo 2: Restas</h1>
-    <p class="lead">Restar es quitar cosas. ¡Algunos gatitos regresan a su nave! 🚀🐱</p>
-    <div class="example-box">
-      <div>Si tienes 5 gatitos 🐱🐱🐱🐱🐱</div>
-      <div>y 2 regresan a la nave 🚀🐱🐱</div>
-      <div class="fila">5 − 2 = 3 🎉</div>
-    </div>
-    <p class="lead">Resolverás 10 restas. ¡Nunca serán negativas! 😉</p>
-    <button class="btn btn-rosa btn-grande" onclick="empezarModulo('restas')">¡Vamos a restar! ➖</button>
-  </div>
-
-  <!-- INTRO COMPARAR -->
-  <div class="screen" id="screen-intro-comparar">
-    <div class="mascota">🪐🔭🐱</div>
-    <h1>Módulo 3: Mayor y menor</h1>
-    <p class="lead">Compararemos planetas 🪐 para saber cuál número es mayor, menor o igual.</p>
-    <div class="example-box">
-      <div class="fila">7 &nbsp; ___ &nbsp; 4</div>
-      <div>7 tiene más que 4, así que usamos <b>&gt;</b></div>
-      <div class="fila">7 &gt; 4 🎉</div>
-    </div>
-    <p class="lead">Usarás los botones &gt;, &lt; e =. ¡10 comparaciones espaciales! 🛸</p>
-    <button class="btn btn-rosa btn-grande" onclick="empezarModulo('comparar')">¡Vamos a comparar! 🔢</button>
-  </div>
-
-  <!-- JUEGO COMPARAR -->
-  <div class="screen" id="screen-play-comparar">
-    <div class="topbar">
-      <span>🔢 Mayor y menor</span>
-      <span>⭐ <span id="playPuntosComp">0</span></span>
-    </div>
-    <div class="progress-wrap"><div class="progress-bar" id="playProgresoComp"></div></div>
-    <div class="card-ejercicio">
-      <div class="cuenta" id="compCuenta">7 <span class="op">___</span> 4</div>
-      <div class="compare-buttons">
-        <button class="compare-btn" onclick="comprobarComparacion('>')">&gt;</button>
-        <button class="compare-btn" onclick="comprobarComparacion('<')">&lt;</button>
-        <button class="compare-btn" onclick="comprobarComparacion('=')">=</button>
-      </div>
-    </div>
-    <div class="feedback" id="compFeedback"></div>
-    <button class="btn btn-teal" id="btnSiguienteComp" style="display:none;" onclick="siguienteComparacion()">Siguiente ➡️</button>
-  </div>
-
-  <!-- MENU DE RETOS EXTRA -->
-  <div class="screen" id="screen-extra-menu">
-    <div class="mascota">🐱🚀🌟</div>
-    <h1>¡Misión principal completada!</h1>
-    <p class="lead">¿Quieres intentar unos retos extra súper divertidos antes de ver tu resultado final?</p>
-    <div class="extra-card">
-      <span class="badge-extra">RETO EXTRA</span>
-      <h2>🌡️ Sumas con números negativos</h2>
-      <p class="lead" style="font-size:1.05em;">Aprende qué pasa cuando un gatito debe manzanas 🐱📉</p>
-      <button class="btn btn-azul" onclick="empezarBonusNegativos()">Intentarlo</button>
-    </div>
-    <div class="extra-card">
-      <span class="badge-extra">RETO EXTRA</span>
-      <h2>🎯 Recta numérica espacial</h2>
-      <p class="lead" style="font-size:1.05em;">Ayuda al gato-astronauta a encontrar el planeta correcto</p>
-      <button class="btn btn-teal" onclick="empezarBonusRecta()">Intentarlo</button>
-    </div>
-    <button class="btn btn-morado btn-grande" onclick="mostrarResultadosFinales()">🏁 Ver resultado final</button>
-    <button class="btn btn-teal" onclick="mostrarPantalla('screen-mas-ejercicios')">🔄 O practicar más ejercicios</button>
-  </div>
-
-  <!-- BONUS: SUMAS CON NEGATIVOS -->
-  <div class="screen" id="screen-bonus-negativos">
-    <div class="topbar">
-      <span>🌡️ Reto: Negativos</span>
-      <span>⭐ <span id="negPuntos">0</span></span>
-    </div>
-    <div class="progress-wrap"><div class="progress-bar" id="negProgreso"></div></div>
-    <div class="card-ejercicio">
-      <p class="lead" style="font-size:1.05em; margin:4px 0 10px;">Un número negativo significa que el gatito "debe" manzanas 🐱📉</p>
-      <div class="cuenta" id="negCuenta">(-3) <span class="op">+</span> 5 = ?</div>
-      <div class="answer-display" id="negDisplay">_</div>
-      <div class="keypad">
-        <button class="key-btn signo-toggle" onclick="toggleSignoNeg()">±</button>
-        <button class="key-btn" onclick="teclaNeg('0')">0</button>
-        <button class="key-btn key-borrar" onclick="borrarTeclaNeg()">⌫</button>
-        <button class="key-btn" onclick="teclaNeg('1')">1</button>
-        <button class="key-btn" onclick="teclaNeg('2')">2</button>
-        <button class="key-btn" onclick="teclaNeg('3')">3</button>
-        <button class="key-btn" onclick="teclaNeg('4')">4</button>
-        <button class="key-btn" onclick="teclaNeg('5')">5</button>
-        <button class="key-btn" onclick="teclaNeg('6')">6</button>
-        <button class="key-btn" onclick="teclaNeg('7')">7</button>
-        <button class="key-btn" onclick="teclaNeg('8')">8</button>
-        <button class="key-btn" onclick="teclaNeg('9')">9</button>
-        <button class="key-btn key-check" onclick="comprobarNeg()">✅ Comprobar</button>
-      </div>
-    </div>
-    <div class="feedback" id="negFeedback"></div>
-    <button class="btn btn-teal" id="btnSiguienteNeg" style="display:none;" onclick="siguienteNeg()">Siguiente ➡️</button>
-  </div>
-
-  <!-- BONUS: RECTA NUMERICA -->
-  <div class="screen" id="screen-bonus-recta">
-    <div class="topbar">
-      <span>🎯 Recta numérica</span>
-      <span>⭐ <span id="rectaPuntos">0</span></span>
-    </div>
-    <div class="progress-wrap"><div class="progress-bar" id="rectaProgreso"></div></div>
-    <div class="card-ejercicio">
-      <p class="lead" style="font-size:1.2em; margin:4px 0 12px;" id="rectaPregunta">🐱🚀 busca el planeta número <b>7</b></p>
-      <div class="linea-numerica" id="lineaNumerica"></div>
-    </div>
-    <div class="feedback" id="rectaFeedback"></div>
-    <button class="btn btn-teal" id="btnSiguienteRecta" style="display:none;" onclick="siguienteRecta()">Siguiente ➡️</button>
-  </div>
-
-  <!-- PRACTICAR MAS (generar ejercicios nuevos al instante) -->
-  <div class="screen" id="screen-mas-ejercicios">
-    <div class="mascota">🔄🐱🚀</div>
-    <h1>¿Qué quieres practicar más?</h1>
-    <p class="lead">Elige una misión y te genero 10 ejercicios nuevos al instante</p>
-    <button class="btn btn-rosa" onclick="practicarMas('sumas')">➕ Más sumas</button><br>
-    <button class="btn btn-naranja" onclick="practicarMas('restas')">➖ Más restas</button><br>
-    <button class="btn btn-azul" onclick="practicarMas('comparar')">🔢 Más mayor y menor</button><br>
-    <button class="btn btn-teal" onclick="practicarMas('negativos')">🌡️ Más negativos</button><br>
-    <button class="btn btn-morado" onclick="practicarMas('recta')">🎯 Más recta numérica</button><br>
-    <button class="btn btn-azul btn-grande" onclick="mostrarPantalla('screen-final')">⬅️ Volver al resultado</button>
-  </div>
-
-  <!-- FINAL -->
-  <div class="screen" id="screen-final">
-    <div class="final-emoji">🎉🐱🚀🏆</div>
-    <h1>¡Excelente trabajo!</h1>
-    <div class="final-score" id="finalPuntaje">30 de 30 estrellas ⭐</div>
-    <div class="final-pct" id="finalPorcentaje">100%</div>
-    <div class="motivacion" id="finalBonus" style="display:none; font-size:1.1em; color:var(--morado); font-weight:bold;"></div>
-    <p class="motivacion" id="finalMotivacion">¡Eres un verdadero astronauta matemático! 🚀</p>
-    <button class="btn btn-teal btn-grande" onclick="mostrarPantalla('screen-mas-ejercicios')">🔄 Generar más ejercicios</button>
-    <button class="btn btn-morado btn-grande" onclick="reiniciarTodo()">🔁 Volver a jugar</button>
+  <!-- MASCOTA -->
+  <div id="mascot-wrap">
+    <div id="speech"></div>
+    <div id="mascot">🦉</div>
   </div>
 
 </div>
 
-<div id="confetti-container"></div>
-
 <script>
-/* ============ FONDO ESPACIAL: ESTRELLAS Y PLANETAS ============ */
-(function crearFondo(){
-  const starsBg = document.getElementById('stars-bg');
-  for(let i=0;i<70;i++){
-    const s = document.createElement('div');
-    s.className='star';
-    const size = Math.random()*3+1;
-    s.style.width = size+'px';
-    s.style.height = size+'px';
-    s.style.left = Math.random()*100+'%';
-    s.style.top = Math.random()*100+'%';
-    s.style.animationDelay = (Math.random()*2.5)+'s';
-    starsBg.appendChild(s);
-  }
-  const planetas = [
-    {emoji:null, color:'radial-gradient(circle at 30% 30%, #ff8c42, #a83e00)', size:70, top:'8%', left:'6%'},
-    {emoji:null, color:'radial-gradient(circle at 30% 30%, #2de1c2, #0a6e5f)', size:50, top:'70%', left:'85%'},
-    {emoji:null, color:'radial-gradient(circle at 30% 30%, #ff5e9c, #8a0f45)', size:40, top:'80%', left:'8%'},
-    {emoji:null, color:'radial-gradient(circle at 30% 30%, #7b2ff7, #2c0a5e)', size:60, top:'12%', left:'88%'}
-  ];
-  planetas.forEach((p,idx)=>{
-    const d = document.createElement('div');
-    d.className='planet';
-    d.style.width=p.size+'px'; d.style.height=p.size+'px';
-    d.style.top=p.top; d.style.left=p.left;
-    d.style.background=p.color;
-    d.style.animationDelay=(idx*1.3)+'s';
-    document.body.appendChild(d);
-  });
-})();
+/* ============================================================================
+   CLASE 2 — FRACCIONES Y DIVISIONES
+   Aplicación educativa 100% offline (HTML + CSS + JS puro)
+   Organización del script:
+     1. Utilidades generales (aleatorios, mezcla, confeti, estrellas)
+     2. Sonidos generados con Web Audio API
+     3. Mascota y globos de diálogo
+     4. Navegación entre pantallas
+     5. Contenido de diapositivas (Fracciones y Divisiones)
+     6. Generadores de ejercicios (Fracciones y Divisiones)
+     7. Motor de ejercicios / examen
+     8. Flujo de "Clase" y flujo de "Práctica"
+     9. Pantalla de resultados
+   ========================================================================== */
 
-/* ============ SONIDOS CON WEB AUDIO API ============ */
-let audioCtx = null;
-function getCtx(){
-  if(!audioCtx){ audioCtx = new (window.AudioContext||window.webkitAudioContext)(); }
-  return audioCtx;
+/* ---------------------------------------------------------------------------
+   1. UTILIDADES GENERALES
+--------------------------------------------------------------------------- */
+function rnd(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
+function pick(arr){ return arr[rnd(0,arr.length-1)]; }
+function shuffle(arr){
+  const a=arr.slice();
+  for(let i=a.length-1;i>0;i--){ const j=rnd(0,i); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
 }
-function playTone(freq, duration=0.15, type='sine', when=0, vol=0.2){
-  try{
-    const ctx = getCtx();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.type = type;
-    osc.frequency.value = freq;
-    gain.gain.setValueAtTime(vol, ctx.currentTime + when);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + when + duration);
-    osc.connect(gain); gain.connect(ctx.destination);
-    osc.start(ctx.currentTime + when);
-    osc.stop(ctx.currentTime + when + duration + 0.02);
-  }catch(e){}
-}
-function sonidoClick(){ playTone(500, 0.06, 'square', 0, 0.08); }
-function sonidoCorrecto(){
-  playTone(523.25, 0.12, 'sine', 0);
-  playTone(659.25, 0.12, 'sine', 0.12);
-  playTone(783.99, 0.18, 'sine', 0.24);
-}
-function sonidoIncorrecto(){
-  playTone(200, 0.25, 'sawtooth', 0, 0.15);
-  playTone(150, 0.3, 'sawtooth', 0.1, 0.12);
-}
-function sonidoFanfarria(){
-  const notas = [523.25,523.25,523.25,659.25,783.99,880,1046.5];
-  notas.forEach((n,i)=> playTone(n, 0.2, 'triangle', i*0.15, 0.18));
-}
+function gcd(a,b){ return b===0?a:gcd(b,a%b); }
 
-/* ============ CONFETI ============ */
-function lanzarConfeti(){
-  const colores = ['#ff5e9c','#ffd23f','#2de1c2','#ff8c42','#7b2ff7','#3a86ff'];
-  const cont = document.getElementById('confetti-container');
-  for(let i=0;i<45;i++){
-    const pieza = document.createElement('div');
-    pieza.className='confetti-piece';
-    pieza.style.left = Math.random()*100+'%';
-    pieza.style.background = colores[Math.floor(Math.random()*colores.length)];
-    pieza.style.borderRadius = Math.random()>0.5 ? '50%' : '3px';
-    const duracion = 1.8 + Math.random()*1.4;
-    const rotacion = Math.random()*720 - 360;
-    pieza.animate([
-      { transform:`translateY(0) rotate(0deg)`, opacity:1 },
-      { transform:`translateY(100vh) rotate(${rotacion}deg)`, opacity:0.9 }
-    ], { duration: duracion*1000, easing:'ease-in' });
-    cont.appendChild(pieza);
-    setTimeout(()=>pieza.remove(), duracion*1000+100);
+const COLORS_CONFETTI=['#FF6FA5','#FFD23F','#3CCB7F','#3EC6FF','#FF8C42','#B48CF2'];
+
+function launchConfetti(n){
+  n = n||40;
+  const layer=document.getElementById('confetti-layer');
+  for(let i=0;i<n;i++){
+    const p=document.createElement('div');
+    p.className='confetti-piece';
+    p.style.left = rnd(0,100)+'vw';
+    p.style.background = pick(COLORS_CONFETTI);
+    p.style.animationDuration = (rnd(22,38)/10)+'s';
+    p.style.borderRadius = Math.random()>0.5 ? '50%' : '3px';
+    layer.appendChild(p);
+    setTimeout(()=>p.remove(), 4200);
   }
 }
 
-/* ============ NAVEGACION DE PANTALLAS ============ */
-function mostrarPantalla(id){
+function starBurstAt(x,y,count){
+  count = count||8;
+  const layer=document.getElementById('confetti-layer');
+  for(let i=0;i<count;i++){
+    const s=document.createElement('div');
+    s.className='star-burst';
+    s.textContent = pick(['⭐','✨','🌟']);
+    s.style.left = x+'px';
+    s.style.top = y+'px';
+    const ang = Math.random()*Math.PI*2;
+    const dist = rnd(40,110);
+    s.style.setProperty('--sx', Math.cos(ang)*dist+'px');
+    s.style.setProperty('--sy', Math.sin(ang)*dist+'px');
+    layer.appendChild(s);
+    setTimeout(()=>s.remove(), 850);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   2. SONIDOS (Web Audio API — sin archivos externos)
+--------------------------------------------------------------------------- */
+let audioCtx=null;
+function ensureAudio(){
+  if(!audioCtx){
+    audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+  }
+  if(audioCtx.state==='suspended') audioCtx.resume();
+}
+function playTone(freq, duration, type, delay, vol){
+  ensureAudio();
+  type = type||'sine'; delay = delay||0; vol = vol===undefined?0.2:vol;
+  const t = audioCtx.currentTime + delay;
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = type;
+  osc.frequency.setValueAtTime(freq, t);
+  gain.gain.setValueAtTime(vol, t);
+  gain.gain.exponentialRampToValueAtTime(0.001, t+duration);
+  osc.connect(gain); gain.connect(audioCtx.destination);
+  osc.start(t); osc.stop(t+duration+0.02);
+}
+function playClick(){ playTone(520,0.08,'triangle',0,0.15); }
+function playCorrect(){
+  playTone(523.25,0.14,'sine',0, 0.22);
+  playTone(659.25,0.14,'sine',0.1, 0.22);
+  playTone(783.99,0.22,'sine',0.2, 0.24);
+}
+function playWrong(){
+  playTone(220,0.22,'sawtooth',0,0.16);
+  playTone(160,0.28,'sawtooth',0.12,0.16);
+}
+function playFanfare(){
+  const notes=[523.25,659.25,783.99,1046.5];
+  notes.forEach((f,i)=>playTone(f,0.3,'square',i*0.15,0.15));
+}
+function playWhoosh(){ playTone(300,0.15,'sine',0,0.1); playTone(500,0.15,'sine',0.05,0.1); }
+
+/* ---------------------------------------------------------------------------
+   3. MASCOTA
+--------------------------------------------------------------------------- */
+const MSG_BIENVENIDA = ["¡Hola! Soy Numi 🦉","¿Listo para aprender? 🚀","¡Vamos a jugar con números!"];
+const MSG_CORRECTO = ["¡Genial! 🎉","¡Excelente! ⭐","¡Lo lograste! 💪","¡Súper bien! 🌟","¡Sigue así, campeón! 🚀","¡Increíble! 🥳"];
+const MSG_INCORRECTO = ["¡Casi! Sigamos 💡","No pasa nada, aprendemos 😊","¡Tú puedes! Vamos de nuevo 💪","Revisemos juntos 🔍"];
+
+function mascotSay(text){
+  const bubble = document.getElementById('speech');
+  bubble.textContent = text;
+  bubble.classList.remove('show');
+  void bubble.offsetWidth; // reinicia animación
+  bubble.classList.add('show');
+  clearTimeout(mascotSay._t);
+  mascotSay._t = setTimeout(()=>bubble.classList.remove('show'), 3200);
+}
+mascotSay(pick(MSG_BIENVENIDA));
+
+/* ---------------------------------------------------------------------------
+   4. NAVEGACIÓN ENTRE PANTALLAS
+--------------------------------------------------------------------------- */
+function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
+  document.getElementById('topbar').classList.toggle('show', id!=='screen-home');
 }
-
-/* ============ SLIDES DE BIENVENIDA ============ */
-let slideActual = 0;
-const TOTAL_SLIDES = 3;
-function cambiarSlide(direccion){
-  sonidoClick();
-  slideActual += direccion;
-  if(slideActual < 0) slideActual = 0;
-  if(slideActual > TOTAL_SLIDES-1) slideActual = TOTAL_SLIDES-1;
-  for(let i=0;i<TOTAL_SLIDES;i++){
-    document.getElementById('slide'+i).classList.toggle('activo', i===slideActual);
-    document.getElementById('dot'+i).classList.toggle('activo', i===slideActual);
-  }
-  document.getElementById('btnAnteriorSlide').style.visibility = slideActual===0 ? 'hidden' : 'visible';
-  document.getElementById('btnSiguienteSlide').style.display = slideActual===TOTAL_SLIDES-1 ? 'none' : 'inline-block';
+function goHome(){
+  playClick();
+  showScreen('screen-home');
+  document.getElementById('hud-stats').innerHTML='';
+  document.getElementById('progress-bar').style.width='0%';
+  mascotSay(pick(MSG_BIENVENIDA));
 }
-
-/* ============ ESTADO GLOBAL ============ */
-let timerActivado = false;
-let estrellasTotales = 0;
-const TOTAL_EJERCICIOS_MODULO = 10;
-
-let modulo = { nombre:null, ejercicios:[], indice:0, correctas:0 };
-let comp = { ejercicios:[], indice:0, correctas:0 };
-let pantallaRetorno = null; // si está activo, al terminar la ronda regresamos aquí en vez de seguir la secuencia normal
-
-function practicarMas(tipo){
-  sonidoClick();
-  pantallaRetorno = 'screen-mas-ejercicios';
-  if(tipo === 'sumas' || tipo === 'restas'){ empezarModulo(tipo); }
-  else if(tipo === 'comparar'){ empezarModulo('comparar'); }
-  else if(tipo === 'negativos'){ empezarBonusNegativos(); }
-  else if(tipo === 'recta'){ empezarBonusRecta(); }
+function setProgress(pct){
+  document.getElementById('progress-bar').style.width = Math.min(100,pct)+'%';
 }
+function setHud(html){ document.getElementById('hud-stats').innerHTML = html; }
 
-function terminarRondaPractica(correctas, total){
-  const destino = pantallaRetorno || 'screen-mas-ejercicios';
-  pantallaRetorno = null;
-  document.getElementById('moduloCompletoEmoji').textContent = '🎉⭐';
-  document.getElementById('moduloCompletoTitulo').textContent = '¡Ronda completada!';
-  document.getElementById('moduloCompletoTexto').textContent = `Conseguiste ${correctas} de ${total} estrellas. ¿Quieres practicar algo más?`;
-  const btn = document.getElementById('btnSiguienteModulo');
-  btn.textContent = '🔄 Elegir otra práctica';
-  btn.onclick = ()=>{ sonidoClick(); mostrarPantalla(destino); };
-  mostrarPantalla('screen-modulo-completo');
+/* ---------------------------------------------------------------------------
+   5. CONTENIDO DE DIAPOSITIVAS
+--------------------------------------------------------------------------- */
+// ---- Fracciones (5 diapositivas) ----
+const SLIDES_FRACCIONES = [
+{
+  title:"¿Qué es una fracción? 🍕",
+  sub:"¡Es una forma de repartir algo en partes iguales!",
+  visual:`<div class="pie" style="background:conic-gradient(#FF6FA5 0deg 90deg, #ddd 90deg 180deg, #eee 180deg 270deg, #ddd 270deg 360deg);"></div>
+          <div style="max-width:220px;text-align:left;font-weight:700;">Esta pizza 🍕 se dividió en <b>4 partes iguales</b>. ¡Comimos 1 parte!</div>`,
+  extra:`<p class="slide-sub">Una fracción representa <b>una parte de un todo</b>, cuando algo se divide en partes iguales.</p>`
+},
+{
+  title:"Numerador y denominador",
+  sub:"Toda fracción tiene dos números mágicos ✨",
+  visual:`<div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <div style="font-size:60px;font-weight:900;color:var(--rosa);">3</div>
+            <div style="width:70px;height:6px;background:var(--morado);border-radius:3px;"></div>
+            <div style="font-size:60px;font-weight:900;color:var(--azul);">4</div>
+          </div>
+          <div style="text-align:left;display:flex;flex-direction:column;gap:14px;max-width:260px;">
+            <div class="label-tag" style="background:var(--rosa);">☝️ Numerador: partes que tomamos</div>
+            <div class="label-tag" style="background:var(--azul);">👇 Denominador: partes totales</div>
+          </div>`,
+  extra:``
+},
+{
+  title:"¿Cómo se leen las fracciones? 🔊",
+  sub:"¡Cada fracción tiene un nombre especial!",
+  visual:`<div style="display:flex;flex-direction:column;gap:10px;width:100%;max-width:320px;">
+            <div class="mini-reto" style="display:flex;justify-content:space-between;"><b>1/2</b><span>mitad</span></div>
+            <div class="mini-reto" style="display:flex;justify-content:space-between;"><b>1/3</b><span>un tercio</span></div>
+            <div class="mini-reto" style="display:flex;justify-content:space-between;"><b>1/4</b><span>un cuarto</span></div>
+            <div class="mini-reto" style="display:flex;justify-content:space-between;"><b>2/3</b><span>dos tercios</span></div>
+          </div>`,
+  extra:``
+},
+{
+  title:"Ejemplos de todos los días 🍫🎂",
+  sub:"¡Las fracciones están por todas partes!",
+  visual:`<div style="display:flex;gap:22px;flex-wrap:wrap;justify-content:center;">
+            <div style="text-align:center;">
+              <div class="pie" style="width:100px;height:100px;background:conic-gradient(#FF8C42 0deg 45deg,#eee 45deg 90deg,#ddd 90deg 135deg,#eee 135deg 180deg,#ddd 180deg 225deg,#eee 225deg 270deg,#ddd 270deg 315deg,#eee 315deg 360deg);"></div>
+              <div style="font-weight:800;margin-top:6px;">🍕 1/8</div>
+            </div>
+            <div style="text-align:center;">
+              <div class="pie" style="width:100px;height:100px;background:conic-gradient(#FF6FA5 0deg 135deg,#e9d8ff 135deg 360deg);"></div>
+              <div style="font-weight:800;margin-top:6px;">🎂 3/8</div>
+            </div>
+            <div style="text-align:center;">
+              <div class="bar-row">
+                <div class="bar-box" style="background:#6b3f1d;"></div>
+                <div class="bar-box" style="background:#6b3f1d;"></div>
+                <div class="bar-box" style="background:#e6d3c1;"></div>
+                <div class="bar-box" style="background:#e6d3c1;"></div>
+                <div class="bar-box" style="background:#e6d3c1;"></div>
+                <div class="bar-box" style="background:#e6d3c1;"></div>
+              </div>
+              <div style="font-weight:800;margin-top:6px;">🍫 2/6</div>
+            </div>
+          </div>`,
+  extra:``
+},
+{
+  title:"¡Resumen! 🎉",
+  sub:"Ya sabes lo esencial de las fracciones",
+  visual:`<div style="text-align:left;max-width:340px;font-weight:700;line-height:2;">
+            ✅ Una fracción = parte de un todo<br>
+            ✅ Arriba: numerador (partes tomadas)<br>
+            ✅ Abajo: denominador (partes totales)<br>
+            ✅ ¡Se leen con nombres especiales!
+          </div>`,
+  extra:`<div class="mini-reto">
+            <b>Mini reto 🎯:</b> En la fracción 5/8, ¿cuál es el denominador?
+            <div class="mini-reto-opts">
+              <button class="mini-opt" onclick="miniCheck(this,false)">5</button>
+              <button class="mini-opt" onclick="miniCheck(this,true)">8</button>
+            </div>
+            <div class="mini-feedback" id="mini-feedback"></div>
+          </div>`
 }
+];
 
-let respuestaActual = '';
-let timerInterval = null;
-const TIEMPO_LIMITE = 20;
-
-/* ============ INICIO ============ */
-function iniciarAventura(){
-  sonidoClick();
-  timerActivado = document.getElementById('timerToggle').checked;
-  estrellasTotales = 0;
-  mostrarPantalla('screen-intro-sumas');
+// ---- Divisiones (5 diapositivas) ----
+const SLIDES_DIVISIONES = [
+{
+  title:"¿Qué es dividir? ➗",
+  sub:"¡Es repartir en partes iguales!",
+  visual:`<div style="display:flex;gap:18px;">
+            <div style="display:flex;flex-wrap:wrap;width:60px;gap:4px;">⭐⭐⭐⭐</div>
+            <div style="display:flex;flex-wrap:wrap;width:60px;gap:4px;">⭐⭐⭐⭐</div>
+            <div style="display:flex;flex-wrap:wrap;width:60px;gap:4px;">⭐⭐⭐⭐</div>
+          </div>
+          <div style="max-width:260px;text-align:left;font-weight:700;">Repartimos <b>12 estrellas</b> en <b>3 grupos</b> iguales. ¡Cada grupo tiene 4!</div>`,
+  extra:`<p class="slide-sub">Dividir es repartir una cantidad en <b>partes iguales</b>.</p>`
+},
+{
+  title:"Partes de una división",
+  sub:"12 ÷ 3 = 4",
+  visual:`<div style="display:flex;align-items:center;gap:10px;font-size:40px;font-weight:900;color:var(--morado);">
+            <span style="color:var(--rosa);">12</span><span>÷</span><span style="color:var(--azul);">3</span><span>=</span><span style="color:var(--verde);">4</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;max-width:280px;text-align:left;">
+            <div class="label-tag" style="background:var(--rosa);">Dividendo: total a repartir (12)</div>
+            <div class="label-tag" style="background:var(--azul);">Divisor: en cuántos grupos (3)</div>
+            <div class="label-tag" style="background:var(--verde);">Cociente: cuánto le toca a cada uno (4)</div>
+          </div>`,
+  extra:``
+},
+{
+  title:"Ejemplos sencillos 🍬",
+  sub:"¡Repartamos caramelos y juguetes!",
+  visual:`<div style="display:flex;flex-direction:column;gap:10px;max-width:320px;">
+            <div class="mini-reto" style="display:flex;justify-content:space-between;">🍬 10 caramelos ÷ 2 amigos <b>= 5</b></div>
+            <div class="mini-reto" style="display:flex;justify-content:space-between;">🧸 8 juguetes ÷ 4 niños <b>= 2</b></div>
+            <div class="mini-reto" style="display:flex;justify-content:space-between;">🍪 9 galletas ÷ 3 amigas <b>= 3</b></div>
+          </div>`,
+  extra:``
+},
+{
+  title:"Trucos para dividir 💡",
+  sub:"¡Atajos que te harán un experto!",
+  visual:`<div style="text-align:left;max-width:340px;font-weight:700;line-height:2;">
+            🔟 Dividir entre 10 = quita un cero (30÷10=3)<br>
+            ✖️ Piensa en la tabla de multiplicar al revés<br>
+            🎲 Reparte de 1 en 1, como en un juego, y cuenta<br>
+            🔁 Divisor × Cociente = Dividendo (¡compruébalo!)
+          </div>`,
+  extra:``
+},
+{
+  title:"¡Resumen! 🎉",
+  sub:"Ya sabes lo esencial de las divisiones",
+  visual:`<div style="text-align:left;max-width:340px;font-weight:700;line-height:2;">
+            ✅ Dividir = repartir en partes iguales<br>
+            ✅ Dividendo ÷ Divisor = Cociente<br>
+            ✅ Comprueba con la multiplicación<br>
+            ✅ ¡Ya puedes resolver divisiones!
+          </div>`,
+  extra:`<div class="mini-reto">
+            <b>Mini reto 🎯:</b> Si 20 ÷ 5 = 4, ¿cuánto es 4 × 5?
+            <div class="mini-reto-opts">
+              <button class="mini-opt" onclick="miniCheck(this,true)">20</button>
+              <button class="mini-opt" onclick="miniCheck(this,false)">16</button>
+            </div>
+            <div class="mini-feedback" id="mini-feedback"></div>
+          </div>`
 }
+];
 
-/* ============ GENERADORES DE EJERCICIOS ============ */
-function generarSumas(){
-  const usados = new Set();
-  const lista = [];
-  while(lista.length < TOTAL_EJERCICIOS_MODULO){
-    const a = Math.floor(Math.random()*9)+1;
-    const b = Math.floor(Math.random()*9)+1;
-    const clave = a+'+'+b;
-    if(usados.has(clave)) continue;
-    usados.add(clave);
-    lista.push({a, b, resultado: a+b, tipo:'suma'});
-  }
-  return lista;
-}
-function generarRestas(){
-  const usados = new Set();
-  const lista = [];
-  while(lista.length < TOTAL_EJERCICIOS_MODULO){
-    const a = Math.floor(Math.random()*17)+2; // 2..18
-    const b = Math.floor(Math.random()*(a+1)); // 0..a (nunca negativo)
-    const clave = a+'-'+b;
-    if(usados.has(clave)) continue;
-    usados.add(clave);
-    lista.push({a, b, resultado: a-b, tipo:'resta'});
-  }
-  return lista;
-}
-function generarComparaciones(){
-  const usados = new Set();
-  const lista = [];
-  while(lista.length < TOTAL_EJERCICIOS_MODULO){
-    let a = Math.floor(Math.random()*20)+1;
-    let b = Math.floor(Math.random()*20)+1;
-    if(Math.random()<0.2) b = a; // a veces iguales
-    const clave = a+'_'+b;
-    const claveInv = b+'_'+a;
-    if(usados.has(clave) || usados.has(claveInv)) continue;
-    usados.add(clave);
-    let simbolo = a>b ? '>' : (a<b ? '<' : '=');
-    lista.push({a, b, simbolo});
-  }
-  return lista;
-}
-
-/* ============ INICIAR MODULO (sumas / restas) ============ */
-function empezarModulo(nombre){
-  sonidoClick();
-  modulo.nombre = nombre;
-  modulo.indice = 0;
-  modulo.correctas = 0;
-  modulo.ejercicios = nombre === 'sumas' ? generarSumas() : (nombre === 'restas' ? generarRestas() : null);
-
-  if(nombre === 'comparar'){
-    comp.indice = 0;
-    comp.correctas = 0;
-    comp.ejercicios = generarComparaciones();
-    mostrarPantalla('screen-play-comparar');
-    renderComparacion();
-    return;
-  }
-
-  document.getElementById('playTitulo').textContent = nombre==='sumas' ? '➕ Sumas' : '➖ Restas';
-  mostrarPantalla('screen-play');
-  renderEjercicio();
-}
-
-/* ============ ANIMACION DE CANASTA (manzanas/gatos) ============ */
-function animarCanasta(a, b, tipo, contenedorId, onDone){
-  const cont = document.getElementById(contenedorId);
-  cont.innerHTML='';
-  const emoji = Math.random()<0.5 ? '🍎' : '🐱';
-  const canastaIcono = document.createElement('div');
-  canastaIcono.className='canasta-icono';
-  canastaIcono.textContent='🧺';
-  const zona = document.createElement('div');
-  zona.className='canasta-items';
-  cont.appendChild(zona);
-  cont.appendChild(canastaIcono);
-
-  let delay = 0;
-  for(let i=0;i<a;i++){
-    setTimeout(()=>{
-      const it = document.createElement('span');
-      it.className='canasta-item aparece';
-      it.textContent = emoji;
-      zona.appendChild(it);
-      sonidoClick();
-    }, delay);
-    delay += 650;
-  }
-  delay += 900;
-
-  if(tipo === 'suma'){
-    for(let i=0;i<b;i++){
-      setTimeout(()=>{
-        const it = document.createElement('span');
-        it.className='canasta-item nuevo';
-        it.textContent = emoji;
-        zona.appendChild(it);
-        sonidoClick();
-      }, delay);
-      delay += 650;
-    }
+function miniCheck(btn, isCorrect){
+  const fb = document.getElementById('mini-feedback');
+  if(isCorrect){
+    playCorrect();
+    fb.style.color = '#1f7a49';
+    fb.textContent = '¡Correcto! 🎉 ' + pick(MSG_CORRECTO);
+    const r = btn.getBoundingClientRect();
+    starBurstAt(r.left+r.width/2, r.top, 10);
   } else {
-    for(let i=0;i<b;i++){
-      setTimeout(()=>{
-        const items = zona.querySelectorAll('.canasta-item:not(.se-va)');
-        const ultimo = items[items.length-1];
-        if(ultimo){
-          ultimo.classList.add('se-va');
-          sonidoClick();
-        }
-      }, delay);
-      delay += 700;
-    }
+    playWrong();
+    fb.style.color = '#a13438';
+    fb.textContent = 'Casi... ¡inténtalo otra vez! 💡';
   }
-  delay += 900;
-  setTimeout(()=>{ if(onDone) onDone(); }, delay);
 }
 
-/* ============ RENDER EJERCICIO SUMA/RESTA ============ */
-function renderEjercicio(){
-  const ej = modulo.ejercicios[modulo.indice];
-  const op = ej.tipo === 'suma' ? '+' : '−';
-  document.getElementById('playCuenta').innerHTML = `${ej.a} <span class="op">${op}</span> ${ej.b} = ?`;
-  document.getElementById('playProgreso').style.width = (modulo.indice/TOTAL_EJERCICIOS_MODULO*100)+'%';
-  document.getElementById('playPuntos').textContent = modulo.correctas;
-  respuestaActual = '';
-  actualizarDisplay();
-  const feedback = document.getElementById('playFeedback');
-  feedback.className='feedback';
-  feedback.textContent='';
-  document.getElementById('btnSiguiente').style.display='none';
-  habilitarTeclado(false);
-  clearInterval(timerInterval);
-  document.getElementById('timerWrap').style.display='none';
-  animarCanasta(ej.a, ej.b, ej.tipo, 'canastaEscena', ()=>{
-    habilitarTeclado(true);
-    iniciarTimerSiCorresponde();
+/* ---- Estado y motor de diapositivas ---- */
+let slideState = { list:[], index:0, onFinish:null };
+
+function openSlides(list, onFinish){
+  slideState = { list, index:0, onFinish };
+  showScreen('screen-slides');
+  renderSlide();
+}
+function renderSlide(){
+  const s = slideState.list[slideState.index];
+  const card = document.getElementById('slide-card');
+  card.innerHTML = `
+    <div class="pill">Diapositiva ${slideState.index+1} / ${slideState.list.length}</div>
+    <h2 class="slide-title">${s.title}</h2>
+    <p class="slide-sub">${s.sub}</p>
+    <div class="slide-visual">${s.visual}</div>
+    ${s.extra||''}
+  `;
+  // puntos
+  const dotsWrap = document.getElementById('slide-dots');
+  dotsWrap.innerHTML = slideState.list.map((_,i)=>`<div class="dot ${i===slideState.index?'active':''}"></div>`).join('');
+  document.getElementById('slide-prev').disabled = slideState.index===0;
+  const last = slideState.index === slideState.list.length-1;
+  document.getElementById('slide-next').textContent = last ? '¡Empezar ejercicios! 🚀' : 'Siguiente ➡️';
+  setProgress( (slideState.index+1)/slideState.list.length*100 );
+}
+function nextSlide(){
+  playClick();
+  if(slideState.index < slideState.list.length-1){
+    slideState.index++;
+    renderSlide();
+  } else {
+    slideState.onFinish();
+  }
+}
+function prevSlide(){
+  playClick();
+  if(slideState.index>0){ slideState.index--; renderSlide(); }
+}
+
+/* ---------------------------------------------------------------------------
+   6. GENERADORES DE EJERCICIOS
+--------------------------------------------------------------------------- */
+// Colores para las visualizaciones de fracciones
+const SHADE_COLORS = ['#FF6FA5','#FF8FB8'];
+const GRAY_COLORS = ['#E4E4E4','#F2F2F2'];
+
+function makePieHTML(total, shaded, size){
+  size = size || 130;
+  let stops = [];
+  let acc = 0;
+  const step = 360/total;
+  for(let i=0;i<total;i++){
+    const color = i<shaded ? SHADE_COLORS[i%2] : GRAY_COLORS[i%2];
+    stops.push(`${color} ${acc}deg ${acc+step}deg`);
+    acc += step;
+  }
+  return `<div class="pie" style="width:${size}px;height:${size}px;background:conic-gradient(${stops.join(',')});"></div>`;
+}
+function makeBarHTML(total, shaded){
+  let boxes = '';
+  for(let i=0;i<total;i++){
+    const color = i<shaded ? SHADE_COLORS[i%2] : GRAY_COLORS[i%2];
+    boxes += `<div class="bar-box" style="background:${color};"></div>`;
+  }
+  return `<div class="bar-row">${boxes}</div>`;
+}
+
+function fractionOptionsFrom(correctStr, denomPool){
+  // genera 3 distractores distintos con formato "n/d"
+  const opts = new Set([correctStr]);
+  let guard=0;
+  while(opts.size<4 && guard<50){
+    guard++;
+    const d = pick(denomPool);
+    const n = rnd(1, d-1);
+    opts.add(`${n}/${d}`);
+  }
+  return shuffle([...opts]);
+}
+
+// -------- FRACCIONES: generador de una pregunta --------
+function genFractionQuestion(usedKeys){
+  const types = ['pie','bar','numden','read','compare','equiv','word'];
+  let attempt=0;
+  while(attempt<40){
+    attempt++;
+    const type = pick(types);
+    let q = null;
+
+    if(type==='pie' || type==='bar'){
+      const total = pick([3,4,5,6,8]);
+      const shaded = rnd(1, total-1);
+      const key = `${type}-${total}-${shaded}`;
+      if(usedKeys.has(key)) continue;
+      const correct = `${shaded}/${total}`;
+      const visual = type==='pie' ? makePieHTML(total,shaded) : makeBarHTML(total,shaded);
+      q = {
+        key, text:'¿Qué fracción está coloreada? 🎨',
+        visualHTML: visual,
+        options: fractionOptionsFrom(correct, [3,4,5,6,8]),
+        answer: correct,
+        explain: `La figura tiene ${total} partes iguales y ${shaded} están coloreadas, por eso es ${correct}.`
+      };
+    }
+    else if(type==='numden'){
+      const d = rnd(3,10); const n = rnd(1,d-1);
+      const askNum = Math.random()>0.5;
+      const key = `numden-${n}-${d}-${askNum}`;
+      if(usedKeys.has(key)) continue;
+      const correct = askNum? n : d;
+      const opts = new Set([correct]);
+      while(opts.size<4) opts.add(rnd(1, Math.max(d+3,10)));
+      q = {
+        key, text:`En la fracción ${n}/${d}, ¿cuál es el ${askNum?'numerador':'denominador'}?`,
+        visualHTML:`<div style="font-size:44px;font-weight:900;color:var(--morado);">${n}/${d}</div>`,
+        options: shuffle([...opts].map(String)),
+        answer:String(correct),
+        explain: askNum ? `El numerador es el número de arriba: ${n}.` : `El denominador es el número de abajo: ${d}.`
+      };
+    }
+    else if(type==='read'){
+      const table = [[1,2,'un medio'],[1,3,'un tercio'],[1,4,'un cuarto'],[2,3,'dos tercios'],[3,4,'tres cuartos'],[1,5,'un quinto'],[2,5,'dos quintos']];
+      const [n,d,word] = pick(table);
+      const key = `read-${n}-${d}`;
+      if(usedKeys.has(key)) continue;
+      const distractWords = table.filter(t=>t[2]!==word).map(t=>t[2]);
+      const opts = new Set([word]);
+      while(opts.size<4) opts.add(pick(distractWords));
+      q = {
+        key, text:`¿Cómo se lee la fracción ${n}/${d}?`,
+        visualHTML: makePieHTML(d,n,110),
+        options: shuffle([...opts]),
+        answer: word,
+        explain:`${n}/${d} se lee "${word}".`
+      };
+    }
+    else if(type==='compare'){
+      const d = pick([4,5,6,8]);
+      let a = rnd(1,d-1), b = rnd(1,d-1);
+      while(a===b){ b = rnd(1,d-1); }
+      const key = `compare-${d}-${a}-${b}`;
+      if(usedKeys.has(key)) continue;
+      const bigger = a>b ? `${a}/${d}` : `${b}/${d}`;
+      q = {
+        key, text:`¿Cuál fracción es mayor?`,
+        visualHTML:`<div style="display:flex;gap:24px;">${makePieHTML(d,a,100)}${makePieHTML(d,b,100)}</div>`,
+        options: shuffle([`${a}/${d}`,`${b}/${d}`, `${d}/${d}`, `1/${d}`].filter((v,i,arr)=>arr.indexOf(v)===i).slice(0,4)),
+        answer: bigger,
+        explain:`Con el mismo total (${d}), gana la que tiene más partes coloreadas: ${bigger}.`
+      };
+    }
+    else if(type==='equiv'){
+      const base = pick([[1,2],[1,3],[1,4],[2,3]]);
+      const mult = rnd(2,4);
+      const correct = `${base[0]*mult}/${base[1]*mult}`;
+      const key = `equiv-${base[0]}-${base[1]}-${mult}`;
+      if(usedKeys.has(key)) continue;
+      const opts = new Set([correct]);
+      while(opts.size<4){
+        const fm = rnd(2,5);
+        const dd = base[1]*fm + rnd(-1,1);
+        const nn = base[0]*fm;
+        if(dd>0 && nn>0 && nn!==dd) opts.add(`${nn}/${dd}`);
+      }
+      q = {
+        key, text:`¿Qué fracción es equivalente a ${base[0]}/${base[1]}?`,
+        visualHTML: makePieHTML(base[1],base[0],110),
+        options: shuffle([...opts]),
+        answer: correct,
+        explain:`Multiplicando arriba y abajo por ${mult}: ${base[0]}×${mult}/${base[1]}×${mult} = ${correct}.`
+      };
+    }
+    else if(type==='word'){
+      const themes = [
+        {obj:'pizza',emoji:'🍕'}, {obj:'pastel',emoji:'🎂'}, {obj:'chocolate',emoji:'🍫'}
+      ];
+      const th = pick(themes);
+      const total = pick([4,6,8]);
+      const eaten = rnd(1,total-1);
+      const key = `word-${th.obj}-${total}-${eaten}`;
+      if(usedKeys.has(key)) continue;
+      const correct = `${eaten}/${total}`;
+      q = {
+        key, text:`Tu ${th.obj} ${th.emoji} tiene ${total} partes iguales y te comiste ${eaten}. ¿Qué fracción comiste?`,
+        visualHTML: makePieHTML(total,eaten,120),
+        options: fractionOptionsFrom(correct,[3,4,5,6,8]),
+        answer: correct,
+        explain:`Comiste ${eaten} de ${total} partes: ${correct}.`
+      };
+    }
+
+    if(q){ usedKeys.add(q.key); return q; }
+  }
+  // fallback (muy improbable)
+  const total=4, shaded=rnd(1,3);
+  return { key:`fallback-${Date.now()}-${Math.random()}`, text:'¿Qué fracción está coloreada?', visualHTML:makePieHTML(total,shaded), options:fractionOptionsFrom(`${shaded}/${total}`,[3,4,5,6]), answer:`${shaded}/${total}`, explain:'Cuenta las partes coloreadas sobre el total.' };
+}
+
+// -------- DIVISIONES: generador de una pregunta --------
+function genDivisionQuestion(usedKeys){
+  const types = ['basic','word','multrelation','byten','choose'];
+  let attempt=0;
+  while(attempt<40){
+    attempt++;
+    const type = pick(types);
+    let q=null;
+
+    if(type==='basic'){
+      const b = rnd(2,10);
+      const c = rnd(2,12);
+      const a = b*c;
+      const key = `basic-${a}-${b}`;
+      if(usedKeys.has(key)) continue;
+      const opts = new Set([c]);
+      while(opts.size<4) opts.add(Math.max(1,c+rnd(-4,4)));
+      q = {
+        key, text:`¿Cuánto es ${a} ÷ ${b}?`,
+        visualHTML:`<div style="font-size:38px;font-weight:900;color:var(--morado);">${a} ÷ ${b} = ?</div>`,
+        options: shuffle([...opts].map(String)),
+        answer:String(c),
+        explain:`${b} × ${c} = ${a}, entonces ${a} ÷ ${b} = ${c}.`
+      };
+    }
+    else if(type==='word'){
+      const themes=[['caramelos','🍬','amigos'],['juguetes','🧸','niños'],['galletas','🍪','amigas'],['lápices','✏️','estudiantes'],['estampas','⭐','álbumes']];
+      const [obj,emoji,people] = pick(themes);
+      const b = rnd(2,6);
+      const c = rnd(2,10);
+      const a = b*c;
+      const key = `word-${obj}-${a}-${b}`;
+      if(usedKeys.has(key)) continue;
+      const opts = new Set([c]);
+      while(opts.size<4) opts.add(Math.max(1,c+rnd(-3,3)));
+      q = {
+        key, text:`Tienes ${a} ${obj} ${emoji} y los repartes entre ${b} ${people} por igual. ¿Cuántos recibe cada uno?`,
+        visualHTML:`<div style="font-size:30px;">${emoji.repeat(Math.min(a,10))}</div>`,
+        options: shuffle([...opts].map(String)),
+        answer:String(c),
+        explain:`${a} ÷ ${b} = ${c}. Cada ${people.slice(0,-1)} recibe ${c}.`
+      };
+    }
+    else if(type==='multrelation'){
+      const b = rnd(2,9); const c = rnd(2,9); const a=b*c;
+      const key = `multrel-${a}-${b}-${c}`;
+      if(usedKeys.has(key)) continue;
+      const opts = new Set([c]);
+      while(opts.size<4) opts.add(Math.max(1,c+rnd(-4,4)));
+      q = {
+        key, text:`Si ${b} × ${c} = ${a}, ¿cuánto es ${a} ÷ ${b}?`,
+        visualHTML:`<div style="font-size:30px;font-weight:800;color:var(--morado);">${b} × ${c} = ${a}</div>`,
+        options: shuffle([...opts].map(String)),
+        answer:String(c),
+        explain:`La división deshace la multiplicación: ${a} ÷ ${b} = ${c}.`
+      };
+    }
+    else if(type==='byten'){
+      const c = rnd(2,90);
+      const a = c*10;
+      const key = `byten-${a}`;
+      if(usedKeys.has(key)) continue;
+      const opts = new Set([c]);
+      while(opts.size<4) opts.add(Math.max(1,c+rnd(-8,8)));
+      q = {
+        key, text:`Truco: ${a} ÷ 10 = ? (¡quita un cero!)`,
+        visualHTML:`<div style="font-size:38px;font-weight:900;color:var(--morado);">${a} ÷ 10</div>`,
+        options: shuffle([...opts].map(String)),
+        answer:String(c),
+        explain:`Al dividir entre 10, simplemente quitamos un cero: ${a} ÷ 10 = ${c}.`
+      };
+    }
+    else if(type==='choose'){
+      const b = rnd(2,9); const c = rnd(2,9); const a=b*c;
+      const key = `choose-${a}-${b}-${c}`;
+      if(usedKeys.has(key)) continue;
+      const wrongB = Math.max(2,b+pick([-1,1,2]));
+      const correctText = `${a} ÷ ${b} = ${c}`;
+      const opts = new Set([correctText]);
+      opts.add(`${a} ÷ ${wrongB} = ${c}`);
+      opts.add(`${a} ÷ ${b} = ${c+1}`);
+      opts.add(`${a+1} ÷ ${b} = ${c}`);
+      q = {
+        key, text:`¿Cuál división es correcta?`,
+        visualHTML:`<div style="font-size:20px;">🧮</div>`,
+        options: shuffle([...opts]),
+        answer: correctText,
+        explain:`Comprobamos: ${b} × ${c} = ${a}, así que ${correctText} es correcta.`
+      };
+    }
+
+    if(q){ usedKeys.add(q.key); return q; }
+  }
+  const b=2,c=rnd(2,10),a=b*c;
+  return { key:`fallback-${Date.now()}-${Math.random()}`, text:`¿Cuánto es ${a} ÷ ${b}?`, visualHTML:'', options:shuffle([String(c),String(c+1),String(c-1),String(c+2)]), answer:String(c), explain:`${b} × ${c} = ${a}.` };
+}
+
+/* ---------------------------------------------------------------------------
+   7. MOTOR DE EJERCICIOS / EXAMEN (usado por Clase y por Práctica)
+--------------------------------------------------------------------------- */
+let exState = {
+  mode:'clase',         // 'clase' | 'practica'
+  temaLabel:'FRACCIONES',
+  questions:[],
+  index:0,
+  correct:0,
+  wrong:0,
+  streak:0,
+  maxStreak:0,
+  startTime:0,
+  onFinish:null
+};
+
+function startExerciseSet(questions, temaLabel, mode, onFinish){
+  exState = { mode, temaLabel, questions, index:0, correct:0, wrong:0, streak:0, maxStreak:0, startTime:Date.now(), onFinish };
+  showScreen('screen-exercise');
+  renderQuestion();
+}
+
+function renderQuestion(){
+  const total = exState.questions.length;
+  const q = exState.questions[exState.index];
+  document.getElementById('exercise-tema-label').textContent =
+    exState.mode==='practica' ? `🏆 PRÁCTICA · ${exState.temaLabel}` : exState.temaLabel;
+  document.getElementById('exercise-streak').textContent = `🔥 Racha: ${exState.streak}`;
+  document.getElementById('q-counter').textContent = `Pregunta ${exState.index+1} / ${total}`;
+  document.getElementById('q-text').textContent = q.text;
+  document.getElementById('q-visual').innerHTML = q.visualHTML||'';
+  const optsWrap = document.getElementById('q-options');
+  optsWrap.innerHTML='';
+  q.options.forEach(opt=>{
+    const b = document.createElement('button');
+    b.className='opt-btn';
+    b.textContent = opt;
+    b.onclick = ()=>checkAnswer(b, opt, q);
+    optsWrap.appendChild(b);
+  });
+  const fb = document.getElementById('q-feedback');
+  fb.className='feedback-box'; fb.textContent='';
+  document.getElementById('btn-siguiente').classList.remove('show');
+  setProgress( (exState.index)/total*100 );
+  setHud(`<span>✅ ${exState.correct}</span><span>❌ ${exState.wrong}</span>`);
+}
+
+function checkAnswer(btn, chosen, q){
+  const optsWrap = document.getElementById('q-options');
+  const allBtns = [...optsWrap.querySelectorAll('.opt-btn')];
+  allBtns.forEach(b=>b.onclick=null);
+
+  const isCorrect = chosen === q.answer;
+  const fb = document.getElementById('q-feedback');
+
+  if(isCorrect){
+    btn.classList.add('correct');
+    exState.correct++; exState.streak++;
+    exState.maxStreak = Math.max(exState.maxStreak, exState.streak);
+    playCorrect();
+    const r = btn.getBoundingClientRect();
+    starBurstAt(r.left+r.width/2, r.top+r.height/2, 10);
+    if(exState.streak>0 && exState.streak%5===0) launchConfetti(30);
+    fb.classList.add('ok'); fb.classList.add('show');
+    fb.textContent = `✅ ¡Correcto! ${q.explain}`;
+    mascotSay(pick(MSG_CORRECTO));
+  } else {
+    btn.classList.add('wrong');
+    allBtns.forEach(b=>{ if(b.textContent===q.answer) b.classList.add('correct'); });
+    exState.wrong++; exState.streak=0;
+    playWrong();
+    fb.classList.add('bad'); fb.classList.add('show');
+    fb.textContent = `❌ No era esa. ${q.explain}`;
+    mascotSay(pick(MSG_INCORRECTO));
+  }
+  allBtns.forEach(b=>{ if(b!==btn && b.textContent!==q.answer) b.classList.add('dim'); });
+
+  document.getElementById('exercise-streak').textContent = `🔥 Racha: ${exState.streak}`;
+  setHud(`<span>✅ ${exState.correct}</span><span>❌ ${exState.wrong}</span>`);
+  document.getElementById('btn-siguiente').classList.add('show');
+}
+
+function nextQuestion(){
+  playClick();
+  exState.index++;
+  if(exState.index < exState.questions.length){
+    renderQuestion();
+  } else {
+    setProgress(100);
+    exState.onFinish();
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   8. FLUJO "CLASE"
+--------------------------------------------------------------------------- */
+function startClase(){
+  playClick();
+  openSlides(SLIDES_FRACCIONES, ()=>{
+    playWhoosh();
+    const used = new Set();
+    const qs = []; for(let i=0;i<12;i++) qs.push(genFractionQuestion(used));
+    startExerciseSet(qs, '🟡 FRACCIONES', 'clase', onFinishFraccionesClase);
   });
 }
-function actualizarDisplay(){
-  document.getElementById('answerDisplay').textContent = respuestaActual.length ? respuestaActual : '_';
+function onFinishFraccionesClase(){
+  showInterstitial('🎉','¡Fracciones completadas!',`Acertaste ${exState.correct} de ${exState.questions.length}. ¡Ahora vamos con Divisiones!`, ()=>{
+    openSlides(SLIDES_DIVISIONES, ()=>{
+      playWhoosh();
+      const used = new Set();
+      const qs = []; for(let i=0;i<12;i++) qs.push(genDivisionQuestion(used));
+      startExerciseSet(qs, '🟢 DIVISIONES', 'clase', onFinishDivisionesClase);
+    });
+  });
 }
-function tecla(d){
-  sonidoClick();
-  if(respuestaActual.length>=3) return;
-  respuestaActual += d;
-  actualizarDisplay();
-}
-function borrarTecla(){
-  sonidoClick();
-  respuestaActual = respuestaActual.slice(0,-1);
-  actualizarDisplay();
-}
-function habilitarTeclado(activo){
-  document.querySelectorAll('#screen-play .key-btn').forEach(b=> b.disabled = !activo);
-}
-
-document.addEventListener('keydown', (e)=>{
-  if(!document.getElementById('screen-play').classList.contains('active')) return;
-  if(e.key >= '0' && e.key <= '9') tecla(e.key);
-  else if(e.key === 'Backspace') borrarTecla();
-  else if(e.key === 'Enter') comprobarRespuesta();
-});
-
-function iniciarTimerSiCorresponde(){
-  clearInterval(timerInterval);
-  const wrap = document.getElementById('timerWrap');
-  if(!timerActivado){ wrap.style.display='none'; return; }
-  wrap.style.display='block';
-  let tiempoRestante = TIEMPO_LIMITE;
-  const barra = document.getElementById('timerBar');
-  barra.style.transition='none';
-  barra.style.width='100%';
-  void barra.offsetWidth;
-  barra.style.transition='width 1s linear';
-  timerInterval = setInterval(()=>{
-    tiempoRestante--;
-    barra.style.width = Math.max(0,(tiempoRestante/TIEMPO_LIMITE*100))+'%';
-    if(tiempoRestante<=0){
-      clearInterval(timerInterval);
-      comprobarRespuesta(true);
-    }
-  },1000);
+function onFinishDivisionesClase(){
+  launchConfetti(60);
+  playFanfare();
+  mascotSay('¡Clase terminada! 🎓');
+  showInterstitial('🏆','¡Clase completada!', `¡Excelente trabajo aprendiendo Fracciones y Divisiones! Cuando quieras, ve a "🎮 Práctica" para poner a prueba lo aprendido.`, ()=>{
+    goHome();
+  }, true);
 }
 
-function comprobarRespuesta(porTiempo){
-  clearInterval(timerInterval);
-  const ej = modulo.ejercicios[modulo.indice];
-  const feedback = document.getElementById('playFeedback');
-  habilitarTeclado(false);
-  const userVal = parseInt(respuestaActual, 10);
-  const esCorrecta = !porTiempo && userVal === ej.resultado;
-
-  if(esCorrecta){
-    modulo.correctas++;
-    estrellasTotales++;
-    sonidoCorrecto();
-    lanzarConfeti();
-    feedback.className='feedback correcto';
-    feedback.textContent = '🎉 ¡Muy bien, astronauta! ¡Correcto! ⭐';
-  } else {
-    sonidoIncorrecto();
-    feedback.className='feedback incorrecto';
-    const op = ej.tipo === 'suma' ? '+' : '−';
-    const mensajeTiempo = porTiempo ? '⏰ ¡Se acabó el tiempo! ' : '🤔 Casi, ¡sigue intentando! ';
-    feedback.textContent = `${mensajeTiempo} La respuesta correcta es: ${ej.a} ${op} ${ej.b} = ${ej.resultado}`;
-  }
-  document.getElementById('playPuntos').textContent = modulo.correctas;
-  document.getElementById('btnSiguiente').style.display='inline-block';
+let interCallback = null;
+function showInterstitial(emoji, title, sub, callback, isFinal){
+  document.getElementById('inter-emoji').textContent = emoji;
+  document.getElementById('inter-title').textContent = title;
+  document.getElementById('inter-sub').textContent = sub;
+  document.querySelector('#screen-inter .nav-btn').textContent = isFinal ? '🏠 Ir al inicio' : 'Continuar ➡️';
+  interCallback = callback;
+  showScreen('screen-inter');
+  if(!isFinal) launchConfetti(25);
+}
+function interContinue(){
+  playClick();
+  if(interCallback) interCallback();
 }
 
-function siguienteEjercicio(){
-  sonidoClick();
-  modulo.indice++;
-  if(modulo.indice >= TOTAL_EJERCICIOS_MODULO){
-    document.getElementById('playProgreso').style.width='100%';
-    mostrarModuloCompleto();
-    return;
-  }
-  renderEjercicio();
+/* ---------------------------------------------------------------------------
+   9. FLUJO "PRÁCTICA" (examen de 30 preguntas)
+--------------------------------------------------------------------------- */
+let practicaTimer=null, practicaStart=0;
+
+function startPractica(){
+  playClick();
+  const usedF = new Set(), usedD = new Set();
+  const fracs = []; for(let i=0;i<15;i++) fracs.push({...genFractionQuestion(usedF), tema:'fraccion'});
+  const divs  = []; for(let i=0;i<15;i++) divs.push({...genDivisionQuestion(usedD), tema:'division'});
+  const all = shuffle([...fracs, ...divs]);
+
+  practicaStart = Date.now();
+  startExerciseSet(all, '🏆 EXAMEN MIXTO', 'practica', onFinishPractica);
+
+  // muestra intro breve mediante mascota
+  mascotSay('🏆 ¡Hora de demostrar lo aprendido!');
 }
 
-/* ============ MODULO COMPLETO (transicion) ============ */
-function mostrarModuloCompleto(){
-  if(pantallaRetorno){
-    terminarRondaPractica(modulo.correctas, TOTAL_EJERCICIOS_MODULO);
-    return;
-  }
-  const emoji = document.getElementById('moduloCompletoEmoji');
-  const titulo = document.getElementById('moduloCompletoTitulo');
-  const texto = document.getElementById('moduloCompletoTexto');
-  const btn = document.getElementById('btnSiguienteModulo');
-
-  if(modulo.nombre === 'sumas'){
-    emoji.textContent = '🎉🐱➕';
-    titulo.textContent = '¡Sumas completadas!';
-    texto.textContent = `Conseguiste ${modulo.correctas} de ${TOTAL_EJERCICIOS_MODULO} estrellas. ¡Ahora vamos con las restas!`;
-    btn.textContent = 'Ir a Restas ➖';
-    btn.onclick = ()=>{ sonidoClick(); mostrarPantalla('screen-intro-restas'); };
-  } else if(modulo.nombre === 'restas'){
-    emoji.textContent = '🎉🐱➖';
-    titulo.textContent = '¡Restas completadas!';
-    texto.textContent = `Conseguiste ${modulo.correctas} de ${TOTAL_EJERCICIOS_MODULO} estrellas. ¡Ahora comparemos planetas!`;
-    btn.textContent = 'Ir a Mayor y menor 🔢';
-    btn.onclick = ()=>{ sonidoClick(); mostrarPantalla('screen-intro-comparar'); };
-  }
-  mostrarPantalla('screen-modulo-completo');
-}
-function irSiguienteModulo(){ /* asignado dinámicamente arriba */ }
-
-/* ============ RENDER COMPARACION ============ */
-function renderComparacion(){
-  const ej = comp.ejercicios[comp.indice];
-  document.getElementById('compCuenta').innerHTML = `${ej.a} <span class="op">___</span> ${ej.b}`;
-  document.getElementById('playProgresoComp').style.width = (comp.indice/TOTAL_EJERCICIOS_MODULO*100)+'%';
-  document.getElementById('playPuntosComp').textContent = comp.correctas;
-  const feedback = document.getElementById('compFeedback');
-  feedback.className='feedback'; feedback.textContent='';
-  document.getElementById('btnSiguienteComp').style.display='none';
-  document.querySelectorAll('#screen-play-comparar .compare-btn').forEach(b=>b.disabled=false);
+function onFinishPractica(){
+  const elapsedMs = Date.now() - practicaStart;
+  showResults(exState.correct, exState.wrong, exState.questions.length, elapsedMs, exState.maxStreak);
 }
 
-function comprobarComparacion(simboloElegido){
-  sonidoClick();
-  const ej = comp.ejercicios[comp.indice];
-  const feedback = document.getElementById('compFeedback');
-  document.querySelectorAll('#screen-play-comparar .compare-btn').forEach(b=>b.disabled=true);
-
-  const esCorrecta = simboloElegido === ej.simbolo;
-  if(esCorrecta){
-    comp.correctas++;
-    estrellasTotales++;
-    sonidoCorrecto();
-    lanzarConfeti();
-    feedback.className='feedback correcto';
-    feedback.textContent = '🚀 ¡Correcto! Buen ojo de astronauta ⭐';
-  } else {
-    sonidoIncorrecto();
-    feedback.className='feedback incorrecto';
-    feedback.textContent = `🤔 Casi! La respuesta correcta es: ${ej.a} ${ej.simbolo} ${ej.b}`;
-  }
-  document.getElementById('playPuntosComp').textContent = comp.correctas;
-  document.getElementById('btnSiguienteComp').style.display='inline-block';
+/* ---------------------------------------------------------------------------
+   10. PANTALLA DE RESULTADOS
+--------------------------------------------------------------------------- */
+function formatTime(ms){
+  const s = Math.floor(ms/1000);
+  const m = Math.floor(s/60);
+  const rem = s%60;
+  return `${m}m ${rem}s`;
 }
 
-function siguienteComparacion(){
-  sonidoClick();
-  comp.indice++;
-  if(comp.indice >= TOTAL_EJERCICIOS_MODULO){
-    document.getElementById('playProgresoComp').style.width='100%';
-    if(pantallaRetorno){ terminarRondaPractica(comp.correctas, TOTAL_EJERCICIOS_MODULO); return; }
-    mostrarPantalla('screen-extra-menu');
-    return;
-  }
-  renderComparacion();
+function showResults(correct, wrong, total, elapsedMs, maxStreak){
+  const pct = Math.round((correct/total)*100);
+  let medal, title, msg;
+  if(pct>=95){ medal='🥇'; title='¡Medalla de Oro!'; msg='¡Eres un genio de las matemáticas! Dominaste fracciones y divisiones.'; }
+  else if(pct>=80){ medal='🥈'; title='¡Medalla de Plata!'; msg='¡Muy buen trabajo! Estás cada vez más cerca de la perfección.'; }
+  else if(pct>=60){ medal='🥉'; title='¡Medalla de Bronce!'; msg='¡Buen esfuerzo! Sigue practicando para mejorar aún más.'; }
+  else { medal='💪'; title='¡Vamos con todo!'; msg='¡Podemos seguir practicando! Cada intento te hace más fuerte.'; }
+
+  document.getElementById('result-medal').textContent = medal;
+  document.getElementById('result-title').textContent = title;
+  document.getElementById('result-pct').textContent = pct+'%';
+  document.getElementById('result-stats').innerHTML = `
+    <div class="stat">✅ Aciertos<br>${correct}</div>
+    <div class="stat">❌ Errores<br>${wrong}</div>
+    <div class="stat">⏱️ Tiempo<br>${formatTime(elapsedMs)}</div>
+    <div class="stat">🔥 Mejor racha<br>${maxStreak}</div>
+    <div class="stat">⭐ Puntos<br>${correct*10}</div>
+  `;
+  document.getElementById('result-msg').textContent = msg;
+  showScreen('screen-results');
+  document.getElementById('topbar').classList.remove('show');
+
+  if(pct>=60){ launchConfetti(80); playFanfare(); }
+  else { playTone(300,0.3,'sine',0,0.15); }
+  mascotSay(pct>=80 ? '¡Estoy muy orgulloso de ti! 🎉' : '¡Sigamos practicando juntos! 💪');
 }
 
-/* ============ BONUS: SUMAS CON NEGATIVOS ============ */
-let bonusNeg = { ejercicios:[], indice:0, correctas:0, jugado:false };
-let respuestaNegDigitos = '';
-let negativoActivo = false;
-
-function generarNegativos(){
-  const usados = new Set();
-  const lista = [];
-  while(lista.length < TOTAL_EJERCICIOS_MODULO){
-    let a = Math.floor(Math.random()*13)-6; // -6..6
-    let b = Math.floor(Math.random()*13)-6; // -6..6
-    if(a===0 && b===0) continue;
-    const clave = a+'_'+b;
-    if(usados.has(clave)) continue;
-    usados.add(clave);
-    lista.push({a, b, resultado: a+b});
-  }
-  return lista;
-}
-
-function empezarBonusNegativos(){
-  sonidoClick();
-  bonusNeg.indice = 0;
-  bonusNeg.correctas = 0;
-  bonusNeg.jugado = true;
-  bonusNeg.ejercicios = generarNegativos();
-  mostrarPantalla('screen-bonus-negativos');
-  renderNeg();
-}
-
-function formatearNumero(n){ return n < 0 ? `(${n})` : `${n}`; }
-
-function renderNeg(){
-  const ej = bonusNeg.ejercicios[bonusNeg.indice];
-  document.getElementById('negCuenta').innerHTML = `${formatearNumero(ej.a)} <span class="op">+</span> ${formatearNumero(ej.b)} = ?`;
-  document.getElementById('negProgreso').style.width = (bonusNeg.indice/TOTAL_EJERCICIOS_MODULO*100)+'%';
-  document.getElementById('negPuntos').textContent = bonusNeg.correctas;
-  respuestaNegDigitos = '';
-  negativoActivo = false;
-  actualizarDisplayNeg();
-  const feedback = document.getElementById('negFeedback');
-  feedback.className='feedback'; feedback.textContent='';
-  document.getElementById('btnSiguienteNeg').style.display='none';
-  document.querySelectorAll('#screen-bonus-negativos .key-btn').forEach(b=>b.disabled=false);
-}
-function actualizarDisplayNeg(){
-  const texto = (negativoActivo?'-':'') + (respuestaNegDigitos.length?respuestaNegDigitos:'_');
-  document.getElementById('negDisplay').textContent = texto;
-}
-function teclaNeg(d){
-  sonidoClick();
-  if(respuestaNegDigitos.length>=3) return;
-  respuestaNegDigitos += d;
-  actualizarDisplayNeg();
-}
-function borrarTeclaNeg(){
-  sonidoClick();
-  respuestaNegDigitos = respuestaNegDigitos.slice(0,-1);
-  actualizarDisplayNeg();
-}
-function toggleSignoNeg(){
-  sonidoClick();
-  negativoActivo = !negativoActivo;
-  actualizarDisplayNeg();
-}
-function comprobarNeg(){
-  const ej = bonusNeg.ejercicios[bonusNeg.indice];
-  const feedback = document.getElementById('negFeedback');
-  document.querySelectorAll('#screen-bonus-negativos .key-btn').forEach(b=>b.disabled=true);
-  const valorTexto = (negativoActivo?'-':'') + respuestaNegDigitos;
-  const userVal = parseInt(valorTexto, 10);
-  const esCorrecta = userVal === ej.resultado;
-  if(esCorrecta){
-    bonusNeg.correctas++;
-    sonidoCorrecto(); lanzarConfeti();
-    feedback.className='feedback correcto';
-    feedback.textContent = '🎉 ¡Correcto! Entendiste los números bajo cero ⭐';
-  } else {
-    sonidoIncorrecto();
-    feedback.className='feedback incorrecto';
-    feedback.textContent = `🤔 La respuesta correcta es: ${formatearNumero(ej.a)} + ${formatearNumero(ej.b)} = ${ej.resultado}`;
-  }
-  document.getElementById('negPuntos').textContent = bonusNeg.correctas;
-  document.getElementById('btnSiguienteNeg').style.display='inline-block';
-}
-function siguienteNeg(){
-  sonidoClick();
-  bonusNeg.indice++;
-  if(bonusNeg.indice >= TOTAL_EJERCICIOS_MODULO){
-    document.getElementById('negProgreso').style.width='100%';
-    if(pantallaRetorno){ terminarRondaPractica(bonusNeg.correctas, TOTAL_EJERCICIOS_MODULO); return; }
-    mostrarPantalla('screen-extra-menu');
-    return;
-  }
-  renderNeg();
-}
-
-/* ============ BONUS: RECTA NUMERICA ============ */
-let bonusRecta = { ejercicios:[], indice:0, correctas:0, jugado:false };
-
-function generarRecta(){
-  const usados = new Set();
-  const lista = [];
-  while(lista.length < TOTAL_EJERCICIOS_MODULO){
-    const n = Math.floor(Math.random()*21); // 0..20
-    if(usados.has(n)) continue;
-    usados.add(n);
-    lista.push({ objetivo:n });
-  }
-  return lista;
-}
-
-function empezarBonusRecta(){
-  sonidoClick();
-  bonusRecta.indice = 0;
-  bonusRecta.correctas = 0;
-  bonusRecta.jugado = true;
-  bonusRecta.ejercicios = generarRecta();
-  mostrarPantalla('screen-bonus-recta');
-  renderRecta();
-}
-
-function renderRecta(){
-  const ej = bonusRecta.ejercicios[bonusRecta.indice];
-  document.getElementById('rectaPregunta').innerHTML = `🐱🚀 busca el planeta número <b>${ej.objetivo}</b>`;
-  document.getElementById('rectaProgreso').style.width = (bonusRecta.indice/TOTAL_EJERCICIOS_MODULO*100)+'%';
-  document.getElementById('rectaPuntos').textContent = bonusRecta.correctas;
-  const linea = document.getElementById('lineaNumerica');
-  linea.innerHTML='';
-  for(let n=0;n<=20;n++){
-    const btn = document.createElement('button');
-    btn.className = 'linea-btn' + (n<0?' negativo':'');
-    btn.textContent = n;
-    btn.onclick = ()=>elegirRecta(n, btn);
-    linea.appendChild(btn);
-  }
-  const feedback = document.getElementById('rectaFeedback');
-  feedback.className='feedback'; feedback.textContent='';
-  document.getElementById('btnSiguienteRecta').style.display='none';
-}
-
-function elegirRecta(n, btnElegido){
-  sonidoClick();
-  const ej = bonusRecta.ejercicios[bonusRecta.indice];
-  const feedback = document.getElementById('rectaFeedback');
-  document.querySelectorAll('#lineaNumerica .linea-btn').forEach(b=>b.disabled=true);
-  const esCorrecta = n === ej.objetivo;
-  if(esCorrecta){
-    bonusRecta.correctas++;
-    sonidoCorrecto(); lanzarConfeti();
-    btnElegido.textContent = '🚀';
-    feedback.className='feedback correcto';
-    feedback.textContent = `🎉 ¡Aterrizaste en el planeta ${ej.objetivo}! ⭐`;
-  } else {
-    sonidoIncorrecto();
-    feedback.className='feedback incorrecto';
-    feedback.textContent = `🤔 Ese no era. El planeta correcto era el número ${ej.objetivo}`;
-  }
-  document.getElementById('rectaPuntos').textContent = bonusRecta.correctas;
-  document.getElementById('btnSiguienteRecta').style.display='inline-block';
-}
-
-function siguienteRecta(){
-  sonidoClick();
-  bonusRecta.indice++;
-  if(bonusRecta.indice >= TOTAL_EJERCICIOS_MODULO){
-    document.getElementById('rectaProgreso').style.width='100%';
-    if(pantallaRetorno){ terminarRondaPractica(bonusRecta.correctas, TOTAL_EJERCICIOS_MODULO); return; }
-    mostrarPantalla('screen-extra-menu');
-    return;
-  }
-  renderRecta();
-}
-
-/* ============ RESULTADOS FINALES ============ */
-function mostrarResultadosFinales(){
-  sonidoFanfarria();
-  const totalPosible = TOTAL_EJERCICIOS_MODULO * 3;
-  const totalObtenido = estrellasTotales;
-  const porcentaje = Math.round((totalObtenido/totalPosible)*100);
-
-  document.getElementById('finalPuntaje').textContent = `${totalObtenido} de ${totalPosible} estrellas ⭐`;
-  document.getElementById('finalPorcentaje').textContent = `${porcentaje}%`;
-
-  let mensaje = '';
-  if(porcentaje >= 90) mensaje = '¡Eres un verdadero genio astro-matemático! 🚀🐱🏆';
-  else if(porcentaje >= 70) mensaje = '¡Excelente misión espacial! Sigue practicando 🌟';
-  else if(porcentaje >= 50) mensaje = '¡Buen trabajo! Cada vez lo harás mejor 💪🐱';
-  else mensaje = '¡Gran esfuerzo, astronauta! La práctica te hará brillar como una estrella ✨';
-  document.getElementById('finalMotivacion').textContent = mensaje;
-
-  const bonusDiv = document.getElementById('finalBonus');
-  let bonusHtml = '';
-  if(bonusNeg.jugado){
-    bonusHtml += `<div>🌡️ Reto negativos: ${bonusNeg.correctas} de ${TOTAL_EJERCICIOS_MODULO} ⭐</div>`;
-  }
-  if(bonusRecta.jugado){
-    bonusHtml += `<div>🎯 Recta numérica: ${bonusRecta.correctas} de ${TOTAL_EJERCICIOS_MODULO} ⭐</div>`;
-  }
-  bonusDiv.innerHTML = bonusHtml;
-  bonusDiv.style.display = bonusHtml ? 'block' : 'none';
-
-  setTimeout(()=>lanzarConfeti(), 200);
-  setTimeout(()=>lanzarConfeti(), 700);
-  mostrarPantalla('screen-final');
-}
-
-function reiniciarTodo(){
-  sonidoClick();
-  estrellasTotales = 0;
-  modulo = { nombre:null, ejercicios:[], indice:0, correctas:0 };
-  comp = { ejercicios:[], indice:0, correctas:0 };
-  bonusNeg = { ejercicios:[], indice:0, correctas:0, jugado:false };
-  bonusRecta = { ejercicios:[], indice:0, correctas:0, jugado:false };
-  pantallaRetorno = null;
-  slideActual = 0;
-  for(let i=0;i<TOTAL_SLIDES;i++){
-    document.getElementById('slide'+i).classList.toggle('activo', i===0);
-    document.getElementById('dot'+i).classList.toggle('activo', i===0);
-  }
-  document.getElementById('btnAnteriorSlide').style.visibility='hidden';
-  document.getElementById('btnSiguienteSlide').style.display='inline-block';
-  mostrarPantalla('screen-welcome');
-}
 </script>
 </body>
 </html>
