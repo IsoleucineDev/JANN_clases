@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Clase 2 · Fracciones y Divisiones 🚀</title>
+<title>Clase 3 · Sucesiones y Gráficos 🚀</title>
 <style>
 /* ==========================================================================
    VARIABLES GLOBALES DE DISEÑO
@@ -33,7 +33,6 @@ html,body{
   user-select:none;
 }
 body::before{
-  /* estrellas de fondo fijas */
   content:"";
   position:fixed;inset:0;
   background-image:
@@ -104,7 +103,7 @@ h1,h2,h3,p{margin:0;}
 /* ---------- HOME ---------- */
 #screen-home{justify-content:center;text-align:center;gap:26px;}
 .home-title{
-  color:#fff;font-size:56px;font-weight:800;
+  color:#fff;font-size:52px;font-weight:800;
   text-shadow:0 4px 0 rgba(0,0,0,0.25);
   letter-spacing:1px;
 }
@@ -191,11 +190,18 @@ h1,h2,h3,p{margin:0;}
 .dot{width:12px;height:12px;border-radius:50%;background:#ddd;}
 .dot.active{background:var(--rosa);transform:scale(1.3);}
 
-/* pastel / pie chart */
-.pie{width:130px;height:130px;border-radius:50%;box-shadow:inset 0 0 0 4px #fff, 0 4px 10px rgba(0,0,0,0.2);}
-.bar-row{display:flex;gap:4px;}
-.bar-box{width:34px;height:44px;border-radius:6px;border:2px solid #fff;}
 .label-tag{font-size:13px;font-weight:700;color:#fff;background:var(--morado);padding:4px 10px;border-radius:10px;}
+
+/* sequence term boxes (used in slides + questions) */
+.seq-row{display:flex;align-items:center;flex-wrap:wrap;gap:6px;justify-content:center;}
+.seq-term{
+  min-width:52px;height:48px;padding:0 8px;
+  border-radius:10px;background:var(--morado);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:18px;flex-shrink:0;
+}
+.seq-term.blank{background:#eee7fb;color:var(--morado);border:3px dashed var(--morado);}
+.seq-arrow{color:#bbb;font-size:18px;flex-shrink:0;}
 
 /* mini reto dentro de slide */
 .mini-reto{background:#eee7fb;border-radius:18px;padding:16px;width:100%;}
@@ -213,11 +219,12 @@ h1,h2,h3,p{margin:0;}
 .exercise-header .streak{font-size:15px;color:var(--amarillo);font-weight:800;}
 .q-card{width:100%;max-width:640px;text-align:center;}
 .q-visual{margin:14px 0;display:flex;justify-content:center;gap:16px;flex-wrap:wrap;}
-.q-text{font-size:24px;font-weight:800;color:var(--morado);line-height:1.4;}
+.q-visual svg{max-width:100%;height:auto;}
+.q-text{font-size:22px;font-weight:800;color:var(--morado);line-height:1.4;}
 .options{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px;}
 @media(max-width:520px){.options{grid-template-columns:1fr;}}
 .opt-btn{
-  border:none;border-radius:20px;padding:22px 14px;font-size:22px;font-weight:800;
+  border:none;border-radius:20px;padding:22px 14px;font-size:20px;font-weight:800;
   background:#fff;color:var(--morado);
   box-shadow:0 6px 0 #d8d0ec;
   transition:transform .1s, box-shadow .1s;
@@ -282,22 +289,21 @@ h1,h2,h3,p{margin:0;}
 
 /* responsive */
 @media(max-width:600px){
-  .home-title{font-size:38px;}
+  .home-title{font-size:36px;}
   .big-btn{font-size:24px;padding:26px 30px;min-width:170px;}
-  .q-text{font-size:19px;}
+  .q-text{font-size:18px;}
   .slide-title{font-size:24px;}
   #mascot{font-size:52px;}
   #speech{font-size:13px;max-width:150px;}
+  .seq-term{min-width:42px;height:40px;font-size:15px;}
 }
 </style>
 </head>
 <body>
 <div id="app">
 
-  <!-- CAPA DE CONFETI -->
   <div id="confetti-layer"></div>
 
-  <!-- BARRA SUPERIOR -->
   <div id="topbar">
     <button class="btn-back" onclick="goHome()">⬅️</button>
     <div class="progress-outer"><div class="progress-inner" id="progress-bar"></div></div>
@@ -308,8 +314,8 @@ h1,h2,h3,p{margin:0;}
 
     <!-- ============ PANTALLA DE INICIO ============ -->
     <section id="screen-home" class="screen active">
-      <h1 class="home-title">✨ Clase 2 ✨</h1>
-      <p class="home-sub">🟡 Fracciones &nbsp; · &nbsp; 🟢 Divisiones</p>
+      <h1 class="home-title">✨ Clase 3 ✨</h1>
+      <p class="home-sub">🟢 Sucesiones &nbsp; · &nbsp; 🟡 Gráficos</p>
       <div class="home-buttons">
         <button class="big-btn clase" onclick="startClase()">📚 Clase</button>
         <button class="big-btn practica" onclick="startPractica()">🎮 Práctica</button>
@@ -329,7 +335,7 @@ h1,h2,h3,p{margin:0;}
     <!-- ============ PANTALLA DE EJERCICIO / EXAMEN ============ -->
     <section id="screen-exercise" class="screen">
       <div class="exercise-header">
-        <div class="tema-label" id="exercise-tema-label">FRACCIONES</div>
+        <div class="tema-label" id="exercise-tema-label">SUCESIONES</div>
         <div class="streak" id="exercise-streak">🔥 Racha: 0</div>
       </div>
       <div class="card q-card">
@@ -342,7 +348,7 @@ h1,h2,h3,p{margin:0;}
       </div>
     </section>
 
-    <!-- ============ INTERSTITIAL (transición entre temas) ============ -->
+    <!-- ============ INTERSTITIAL ============ -->
     <section id="screen-inter" class="screen interstitial">
       <div class="emoji-big" id="inter-emoji">🎉</div>
       <h2 id="inter-title"></h2>
@@ -362,7 +368,6 @@ h1,h2,h3,p{margin:0;}
 
   </main>
 
-  <!-- MASCOTA -->
   <div id="mascot-wrap">
     <div id="speech"></div>
     <div id="mascot">🦉</div>
@@ -372,18 +377,8 @@ h1,h2,h3,p{margin:0;}
 
 <script>
 /* ============================================================================
-   CLASE 2 — FRACCIONES Y DIVISIONES
+   CLASE 3 — SUCESIONES Y LECTURA DE GRÁFICOS
    Aplicación educativa 100% offline (HTML + CSS + JS puro)
-   Organización del script:
-     1. Utilidades generales (aleatorios, mezcla, confeti, estrellas)
-     2. Sonidos generados con Web Audio API
-     3. Mascota y globos de diálogo
-     4. Navegación entre pantallas
-     5. Contenido de diapositivas (Fracciones y Divisiones)
-     6. Generadores de ejercicios (Fracciones y Divisiones)
-     7. Motor de ejercicios / examen
-     8. Flujo de "Clase" y flujo de "Práctica"
-     9. Pantalla de resultados
    ========================================================================== */
 
 /* ---------------------------------------------------------------------------
@@ -396,7 +391,6 @@ function shuffle(arr){
   for(let i=a.length-1;i>0;i--){ const j=rnd(0,i); [a[i],a[j]]=[a[j],a[i]]; }
   return a;
 }
-function gcd(a,b){ return b===0?a:gcd(b,a%b); }
 
 const COLORS_CONFETTI=['#FF6FA5','#FFD23F','#3CCB7F','#3EC6FF','#FF8C42','#B48CF2'];
 
@@ -414,7 +408,6 @@ function launchConfetti(n){
     setTimeout(()=>p.remove(), 4200);
   }
 }
-
 function starBurstAt(x,y,count){
   count = count||8;
   const layer=document.getElementById('confetti-layer');
@@ -434,13 +427,11 @@ function starBurstAt(x,y,count){
 }
 
 /* ---------------------------------------------------------------------------
-   2. SONIDOS (Web Audio API — sin archivos externos)
+   2. SONIDOS (Web Audio API)
 --------------------------------------------------------------------------- */
 let audioCtx=null;
 function ensureAudio(){
-  if(!audioCtx){
-    audioCtx = new (window.AudioContext||window.webkitAudioContext)();
-  }
+  if(!audioCtx){ audioCtx = new (window.AudioContext||window.webkitAudioContext)(); }
   if(audioCtx.state==='suspended') audioCtx.resume();
 }
 function playTone(freq, duration, type, delay, vol){
@@ -475,7 +466,7 @@ function playWhoosh(){ playTone(300,0.15,'sine',0,0.1); playTone(500,0.15,'sine'
 /* ---------------------------------------------------------------------------
    3. MASCOTA
 --------------------------------------------------------------------------- */
-const MSG_BIENVENIDA = ["¡Hola! Soy Numi 🦉","¿Listo para aprender? 🚀","¡Vamos a jugar con números!"];
+const MSG_BIENVENIDA = ["¡Hola! Soy Numi 🦉","¿Listo para aprender? 🚀","¡Vamos a jugar con números y gráficos!"];
 const MSG_CORRECTO = ["¡Genial! 🎉","¡Excelente! ⭐","¡Lo lograste! 💪","¡Súper bien! 🌟","¡Sigue así, campeón! 🚀","¡Increíble! 🥳"];
 const MSG_INCORRECTO = ["¡Casi! Sigamos 💡","No pasa nada, aprendemos 😊","¡Tú puedes! Vamos de nuevo 💪","Revisemos juntos 🔍"];
 
@@ -483,7 +474,7 @@ function mascotSay(text){
   const bubble = document.getElementById('speech');
   bubble.textContent = text;
   bubble.classList.remove('show');
-  void bubble.offsetWidth; // reinicia animación
+  void bubble.offsetWidth;
   bubble.classList.add('show');
   clearTimeout(mascotSay._t);
   mascotSay._t = setTimeout(()=>bubble.classList.remove('show'), 3200);
@@ -505,155 +496,197 @@ function goHome(){
   document.getElementById('progress-bar').style.width='0%';
   mascotSay(pick(MSG_BIENVENIDA));
 }
-function setProgress(pct){
-  document.getElementById('progress-bar').style.width = Math.min(100,pct)+'%';
-}
+function setProgress(pct){ document.getElementById('progress-bar').style.width = Math.min(100,pct)+'%'; }
 function setHud(html){ document.getElementById('hud-stats').innerHTML = html; }
 
 /* ---------------------------------------------------------------------------
-   5. CONTENIDO DE DIAPOSITIVAS
+   5. VISUALES REUTILIZABLES: sucesiones y gráficos
 --------------------------------------------------------------------------- */
-// ---- Fracciones (5 diapositivas) ----
-const SLIDES_FRACCIONES = [
+function seqRowHTML(terms, blankIndex){
+  // terms: array of strings/numbers; blankIndex: index to render as blank box (or -1)
+  let html = '<div class="seq-row">';
+  terms.forEach((t,i)=>{
+    if(i>0) html += '<div class="seq-arrow">➜</div>';
+    if(i===blankIndex) html += '<div class="seq-term blank">?</div>';
+    else html += `<div class="seq-term">${t}</div>`;
+  });
+  html += '</div>';
+  return html;
+}
+
+// Genera un gráfico de barras SVG. values: array numeros, labels: array strings
+function makeBarChartSVG(values, labels, opts){
+  opts = opts||{};
+  const W=380, H=230, top=26, bottom=196, left=44, right=360;
+  const niceMax = Math.max(...values) <= 50 ? 50 : Math.ceil(Math.max(...values)/25)*25;
+  const scale = (bottom-top)/niceMax;
+  const n = values.length;
+  const bw = (right-left)/n*0.55;
+  const gap = (right-left)/n;
+  let bars='', vals='', labs='';
+  const barColor = opts.color || '#FFD23F';
+  for(let i=0;i<n;i++){
+    const x = left + gap*i + (gap-bw)/2;
+    const h = values[i]*scale;
+    const y = bottom-h;
+    bars += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" fill="${barColor}" rx="4"/>`;
+    vals += `<text x="${(x+bw/2).toFixed(1)}" y="${(y-8).toFixed(1)}" font-size="13" fill="#3D2570" font-weight="800" text-anchor="middle" font-family="Baloo 2, Arial, sans-serif">${values[i]}</text>`;
+    labs += `<text x="${(x+bw/2).toFixed(1)}" y="${(bottom+20).toFixed(1)}" font-size="12.5" fill="#5B3A9E" font-weight="700" text-anchor="middle" font-family="Baloo 2, Arial, sans-serif">${labels[i]}</text>`;
+  }
+  // gridlines
+  let grid='';
+  for(let g=0;g<=4;g++){
+    const gy = bottom - (niceMax/4*g)*scale;
+    grid += `<line x1="${left}" y1="${gy.toFixed(1)}" x2="${right}" y2="${gy.toFixed(1)}" stroke="#e6def7" stroke-width="1"/>`;
+  }
+  return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">
+    ${grid}
+    <line x1="${left}" y1="${bottom}" x2="${right}" y2="${bottom}" stroke="#5B3A9E" stroke-width="2"/>
+    ${bars}${vals}${labs}
+    ${opts.title? `<text x="${(left+right)/2}" y="16" font-size="14" fill="#3D2570" font-weight="800" text-anchor="middle" font-family="Baloo 2, Arial, sans-serif">${opts.title}</text>`:''}
+  </svg>`;
+}
+
+// Genera un gráfico de líneas SVG. values: array numeros, labels: array strings
+function makeLineChartSVG(values, labels, opts){
+  opts = opts||{};
+  const W=380, H=230, top=30, bottom=196, left=44, right=360;
+  const minV = Math.min(...values), maxV = Math.max(...values);
+  const niceMin = Math.floor((minV-2)/5)*5;
+  const niceMax = Math.ceil((maxV+2)/5)*5;
+  const scale = (bottom-top)/(niceMax-niceMin);
+  const n = values.length;
+  const gap = (right-left)/(n-1);
+  const pts = values.map((v,i)=>{
+    const x = left + gap*i;
+    const y = bottom - (v-niceMin)*scale;
+    return [x,y];
+  });
+  const lineColor = opts.color || '#FF6FA5';
+  const polyline = pts.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
+  let circles='', vals='', labs='';
+  pts.forEach((p,i)=>{
+    circles += `<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="5.5" fill="${lineColor}"/>`;
+    vals += `<text x="${p[0].toFixed(1)}" y="${(p[1]-12).toFixed(1)}" font-size="13" fill="#3D2570" font-weight="800" text-anchor="middle" font-family="Baloo 2, Arial, sans-serif">${values[i]}</text>`;
+    labs += `<text x="${p[0].toFixed(1)}" y="${(bottom+20).toFixed(1)}" font-size="12" fill="#5B3A9E" font-weight="700" text-anchor="middle" font-family="Baloo 2, Arial, sans-serif">${labels[i]}</text>`;
+  });
+  let grid='';
+  for(let g=0;g<=4;g++){
+    const gy = top + (bottom-top)/4*g;
+    grid += `<line x1="${left}" y1="${gy.toFixed(1)}" x2="${right}" y2="${gy.toFixed(1)}" stroke="#e6def7" stroke-width="1"/>`;
+  }
+  return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">
+    ${grid}
+    <line x1="${left}" y1="${bottom}" x2="${right}" y2="${bottom}" stroke="#5B3A9E" stroke-width="2"/>
+    <polyline points="${polyline}" fill="none" stroke="${lineColor}" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
+    ${circles}${vals}${labs}
+    ${opts.title? `<text x="${(left+right)/2}" y="16" font-size="14" fill="#3D2570" font-weight="800" text-anchor="middle" font-family="Baloo 2, Arial, sans-serif">${opts.title}</text>`:''}
+  </svg>`;
+}
+
+/* ---------------------------------------------------------------------------
+   6. CONTENIDO DE DIAPOSITIVAS
+--------------------------------------------------------------------------- */
+// ---- Sucesiones (5 diapositivas) ----
+const SLIDES_SUCESIONES = [
 {
-  title:"¿Qué es una fracción? 🍕",
-  sub:"¡Es una forma de repartir algo en partes iguales!",
-  visual:`<div class="pie" style="background:conic-gradient(#FF6FA5 0deg 90deg, #ddd 90deg 180deg, #eee 180deg 270deg, #ddd 270deg 360deg);"></div>
-          <div style="max-width:220px;text-align:left;font-weight:700;">Esta pizza 🍕 se dividió en <b>4 partes iguales</b>. ¡Comimos 1 parte!</div>`,
-  extra:`<p class="slide-sub">Una fracción representa <b>una parte de un todo</b>, cuando algo se divide en partes iguales.</p>`
+  title:"¿Qué es una sucesión? 🔢",
+  sub:"¡Una fila de números que sigue una regla secreta!",
+  visual: seqRowHTML([2,4,6,8,'…']),
+  extra:`<p class="slide-sub">Una sucesión es una lista ordenada de números donde cada uno se relaciona con el siguiente mediante una <b>regla fija</b>.</p>`
 },
 {
-  title:"Numerador y denominador",
-  sub:"Toda fracción tiene dos números mágicos ✨",
-  visual:`<div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
-            <div style="font-size:60px;font-weight:900;color:var(--rosa);">3</div>
-            <div style="width:70px;height:6px;background:var(--morado);border-radius:3px;"></div>
-            <div style="font-size:60px;font-weight:900;color:var(--azul);">4</div>
-          </div>
-          <div style="text-align:left;display:flex;flex-direction:column;gap:14px;max-width:260px;">
-            <div class="label-tag" style="background:var(--rosa);">☝️ Numerador: partes que tomamos</div>
-            <div class="label-tag" style="background:var(--azul);">👇 Denominador: partes totales</div>
+  title:"Descubre la regla 🔍",
+  sub:"Compara cada término con el siguiente",
+  visual: `<div style="display:flex;flex-direction:column;gap:10px;align-items:center;">
+            ${seqRowHTML([5,9,13,17])}
+            <div class="label-tag" style="background:var(--verde);">9 − 5 = 4 &nbsp;·&nbsp; 13 − 9 = 4 &nbsp;·&nbsp; 17 − 13 = 4</div>
+            <div class="label-tag" style="background:var(--morado);">La regla es: +4</div>
           </div>`,
   extra:``
 },
 {
-  title:"¿Cómo se leen las fracciones? 🔊",
-  sub:"¡Cada fracción tiene un nombre especial!",
-  visual:`<div style="display:flex;flex-direction:column;gap:10px;width:100%;max-width:320px;">
-            <div class="mini-reto" style="display:flex;justify-content:space-between;"><b>1/2</b><span>mitad</span></div>
-            <div class="mini-reto" style="display:flex;justify-content:space-between;"><b>1/3</b><span>un tercio</span></div>
-            <div class="mini-reto" style="display:flex;justify-content:space-between;"><b>1/4</b><span>un cuarto</span></div>
-            <div class="mini-reto" style="display:flex;justify-content:space-between;"><b>2/3</b><span>dos tercios</span></div>
+  title:"Tipos de reglas ➕➖✖️",
+  sub:"No todas las sucesiones suman lo mismo",
+  visual:`<div style="display:flex;flex-direction:column;gap:12px;width:100%;max-width:360px;">
+            <div class="mini-reto" style="display:flex;justify-content:space-between;align-items:center;"><b>3, 6, 9, 12</b><span class="label-tag" style="background:var(--verde);">+3</span></div>
+            <div class="mini-reto" style="display:flex;justify-content:space-between;align-items:center;"><b>30, 25, 20, 15</b><span class="label-tag" style="background:var(--rosa);">−5</span></div>
+            <div class="mini-reto" style="display:flex;justify-content:space-between;align-items:center;"><b>2, 4, 8, 16</b><span class="label-tag" style="background:var(--azul);">×2</span></div>
           </div>`,
   extra:``
 },
 {
-  title:"Ejemplos de todos los días 🍫🎂",
-  sub:"¡Las fracciones están por todas partes!",
-  visual:`<div style="display:flex;gap:22px;flex-wrap:wrap;justify-content:center;">
-            <div style="text-align:center;">
-              <div class="pie" style="width:100px;height:100px;background:conic-gradient(#FF8C42 0deg 45deg,#eee 45deg 90deg,#ddd 90deg 135deg,#eee 135deg 180deg,#ddd 180deg 225deg,#eee 225deg 270deg,#ddd 270deg 315deg,#eee 315deg 360deg);"></div>
-              <div style="font-weight:800;margin-top:6px;">🍕 1/8</div>
-            </div>
-            <div style="text-align:center;">
-              <div class="pie" style="width:100px;height:100px;background:conic-gradient(#FF6FA5 0deg 135deg,#e9d8ff 135deg 360deg);"></div>
-              <div style="font-weight:800;margin-top:6px;">🎂 3/8</div>
-            </div>
-            <div style="text-align:center;">
-              <div class="bar-row">
-                <div class="bar-box" style="background:#6b3f1d;"></div>
-                <div class="bar-box" style="background:#6b3f1d;"></div>
-                <div class="bar-box" style="background:#e6d3c1;"></div>
-                <div class="bar-box" style="background:#e6d3c1;"></div>
-                <div class="bar-box" style="background:#e6d3c1;"></div>
-                <div class="bar-box" style="background:#e6d3c1;"></div>
-              </div>
-              <div style="font-weight:800;margin-top:6px;">🍫 2/6</div>
-            </div>
+  title:"Sucesiones especiales ⭐",
+  sub:"¡Los números cuadrados!",
+  visual:`<div style="display:flex;flex-direction:column;gap:10px;align-items:center;">
+            ${seqRowHTML([1,4,9,16,25])}
+            <div style="font-weight:700;color:#666;">1², 2², 3², 4², 5² … cada término es un número al cuadrado</div>
           </div>`,
   extra:``
 },
 {
   title:"¡Resumen! 🎉",
-  sub:"Ya sabes lo esencial de las fracciones",
+  sub:"Ya sabes lo esencial de las sucesiones",
   visual:`<div style="text-align:left;max-width:340px;font-weight:700;line-height:2;">
-            ✅ Una fracción = parte de un todo<br>
-            ✅ Arriba: numerador (partes tomadas)<br>
-            ✅ Abajo: denominador (partes totales)<br>
-            ✅ ¡Se leen con nombres especiales!
+            ✅ Una sucesión sigue siempre la misma regla<br>
+            ✅ Resta términos seguidos para hallar la regla<br>
+            ✅ Puede sumar, restar o multiplicar<br>
+            ✅ ¡Aplica la regla para hallar el término que falta!
           </div>`,
   extra:`<div class="mini-reto">
-            <b>Mini reto 🎯:</b> En la fracción 5/8, ¿cuál es el denominador?
+            <b>Mini reto 🎯:</b> En 10, 20, 30, 40… ¿cuál es la regla?
             <div class="mini-reto-opts">
-              <button class="mini-opt" onclick="miniCheck(this,false)">5</button>
-              <button class="mini-opt" onclick="miniCheck(this,true)">8</button>
+              <button class="mini-opt" onclick="miniCheck(this,true)">+10</button>
+              <button class="mini-opt" onclick="miniCheck(this,false)">×10</button>
             </div>
             <div class="mini-feedback" id="mini-feedback"></div>
           </div>`
 }
 ];
 
-// ---- Divisiones (5 diapositivas) ----
-const SLIDES_DIVISIONES = [
+// ---- Lectura de gráficos (5 diapositivas) ----
+const SLIDES_GRAFICOS = [
 {
-  title:"¿Qué es dividir? ➗",
-  sub:"¡Es repartir en partes iguales!",
-  visual:`<div style="display:flex;gap:18px;">
-            <div style="display:flex;flex-wrap:wrap;width:60px;gap:4px;">⭐⭐⭐⭐</div>
-            <div style="display:flex;flex-wrap:wrap;width:60px;gap:4px;">⭐⭐⭐⭐</div>
-            <div style="display:flex;flex-wrap:wrap;width:60px;gap:4px;">⭐⭐⭐⭐</div>
-          </div>
-          <div style="max-width:260px;text-align:left;font-weight:700;">Repartimos <b>12 estrellas</b> en <b>3 grupos</b> iguales. ¡Cada grupo tiene 4!</div>`,
-  extra:`<p class="slide-sub">Dividir es repartir una cantidad en <b>partes iguales</b>.</p>`
+  title:"¿Qué es un gráfico de barras? 📊",
+  sub:"¡Cada barra cuenta una cantidad!",
+  visual: makeBarChartSVG([40,70,55],['A','B','C'],{title:'Ejemplo'}),
+  extra:`<p class="slide-sub">Entre más alta la barra, <b>mayor es la cantidad</b> que representa.</p>`
 },
 {
-  title:"Partes de una división",
-  sub:"12 ÷ 3 = 4",
-  visual:`<div style="display:flex;align-items:center;gap:10px;font-size:40px;font-weight:900;color:var(--morado);">
-            <span style="color:var(--rosa);">12</span><span>÷</span><span style="color:var(--azul);">3</span><span>=</span><span style="color:var(--verde);">4</span>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:8px;max-width:280px;text-align:left;">
-            <div class="label-tag" style="background:var(--rosa);">Dividendo: total a repartir (12)</div>
-            <div class="label-tag" style="background:var(--azul);">Divisor: en cuántos grupos (3)</div>
-            <div class="label-tag" style="background:var(--verde);">Cociente: cuánto le toca a cada uno (4)</div>
+  title:"¿Qué es un gráfico de líneas? 📈",
+  sub:"¡Muestra cómo cambia algo con el tiempo!",
+  visual: makeLineChartSVG([14,20,18,26],['1','2','3','4'],{title:'Ejemplo'}),
+  extra:`<p class="slide-sub">Si la línea <b>sube</b>, el valor aumenta. Si <b>baja</b>, el valor disminuye.</p>`
+},
+{
+  title:"Cómo leer los ejes 📐",
+  sub:"Todo gráfico tiene dos ejes",
+  visual:`<div style="text-align:left;display:flex;flex-direction:column;gap:14px;max-width:320px;">
+            <div class="label-tag" style="background:var(--azul);">↔️ Eje X (horizontal): categorías o tiempo</div>
+            <div class="label-tag" style="background:var(--rosa);">↕️ Eje Y (vertical): la escala de valores</div>
           </div>`,
   extra:``
 },
 {
-  title:"Ejemplos sencillos 🍬",
-  sub:"¡Repartamos caramelos y juguetes!",
-  visual:`<div style="display:flex;flex-direction:column;gap:10px;max-width:320px;">
-            <div class="mini-reto" style="display:flex;justify-content:space-between;">🍬 10 caramelos ÷ 2 amigos <b>= 5</b></div>
-            <div class="mini-reto" style="display:flex;justify-content:space-between;">🧸 8 juguetes ÷ 4 niños <b>= 2</b></div>
-            <div class="mini-reto" style="display:flex;justify-content:space-between;">🍪 9 galletas ÷ 3 amigas <b>= 3</b></div>
-          </div>`,
-  extra:``
-},
-{
-  title:"Trucos para dividir 💡",
-  sub:"¡Atajos que te harán un experto!",
-  visual:`<div style="text-align:left;max-width:340px;font-weight:700;line-height:2;">
-            🔟 Dividir entre 10 = quita un cero (30÷10=3)<br>
-            ✖️ Piensa en la tabla de multiplicar al revés<br>
-            🎲 Reparte de 1 en 1, como en un juego, y cuenta<br>
-            🔁 Divisor × Cociente = Dividendo (¡compruébalo!)
-          </div>`,
-  extra:``
+  title:"Comparar datos 🔎",
+  sub:"Busca el mayor, el menor y las diferencias",
+  visual: makeBarChartSVG([30,80,50,65],['Lun','Mar','Mié','Jue'],{title:'Ventas'}),
+  extra:`<p class="slide-sub">Mayor: <b>Martes (80)</b> &nbsp;·&nbsp; Menor: <b>Lunes (30)</b> &nbsp;·&nbsp; Diferencia Mar−Lun: <b>50</b></p>`
 },
 {
   title:"¡Resumen! 🎉",
-  sub:"Ya sabes lo esencial de las divisiones",
+  sub:"Ya sabes lo esencial de los gráficos",
   visual:`<div style="text-align:left;max-width:340px;font-weight:700;line-height:2;">
-            ✅ Dividir = repartir en partes iguales<br>
-            ✅ Dividendo ÷ Divisor = Cociente<br>
-            ✅ Comprueba con la multiplicación<br>
-            ✅ ¡Ya puedes resolver divisiones!
+            ✅ Barras altas = cantidades grandes<br>
+            ✅ Línea que sube = el valor aumenta<br>
+            ✅ Eje X = categorías, Eje Y = valores<br>
+            ✅ ¡Compara alturas y posiciones para responder!
           </div>`,
   extra:`<div class="mini-reto">
-            <b>Mini reto 🎯:</b> Si 20 ÷ 5 = 4, ¿cuánto es 4 × 5?
+            <b>Mini reto 🎯:</b> Si la línea de temperatura baja de 3pm a 6pm, ¿qué pasó?
             <div class="mini-reto-opts">
-              <button class="mini-opt" onclick="miniCheck(this,true)">20</button>
-              <button class="mini-opt" onclick="miniCheck(this,false)">16</button>
+              <button class="mini-opt" onclick="miniCheck(this,false)">Subió la temperatura</button>
+              <button class="mini-opt" onclick="miniCheck(this,true)">Bajó la temperatura</button>
             </div>
             <div class="mini-feedback" id="mini-feedback"></div>
           </div>`
@@ -693,7 +726,6 @@ function renderSlide(){
     <div class="slide-visual">${s.visual}</div>
     ${s.extra||''}
   `;
-  // puntos
   const dotsWrap = document.getElementById('slide-dots');
   dotsWrap.innerHTML = slideState.list.map((_,i)=>`<div class="dot ${i===slideState.index?'active':''}"></div>`).join('');
   document.getElementById('slide-prev').disabled = slideState.index===0;
@@ -716,275 +748,272 @@ function prevSlide(){
 }
 
 /* ---------------------------------------------------------------------------
-   6. GENERADORES DE EJERCICIOS
+   7. GENERADORES DE EJERCICIOS
 --------------------------------------------------------------------------- */
-// Colores para las visualizaciones de fracciones
-const SHADE_COLORS = ['#FF6FA5','#FF8FB8'];
-const GRAY_COLORS = ['#E4E4E4','#F2F2F2'];
 
-function makePieHTML(total, shaded, size){
-  size = size || 130;
-  let stops = [];
-  let acc = 0;
-  const step = 360/total;
-  for(let i=0;i<total;i++){
-    const color = i<shaded ? SHADE_COLORS[i%2] : GRAY_COLORS[i%2];
-    stops.push(`${color} ${acc}deg ${acc+step}deg`);
-    acc += step;
-  }
-  return `<div class="pie" style="width:${size}px;height:${size}px;background:conic-gradient(${stops.join(',')});"></div>`;
-}
-function makeBarHTML(total, shaded){
-  let boxes = '';
-  for(let i=0;i<total;i++){
-    const color = i<shaded ? SHADE_COLORS[i%2] : GRAY_COLORS[i%2];
-    boxes += `<div class="bar-box" style="background:${color};"></div>`;
-  }
-  return `<div class="bar-row">${boxes}</div>`;
-}
-
-function fractionOptionsFrom(correctStr, denomPool){
-  // genera 3 distractores distintos con formato "n/d"
-  const opts = new Set([correctStr]);
-  let guard=0;
-  while(opts.size<4 && guard<50){
-    guard++;
-    const d = pick(denomPool);
-    const n = rnd(1, d-1);
-    opts.add(`${n}/${d}`);
-  }
-  return shuffle([...opts]);
-}
-
-// -------- FRACCIONES: generador de una pregunta --------
-function genFractionQuestion(usedKeys){
-  const types = ['pie','bar','numden','read','compare','equiv','word'];
-  let attempt=0;
-  while(attempt<40){
-    attempt++;
-    const type = pick(types);
-    let q = null;
-
-    if(type==='pie' || type==='bar'){
-      const total = pick([3,4,5,6,8]);
-      const shaded = rnd(1, total-1);
-      const key = `${type}-${total}-${shaded}`;
-      if(usedKeys.has(key)) continue;
-      const correct = `${shaded}/${total}`;
-      const visual = type==='pie' ? makePieHTML(total,shaded) : makeBarHTML(total,shaded);
-      q = {
-        key, text:'¿Qué fracción está coloreada? 🎨',
-        visualHTML: visual,
-        options: fractionOptionsFrom(correct, [3,4,5,6,8]),
-        answer: correct,
-        explain: `La figura tiene ${total} partes iguales y ${shaded} están coloreadas, por eso es ${correct}.`
-      };
-    }
-    else if(type==='numden'){
-      const d = rnd(3,10); const n = rnd(1,d-1);
-      const askNum = Math.random()>0.5;
-      const key = `numden-${n}-${d}-${askNum}`;
-      if(usedKeys.has(key)) continue;
-      const correct = askNum? n : d;
-      const opts = new Set([correct]);
-      while(opts.size<4) opts.add(rnd(1, Math.max(d+3,10)));
-      q = {
-        key, text:`En la fracción ${n}/${d}, ¿cuál es el ${askNum?'numerador':'denominador'}?`,
-        visualHTML:`<div style="font-size:44px;font-weight:900;color:var(--morado);">${n}/${d}</div>`,
-        options: shuffle([...opts].map(String)),
-        answer:String(correct),
-        explain: askNum ? `El numerador es el número de arriba: ${n}.` : `El denominador es el número de abajo: ${d}.`
-      };
-    }
-    else if(type==='read'){
-      const table = [[1,2,'un medio'],[1,3,'un tercio'],[1,4,'un cuarto'],[2,3,'dos tercios'],[3,4,'tres cuartos'],[1,5,'un quinto'],[2,5,'dos quintos']];
-      const [n,d,word] = pick(table);
-      const key = `read-${n}-${d}`;
-      if(usedKeys.has(key)) continue;
-      const distractWords = table.filter(t=>t[2]!==word).map(t=>t[2]);
-      const opts = new Set([word]);
-      while(opts.size<4) opts.add(pick(distractWords));
-      q = {
-        key, text:`¿Cómo se lee la fracción ${n}/${d}?`,
-        visualHTML: makePieHTML(d,n,110),
-        options: shuffle([...opts]),
-        answer: word,
-        explain:`${n}/${d} se lee "${word}".`
-      };
-    }
-    else if(type==='compare'){
-      const d = pick([4,5,6,8]);
-      let a = rnd(1,d-1), b = rnd(1,d-1);
-      while(a===b){ b = rnd(1,d-1); }
-      const key = `compare-${d}-${a}-${b}`;
-      if(usedKeys.has(key)) continue;
-      const bigger = a>b ? `${a}/${d}` : `${b}/${d}`;
-      q = {
-        key, text:`¿Cuál fracción es mayor?`,
-        visualHTML:`<div style="display:flex;gap:24px;">${makePieHTML(d,a,100)}${makePieHTML(d,b,100)}</div>`,
-        options: shuffle([`${a}/${d}`,`${b}/${d}`, `${d}/${d}`, `1/${d}`].filter((v,i,arr)=>arr.indexOf(v)===i).slice(0,4)),
-        answer: bigger,
-        explain:`Con el mismo total (${d}), gana la que tiene más partes coloreadas: ${bigger}.`
-      };
-    }
-    else if(type==='equiv'){
-      const base = pick([[1,2],[1,3],[1,4],[2,3]]);
-      const mult = rnd(2,4);
-      const correct = `${base[0]*mult}/${base[1]*mult}`;
-      const key = `equiv-${base[0]}-${base[1]}-${mult}`;
-      if(usedKeys.has(key)) continue;
-      const opts = new Set([correct]);
-      while(opts.size<4){
-        const fm = rnd(2,5);
-        const dd = base[1]*fm + rnd(-1,1);
-        const nn = base[0]*fm;
-        if(dd>0 && nn>0 && nn!==dd) opts.add(`${nn}/${dd}`);
-      }
-      q = {
-        key, text:`¿Qué fracción es equivalente a ${base[0]}/${base[1]}?`,
-        visualHTML: makePieHTML(base[1],base[0],110),
-        options: shuffle([...opts]),
-        answer: correct,
-        explain:`Multiplicando arriba y abajo por ${mult}: ${base[0]}×${mult}/${base[1]}×${mult} = ${correct}.`
-      };
-    }
-    else if(type==='word'){
-      const themes = [
-        {obj:'pizza',emoji:'🍕'}, {obj:'pastel',emoji:'🎂'}, {obj:'chocolate',emoji:'🍫'}
-      ];
-      const th = pick(themes);
-      const total = pick([4,6,8]);
-      const eaten = rnd(1,total-1);
-      const key = `word-${th.obj}-${total}-${eaten}`;
-      if(usedKeys.has(key)) continue;
-      const correct = `${eaten}/${total}`;
-      q = {
-        key, text:`Tu ${th.obj} ${th.emoji} tiene ${total} partes iguales y te comiste ${eaten}. ¿Qué fracción comiste?`,
-        visualHTML: makePieHTML(total,eaten,120),
-        options: fractionOptionsFrom(correct,[3,4,5,6,8]),
-        answer: correct,
-        explain:`Comiste ${eaten} de ${total} partes: ${correct}.`
-      };
-    }
-
-    if(q){ usedKeys.add(q.key); return q; }
-  }
-  // fallback (muy improbable)
-  const total=4, shaded=rnd(1,3);
-  return { key:`fallback-${Date.now()}-${Math.random()}`, text:'¿Qué fracción está coloreada?', visualHTML:makePieHTML(total,shaded), options:fractionOptionsFrom(`${shaded}/${total}`,[3,4,5,6]), answer:`${shaded}/${total}`, explain:'Cuenta las partes coloreadas sobre el total.' };
-}
-
-// -------- DIVISIONES: generador de una pregunta --------
-function genDivisionQuestion(usedKeys){
-  const types = ['basic','word','multrelation','byten','choose'];
+// -------- SUCESIONES: generador de una pregunta --------
+function genSucesionQuestion(usedKeys){
+  const types = ['next-add','next-sub','next-mult','rule-identify','missing-middle','squares-next'];
   let attempt=0;
   while(attempt<40){
     attempt++;
     const type = pick(types);
     let q=null;
 
-    if(type==='basic'){
-      const b = rnd(2,10);
-      const c = rnd(2,12);
-      const a = b*c;
-      const key = `basic-${a}-${b}`;
+    if(type==='next-add'){
+      const start = rnd(1,20);
+      const step = rnd(2,9);
+      const terms = [start, start+step, start+2*step, start+3*step];
+      const answer = start+4*step;
+      const key = `nadd-${start}-${step}`;
       if(usedKeys.has(key)) continue;
-      const opts = new Set([c]);
-      while(opts.size<4) opts.add(Math.max(1,c+rnd(-4,4)));
+      const opts = new Set([answer]);
+      while(opts.size<4) opts.add(Math.max(0,answer+pick([-step,step,-2*step,2,-2,3])));
       q = {
-        key, text:`¿Cuánto es ${a} ÷ ${b}?`,
-        visualHTML:`<div style="font-size:38px;font-weight:900;color:var(--morado);">${a} ÷ ${b} = ?</div>`,
+        key, text:'¿Cuál es el siguiente número de la sucesión?',
+        visualHTML: seqRowHTML(terms.concat(['?'])),
         options: shuffle([...opts].map(String)),
-        answer:String(c),
-        explain:`${b} × ${c} = ${a}, entonces ${a} ÷ ${b} = ${c}.`
+        answer: String(answer),
+        explain:`La regla es +${step}. El último término es ${terms[3]}, entonces ${terms[3]} + ${step} = ${answer}.`
       };
     }
-    else if(type==='word'){
-      const themes=[['caramelos','🍬','amigos'],['juguetes','🧸','niños'],['galletas','🍪','amigas'],['lápices','✏️','estudiantes'],['estampas','⭐','álbumes']];
-      const [obj,emoji,people] = pick(themes);
-      const b = rnd(2,6);
-      const c = rnd(2,10);
-      const a = b*c;
-      const key = `word-${obj}-${a}-${b}`;
+    else if(type==='next-sub'){
+      const step = rnd(2,9);
+      const start = rnd(40,90);
+      const terms = [start, start-step, start-2*step, start-3*step];
+      if(terms[3]-4*step < 0) continue;
+      const answer = terms[3]-4*step;
+      const key = `nsub-${start}-${step}`;
       if(usedKeys.has(key)) continue;
-      const opts = new Set([c]);
-      while(opts.size<4) opts.add(Math.max(1,c+rnd(-3,3)));
+      const opts = new Set([answer]);
+      while(opts.size<4) opts.add(Math.max(0,answer+pick([-step,step,-2,2,-3,3])));
       q = {
-        key, text:`Tienes ${a} ${obj} ${emoji} y los repartes entre ${b} ${people} por igual. ¿Cuántos recibe cada uno?`,
-        visualHTML:`<div style="font-size:30px;">${emoji.repeat(Math.min(a,10))}</div>`,
+        key, text:'¿Cuál es el siguiente número de la sucesión?',
+        visualHTML: seqRowHTML(terms.concat(['?'])),
         options: shuffle([...opts].map(String)),
-        answer:String(c),
-        explain:`${a} ÷ ${b} = ${c}. Cada ${people.slice(0,-1)} recibe ${c}.`
+        answer: String(answer),
+        explain:`La regla es −${step}. El último término es ${terms[3]}, entonces ${terms[3]} − ${step} = ${answer}.`
       };
     }
-    else if(type==='multrelation'){
-      const b = rnd(2,9); const c = rnd(2,9); const a=b*c;
-      const key = `multrel-${a}-${b}-${c}`;
+    else if(type==='next-mult'){
+      const start = rnd(1,3);
+      const ratio = pick([2,3]);
+      const terms = [start, start*ratio, start*ratio*ratio, start*ratio*ratio*ratio];
+      const answer = terms[3]*ratio;
+      if(answer>500) continue;
+      const key = `nmult-${start}-${ratio}`;
       if(usedKeys.has(key)) continue;
-      const opts = new Set([c]);
-      while(opts.size<4) opts.add(Math.max(1,c+rnd(-4,4)));
+      const opts = new Set([answer]);
+      while(opts.size<4) opts.add(Math.max(1,answer+pick([-terms[3],terms[3],-5,5,10])));
       q = {
-        key, text:`Si ${b} × ${c} = ${a}, ¿cuánto es ${a} ÷ ${b}?`,
-        visualHTML:`<div style="font-size:30px;font-weight:800;color:var(--morado);">${b} × ${c} = ${a}</div>`,
+        key, text:'¿Cuál es el siguiente número de la sucesión?',
+        visualHTML: seqRowHTML(terms.concat(['?'])),
         options: shuffle([...opts].map(String)),
-        answer:String(c),
-        explain:`La división deshace la multiplicación: ${a} ÷ ${b} = ${c}.`
+        answer: String(answer),
+        explain:`La regla es ×${ratio}. El último término es ${terms[3]}, entonces ${terms[3]} × ${ratio} = ${answer}.`
       };
     }
-    else if(type==='byten'){
-      const c = rnd(2,90);
-      const a = c*10;
-      const key = `byten-${a}`;
+    else if(type==='rule-identify'){
+      const kind = pick(['add','sub','mult']);
+      let terms, ruleText;
+      if(kind==='add'){ const step=rnd(2,9); const start=rnd(1,20); terms=[start,start+step,start+2*step,start+3*step]; ruleText=`+${step}`; }
+      else if(kind==='sub'){ const step=rnd(2,9); const start=rnd(30,80); terms=[start,start-step,start-2*step,start-3*step]; ruleText=`−${step}`; }
+      else { const ratio=pick([2,3]); const start=rnd(1,3); terms=[start,start*ratio,start*ratio*ratio,start*ratio*ratio*ratio]; ruleText=`×${ratio}`; }
+      const key = `rule-${kind}-${terms.join('-')}`;
       if(usedKeys.has(key)) continue;
-      const opts = new Set([c]);
-      while(opts.size<4) opts.add(Math.max(1,c+rnd(-8,8)));
+      const distractors = shuffle(['+2','+3','+4','+5','+6','+7','+8','+9','−2','−3','−4','−5','−6','−7','−8','−9','×2','×3'].filter(r=>r!==ruleText)).slice(0,3);
       q = {
-        key, text:`Truco: ${a} ÷ 10 = ? (¡quita un cero!)`,
-        visualHTML:`<div style="font-size:38px;font-weight:900;color:var(--morado);">${a} ÷ 10</div>`,
-        options: shuffle([...opts].map(String)),
-        answer:String(c),
-        explain:`Al dividir entre 10, simplemente quitamos un cero: ${a} ÷ 10 = ${c}.`
+        key, text:'¿Cuál es la regla de esta sucesión?',
+        visualHTML: seqRowHTML(terms),
+        options: shuffle([ruleText, ...distractors]),
+        answer: ruleText,
+        explain:`Comparando términos seguidos, la diferencia (o razón) siempre es la misma: ${ruleText}.`
       };
     }
-    else if(type==='choose'){
-      const b = rnd(2,9); const c = rnd(2,9); const a=b*c;
-      const key = `choose-${a}-${b}-${c}`;
+    else if(type==='missing-middle'){
+      const kind = pick(['add','sub']);
+      let start, step, terms;
+      if(kind==='add'){ step=rnd(2,9); start=rnd(1,15); terms=[start,start+step,start+2*step,start+3*step,start+4*step]; }
+      else { step=rnd(2,9); start=rnd(40,90); terms=[start,start-step,start-2*step,start-3*step,start-4*step]; }
+      if(terms.some(t=>t<0)) continue;
+      const blankIndex = pick([1,2,3]);
+      const answer = terms[blankIndex];
+      const key = `mid-${kind}-${terms.join('-')}-${blankIndex}`;
       if(usedKeys.has(key)) continue;
-      const wrongB = Math.max(2,b+pick([-1,1,2]));
-      const correctText = `${a} ÷ ${b} = ${c}`;
-      const opts = new Set([correctText]);
-      opts.add(`${a} ÷ ${wrongB} = ${c}`);
-      opts.add(`${a} ÷ ${b} = ${c+1}`);
-      opts.add(`${a+1} ÷ ${b} = ${c}`);
+      const opts = new Set([answer]);
+      while(opts.size<4) opts.add(Math.max(0,answer+pick([-step,step,-2,2,-3,3])));
+      const displayTerms = terms.map((t,i)=> i===blankIndex? '?' : t);
       q = {
-        key, text:`¿Cuál división es correcta?`,
-        visualHTML:`<div style="font-size:20px;">🧮</div>`,
-        options: shuffle([...opts]),
-        answer: correctText,
-        explain:`Comprobamos: ${b} × ${c} = ${a}, así que ${correctText} es correcta.`
+        key, text:'¿Qué número falta en la sucesión?',
+        visualHTML: seqRowHTML(displayTerms),
+        options: shuffle([...opts].map(String)),
+        answer: String(answer),
+        explain:`La regla es ${kind==='add'?'+':'−'}${step}. Aplicándola en orden, el término que falta es ${answer}.`
+      };
+    }
+    else if(type==='squares-next'){
+      const n = rnd(1,5);
+      const terms = [1,2,3,4,5].slice(0,n).map(x=>x*x);
+      if(terms.length<3) continue;
+      const nextN = n+1;
+      const answer = nextN*nextN;
+      const key = `sq-${n}`;
+      if(usedKeys.has(key)) continue;
+      const opts = new Set([answer]);
+      while(opts.size<4) opts.add(Math.max(1,answer+pick([-3,3,-5,5,-nextN,nextN])));
+      q = {
+        key, text:'Esta sucesión son números al cuadrado. ¿Cuál sigue?',
+        visualHTML: seqRowHTML(terms.concat(['?'])),
+        options: shuffle([...opts].map(String)),
+        answer: String(answer),
+        explain:`Los términos son 1², 2², 3²… El siguiente es ${nextN}² = ${answer}.`
       };
     }
 
     if(q){ usedKeys.add(q.key); return q; }
   }
-  const b=2,c=rnd(2,10),a=b*c;
-  return { key:`fallback-${Date.now()}-${Math.random()}`, text:`¿Cuánto es ${a} ÷ ${b}?`, visualHTML:'', options:shuffle([String(c),String(c+1),String(c-1),String(c+2)]), answer:String(c), explain:`${b} × ${c} = ${a}.` };
+  const start=2, step=3;
+  return { key:`fallback-${Date.now()}-${Math.random()}`, text:'¿Cuál es el siguiente número?', visualHTML: seqRowHTML([start,start+step,start+2*step,'?']), options: shuffle([String(start+3*step),String(start+2*step+1),String(start+3*step+2),String(start+3*step-1)]), answer:String(start+3*step), explain:`La regla es +${step}.` };
+}
+
+// -------- GRÁFICOS: generador de una pregunta --------
+const BAR_THEMES = [
+  { cats:['Lun','Mar','Mié','Jue'], title:'Helados vendidos', unit:'helados' },
+  { cats:['Ene','Feb','Mar','Abr'], title:'Libros vendidos', unit:'libros' },
+  { cats:['Equipo A','Equipo B','Equipo C','Equipo D'], title:'Puntos por equipo', unit:'puntos' },
+];
+const LINE_THEMES = [
+  { xs:['6am','9am','12pm','3pm'], title:'Temperatura del día', unit:'°C', base:[12,26] },
+  { xs:['Lun','Mar','Mié','Jue'], title:'Peso de una planta', unit:'cm', base:[5,30] },
+  { xs:['Ronda 1','Ronda 2','Ronda 3','Ronda 4'], title:'Puntaje del jugador', unit:'pts', base:[10,60] },
+];
+
+function genGraficoQuestion(usedKeys){
+  const types = ['bar-max','bar-min','bar-diff','bar-trend','line-max','line-trend','line-diff'];
+  let attempt=0;
+  while(attempt<40){
+    attempt++;
+    const type = pick(types);
+    let q=null;
+
+    if(type==='bar-max' || type==='bar-min'){
+      const theme = pick(BAR_THEMES);
+      const values = theme.cats.map(()=> rnd(4,20)*5);
+      const key = `${type}-${theme.title}-${values.join('-')}`;
+      if(usedKeys.has(key)) continue;
+      const targetVal = type==='bar-max' ? Math.max(...values) : Math.min(...values);
+      const idx = values.indexOf(targetVal);
+      const answer = theme.cats[idx];
+      const opts = new Set([answer]);
+      theme.cats.forEach(c=>{ if(opts.size<4) opts.add(c); });
+      q = {
+        key, text: type==='bar-max' ? `¿Cuál tuvo MÁS ${theme.unit}?` : `¿Cuál tuvo MENOS ${theme.unit}?`,
+        visualHTML: makeBarChartSVG(values, theme.cats, {title:theme.title}),
+        options: shuffle([...opts]),
+        answer,
+        explain: `${answer} tiene la barra ${type==='bar-max'?'más alta':'más baja'}, con ${targetVal}.`
+      };
+    }
+    else if(type==='bar-diff'){
+      const theme = pick(BAR_THEMES);
+      const values = theme.cats.map(()=> rnd(4,20)*5);
+      const key = `bardiff-${theme.title}-${values.join('-')}`;
+      if(usedKeys.has(key)) continue;
+      const i1 = rnd(0,values.length-1);
+      let i2 = rnd(0,values.length-1);
+      while(i2===i1) i2 = rnd(0,values.length-1);
+      const diff = Math.abs(values[i1]-values[i2]);
+      const opts = new Set([diff]);
+      while(opts.size<4) opts.add(Math.max(0,diff+pick([-10,10,-5,5,15])));
+      q = {
+        key, text:`¿Cuál es la diferencia entre ${theme.cats[i1]} y ${theme.cats[i2]}?`,
+        visualHTML: makeBarChartSVG(values, theme.cats, {title:theme.title}),
+        options: shuffle([...opts].map(String)),
+        answer: String(diff),
+        explain:`${Math.max(values[i1],values[i2])} − ${Math.min(values[i1],values[i2])} = ${diff}.`
+      };
+    }
+    else if(type==='bar-trend'){
+      const theme = pick(BAR_THEMES);
+      const values = theme.cats.map(()=> rnd(4,20)*5);
+      const key = `bartrend-${theme.title}-${values.join('-')}`;
+      if(usedKeys.has(key)) continue;
+      const i1 = rnd(0,values.length-2);
+      const i2 = i1+1;
+      const answer = values[i2]>values[i1] ? 'Subieron' : (values[i2]<values[i1] ? 'Bajaron' : 'Se mantuvieron igual');
+      q = {
+        key, text:`¿${theme.unit[0].toUpperCase()+theme.unit.slice(1)} subieron o bajaron de ${theme.cats[i1]} a ${theme.cats[i2]}?`,
+        visualHTML: makeBarChartSVG(values, theme.cats, {title:theme.title}),
+        options: shuffle(['Subieron','Bajaron','Se mantuvieron igual']),
+        answer,
+        explain:`De ${theme.cats[i1]} (${values[i1]}) a ${theme.cats[i2]} (${values[i2]}), el valor ${answer.toLowerCase()}.`
+      };
+    }
+    else if(type==='line-max'){
+      const theme = pick(LINE_THEMES);
+      const values = theme.xs.map(()=> rnd(theme.base[0],theme.base[1]));
+      const key = `linemax-${theme.title}-${values.join('-')}`;
+      if(usedKeys.has(key)) continue;
+      const idx = values.indexOf(Math.max(...values));
+      const answer = theme.xs[idx];
+      const opts = new Set([answer]);
+      theme.xs.forEach(c=>{ if(opts.size<4) opts.add(c); });
+      q = {
+        key, text:`¿En qué momento fue MÁS alto el valor?`,
+        visualHTML: makeLineChartSVG(values, theme.xs, {title:theme.title}),
+        options: shuffle([...opts]),
+        answer,
+        explain:`El punto más alto de la línea está en ${answer}, con ${Math.max(...values)} ${theme.unit}.`
+      };
+    }
+    else if(type==='line-trend'){
+      const theme = pick(LINE_THEMES);
+      const values = theme.xs.map(()=> rnd(theme.base[0],theme.base[1]));
+      const key = `linetrend-${theme.title}-${values.join('-')}`;
+      if(usedKeys.has(key)) continue;
+      const i1 = rnd(0,values.length-2);
+      const i2 = i1+1;
+      const answer = values[i2]>values[i1] ? 'Subió' : (values[i2]<values[i1] ? 'Bajó' : 'Se mantuvo igual');
+      q = {
+        key, text:`¿El valor subió o bajó de ${theme.xs[i1]} a ${theme.xs[i2]}?`,
+        visualHTML: makeLineChartSVG(values, theme.xs, {title:theme.title}),
+        options: shuffle(['Subió','Bajó','Se mantuvo igual']),
+        answer,
+        explain:`De ${theme.xs[i1]} (${values[i1]}) a ${theme.xs[i2]} (${values[i2]}), el valor ${answer.toLowerCase()}.`
+      };
+    }
+    else if(type==='line-diff'){
+      const theme = pick(LINE_THEMES);
+      const values = theme.xs.map(()=> rnd(theme.base[0],theme.base[1]));
+      const key = `linediff-${theme.title}-${values.join('-')}`;
+      if(usedKeys.has(key)) continue;
+      const i1 = rnd(0,values.length-1);
+      let i2 = rnd(0,values.length-1);
+      while(i2===i1) i2 = rnd(0,values.length-1);
+      const diff = Math.abs(values[i1]-values[i2]);
+      const opts = new Set([diff]);
+      while(opts.size<4) opts.add(Math.max(0,diff+pick([-6,6,-3,3,9])));
+      q = {
+        key, text:`¿Cuántos ${theme.unit} de diferencia hay entre ${theme.xs[i1]} y ${theme.xs[i2]}?`,
+        visualHTML: makeLineChartSVG(values, theme.xs, {title:theme.title}),
+        options: shuffle([...opts].map(String)),
+        answer: String(diff),
+        explain:`${Math.max(values[i1],values[i2])} − ${Math.min(values[i1],values[i2])} = ${diff}.`
+      };
+    }
+
+    if(q){ usedKeys.add(q.key); return q; }
+  }
+  const values=[30,50,40]; const cats=['A','B','C'];
+  return { key:`fallback-${Date.now()}-${Math.random()}`, text:'¿Cuál tuvo más?', visualHTML: makeBarChartSVG(values,cats,{title:'Ejemplo'}), options: shuffle(cats), answer:'B', explain:'B tiene la barra más alta.' };
 }
 
 /* ---------------------------------------------------------------------------
-   7. MOTOR DE EJERCICIOS / EXAMEN (usado por Clase y por Práctica)
+   8. MOTOR DE EJERCICIOS / EXAMEN
 --------------------------------------------------------------------------- */
 let exState = {
-  mode:'clase',         // 'clase' | 'practica'
-  temaLabel:'FRACCIONES',
-  questions:[],
-  index:0,
-  correct:0,
-  wrong:0,
-  streak:0,
-  maxStreak:0,
-  startTime:0,
-  onFinish:null
+  mode:'clase', temaLabel:'SUCESIONES', questions:[], index:0,
+  correct:0, wrong:0, streak:0, maxStreak:0, startTime:0, onFinish:null
 };
 
 function startExerciseSet(questions, temaLabel, mode, onFinish){
@@ -1065,32 +1094,32 @@ function nextQuestion(){
 }
 
 /* ---------------------------------------------------------------------------
-   8. FLUJO "CLASE"
+   9. FLUJO "CLASE"
 --------------------------------------------------------------------------- */
 function startClase(){
   playClick();
-  openSlides(SLIDES_FRACCIONES, ()=>{
+  openSlides(SLIDES_SUCESIONES, ()=>{
     playWhoosh();
     const used = new Set();
-    const qs = []; for(let i=0;i<12;i++) qs.push(genFractionQuestion(used));
-    startExerciseSet(qs, '🟡 FRACCIONES', 'clase', onFinishFraccionesClase);
+    const qs = []; for(let i=0;i<12;i++) qs.push(genSucesionQuestion(used));
+    startExerciseSet(qs, '🟢 SUCESIONES', 'clase', onFinishSucesionesClase);
   });
 }
-function onFinishFraccionesClase(){
-  showInterstitial('🎉','¡Fracciones completadas!',`Acertaste ${exState.correct} de ${exState.questions.length}. ¡Ahora vamos con Divisiones!`, ()=>{
-    openSlides(SLIDES_DIVISIONES, ()=>{
+function onFinishSucesionesClase(){
+  showInterstitial('🎉','¡Sucesiones completadas!',`Acertaste ${exState.correct} de ${exState.questions.length}. ¡Ahora vamos con Gráficos!`, ()=>{
+    openSlides(SLIDES_GRAFICOS, ()=>{
       playWhoosh();
       const used = new Set();
-      const qs = []; for(let i=0;i<12;i++) qs.push(genDivisionQuestion(used));
-      startExerciseSet(qs, '🟢 DIVISIONES', 'clase', onFinishDivisionesClase);
+      const qs = []; for(let i=0;i<12;i++) qs.push(genGraficoQuestion(used));
+      startExerciseSet(qs, '🟡 GRÁFICOS', 'clase', onFinishGraficosClase);
     });
   });
 }
-function onFinishDivisionesClase(){
+function onFinishGraficosClase(){
   launchConfetti(60);
   playFanfare();
   mascotSay('¡Clase terminada! 🎓');
-  showInterstitial('🏆','¡Clase completada!', `¡Excelente trabajo aprendiendo Fracciones y Divisiones! Cuando quieras, ve a "🎮 Práctica" para poner a prueba lo aprendido.`, ()=>{
+  showInterstitial('🏆','¡Clase completada!', `¡Excelente trabajo aprendiendo Sucesiones y Gráficos! Cuando quieras, ve a "🎮 Práctica" para poner a prueba lo aprendido.`, ()=>{
     goHome();
   }, true);
 }
@@ -1111,21 +1140,20 @@ function interContinue(){
 }
 
 /* ---------------------------------------------------------------------------
-   9. FLUJO "PRÁCTICA" (examen de 30 preguntas)
+   10. FLUJO "PRÁCTICA" (examen de 30 preguntas)
 --------------------------------------------------------------------------- */
-let practicaTimer=null, practicaStart=0;
+let practicaStart=0;
 
 function startPractica(){
   playClick();
-  const usedF = new Set(), usedD = new Set();
-  const fracs = []; for(let i=0;i<15;i++) fracs.push({...genFractionQuestion(usedF), tema:'fraccion'});
-  const divs  = []; for(let i=0;i<15;i++) divs.push({...genDivisionQuestion(usedD), tema:'division'});
-  const all = shuffle([...fracs, ...divs]);
+  const usedS = new Set(), usedG = new Set();
+  const secs = []; for(let i=0;i<15;i++) secs.push({...genSucesionQuestion(usedS), tema:'sucesion'});
+  const grafs  = []; for(let i=0;i<15;i++) grafs.push({...genGraficoQuestion(usedG), tema:'grafico'});
+  const all = shuffle([...secs, ...grafs]);
 
   practicaStart = Date.now();
   startExerciseSet(all, '🏆 EXAMEN MIXTO', 'practica', onFinishPractica);
 
-  // muestra intro breve mediante mascota
   mascotSay('🏆 ¡Hora de demostrar lo aprendido!');
 }
 
@@ -1135,7 +1163,7 @@ function onFinishPractica(){
 }
 
 /* ---------------------------------------------------------------------------
-   10. PANTALLA DE RESULTADOS
+   11. PANTALLA DE RESULTADOS
 --------------------------------------------------------------------------- */
 function formatTime(ms){
   const s = Math.floor(ms/1000);
@@ -1147,7 +1175,7 @@ function formatTime(ms){
 function showResults(correct, wrong, total, elapsedMs, maxStreak){
   const pct = Math.round((correct/total)*100);
   let medal, title, msg;
-  if(pct>=95){ medal='🥇'; title='¡Medalla de Oro!'; msg='¡Eres un genio de las matemáticas! Dominaste fracciones y divisiones.'; }
+  if(pct>=95){ medal='🥇'; title='¡Medalla de Oro!'; msg='¡Eres un genio de las matemáticas! Dominaste sucesiones y gráficos.'; }
   else if(pct>=80){ medal='🥈'; title='¡Medalla de Plata!'; msg='¡Muy buen trabajo! Estás cada vez más cerca de la perfección.'; }
   else if(pct>=60){ medal='🥉'; title='¡Medalla de Bronce!'; msg='¡Buen esfuerzo! Sigue practicando para mejorar aún más.'; }
   else { medal='💪'; title='¡Vamos con todo!'; msg='¡Podemos seguir practicando! Cada intento te hace más fuerte.'; }
