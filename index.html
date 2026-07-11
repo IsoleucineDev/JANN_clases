@@ -2,838 +2,743 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Clase 4 · Sucesiones Avanzadas 🚀</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Potencias ⚡</title>
 <style>
-:root{
-  --morado:#5B3A9E;
-  --morado-osc:#3D2570;
-  --amarillo:#FFD23F;
-  --verde:#3CCB7F;
-  --rosa:#FF6FA5;
-  --azul:#3EC6FF;
-  --naranja:#FF8C42;
-  --crema:#FFF8EC;
-  --texto:#2E1A47;
-  --rojo:#FF5A5F;
-  --sombra: 0 8px 0 rgba(0,0,0,0.15);
-  --font: 'Baloo 2','Comic Sans MS','Segoe UI Rounded','Trebuchet MS',sans-serif;
-}
-*{box-sizing:border-box;}
-html,body{
-  margin:0;padding:0;height:100%;
-  font-family:var(--font);
-  background:linear-gradient(160deg,#7A4FD1 0%,#5B3A9E 45%,#3D2570 100%);
-  color:var(--texto);
-  overflow-x:hidden;
-  -webkit-tap-highlight-color:transparent;
-  user-select:none;
-}
-body::before{
-  content:"";
-  position:fixed;inset:0;
-  background-image:
-    radial-gradient(2px 2px at 10% 20%, #ffffffaa 50%, transparent 51%),
-    radial-gradient(2px 2px at 80% 10%, #ffffff88 50%, transparent 51%),
-    radial-gradient(3px 3px at 60% 70%, #ffffff66 50%, transparent 51%),
-    radial-gradient(2px 2px at 30% 80%, #ffffff99 50%, transparent 51%),
-    radial-gradient(2px 2px at 90% 60%, #ffffff77 50%, transparent 51%),
-    radial-gradient(2px 2px at 45% 40%, #ffffff55 50%, transparent 51%);
-  background-size:100% 100%;
-  animation: twinkle 4s ease-in-out infinite alternate;
-  pointer-events:none;
-  z-index:0;
-}
-@keyframes twinkle{ from{opacity:.6;} to{opacity:1;} }
-button{font-family:var(--font);cursor:pointer;}
-h1,h2,h3,p{margin:0;}
-#app{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;}
-#topbar{display:none;align-items:center;gap:14px;padding:14px 18px;background:rgba(0,0,0,0.18);backdrop-filter:blur(4px);}
-#topbar.show{display:flex;}
-.btn-back{background:var(--crema);border:none;border-radius:16px;width:52px;height:52px;font-size:26px;box-shadow:var(--sombra);flex-shrink:0;transition:transform .1s;}
-.btn-back:active{transform:translateY(6px);box-shadow:none;}
-.progress-outer{flex:1;background:rgba(255,255,255,0.25);border-radius:20px;height:22px;overflow:hidden;border:2px solid rgba(255,255,255,0.4);}
-.progress-inner{height:100%;background:linear-gradient(90deg,var(--verde),var(--azul));width:0%;border-radius:20px;transition:width .4s ease;}
-#hud-stats{display:flex;gap:10px;color:#fff;font-weight:700;font-size:15px;flex-shrink:0;white-space:nowrap;}
-#hud-stats span{background:rgba(255,255,255,0.18);padding:6px 10px;border-radius:12px;}
-.screen{display:none;flex:1;flex-direction:column;align-items:center;padding:20px;animation:fadeIn .35s ease;}
-.screen.active{display:flex;}
-@keyframes fadeIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
-#screen-home{justify-content:center;text-align:center;gap:26px;}
-.home-title{color:#fff;font-size:50px;font-weight:800;text-shadow:0 4px 0 rgba(0,0,0,0.25);letter-spacing:1px;}
-.home-sub{color:var(--amarillo);font-size:20px;font-weight:700;margin-top:-10px;max-width:600px;}
-.home-buttons{display:flex;gap:28px;flex-wrap:wrap;justify-content:center;margin-top:10px;}
-.big-btn{border:none;border-radius:28px;padding:34px 42px;font-size:30px;font-weight:800;color:#fff;min-width:230px;box-shadow:0 10px 0 rgba(0,0,0,0.25);transition:transform .12s, box-shadow .12s;animation:floaty 3s ease-in-out infinite;}
-.big-btn:active{transform:translateY(10px);box-shadow:0 0 0 rgba(0,0,0,0.25);}
-.big-btn.clase{background:linear-gradient(145deg,var(--azul),#2196c9);}
-.big-btn.practica{background:linear-gradient(145deg,var(--naranja),#e6672a);animation-delay:.4s;}
-@keyframes floaty{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
-#mascot-wrap{position:fixed;bottom:14px;left:14px;display:flex;align-items:flex-end;gap:10px;z-index:50;pointer-events:none;}
-#mascot{font-size:70px;animation:bounce 2.2s ease-in-out infinite;filter:drop-shadow(0 6px 4px rgba(0,0,0,0.35));}
-@keyframes bounce{0%,100%{transform:translateY(0) rotate(-4deg);}50%{transform:translateY(-14px) rotate(4deg);}}
-#speech{background:var(--crema);border-radius:18px 18px 18px 4px;padding:10px 16px;font-weight:700;font-size:16px;max-width:220px;box-shadow:var(--sombra);opacity:0;transform:scale(0.7);transition:all .25s cubic-bezier(.34,1.56,.64,1);}
-#speech.show{opacity:1;transform:scale(1);}
-.card{background:var(--crema);border-radius:26px;padding:26px;box-shadow:var(--sombra);width:100%;max-width:640px;}
-.pill{display:inline-block;background:var(--amarillo);color:var(--morado-osc);padding:6px 16px;border-radius:20px;font-weight:800;font-size:14px;margin-bottom:8px;}
-#screen-slides{gap:16px;width:100%;}
-.slide-card{width:100%;max-width:680px;background:var(--crema);border-radius:28px;padding:30px;box-shadow:var(--sombra);text-align:center;min-height:400px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:14px;}
-.slide-title{font-size:28px;font-weight:800;color:var(--morado);}
-.slide-sub{font-size:16px;color:#666;font-weight:600;}
-.slide-visual{margin:10px 0;display:flex;gap:18px;align-items:center;justify-content:center;flex-wrap:wrap;}
-.slide-nav{display:flex;gap:16px;margin-top:16px;width:100%;max-width:680px;justify-content:space-between;}
-.nav-btn{border:none;border-radius:18px;padding:16px 26px;font-size:18px;font-weight:800;color:#fff;box-shadow:0 6px 0 rgba(0,0,0,0.2);transition:transform .1s;}
-.nav-btn:active{transform:translateY(6px);box-shadow:none;}
-.nav-btn.prev{background:#9b8bbf;}
-.nav-btn.next{background:var(--verde);}
-.nav-btn:disabled{opacity:0.35;pointer-events:none;}
-.dots{display:flex;gap:8px;justify-content:center;}
-.dot{width:12px;height:12px;border-radius:50%;background:#ddd;}
-.dot.active{background:var(--rosa);transform:scale(1.3);}
-.label-tag{font-size:13px;font-weight:700;color:#fff;background:var(--morado);padding:4px 10px;border-radius:10px;}
-.seq-row{display:flex;align-items:center;flex-wrap:wrap;gap:6px;justify-content:center;}
-.seq-term{min-width:58px;height:48px;padding:0 8px;border-radius:10px;background:var(--morado);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;flex-shrink:0;}
-.seq-term.neg{background:var(--rojo);}
-.seq-term.blank{background:#eee7fb;color:var(--morado);border:3px dashed var(--morado);}
-.seq-arrow{color:#bbb;font-size:18px;flex-shrink:0;}
-.resolve-box{background:#eee7fb;border-radius:16px;padding:14px 18px;width:100%;text-align:left;font-size:13.5px;line-height:1.7;color:var(--morado-osc);}
-.resolve-box b{color:var(--morado);}
-.mini-reto{background:#eee7fb;border-radius:18px;padding:16px;width:100%;}
-.mini-reto-opts{display:flex;gap:10px;justify-content:center;margin-top:10px;flex-wrap:wrap;}
-.mini-opt{border:none;border-radius:14px;padding:12px 20px;font-size:16px;font-weight:800;background:#fff;box-shadow:0 4px 0 rgba(0,0,0,0.15);color:var(--morado);}
-.mini-feedback{margin-top:10px;font-weight:800;min-height:24px;}
-#screen-exercise{gap:18px;width:100%;}
-.exercise-header{color:#fff;text-align:center;}
-.exercise-header .tema-label{font-size:16px;font-weight:700;opacity:.85;}
-.exercise-header .streak{font-size:15px;color:var(--amarillo);font-weight:800;}
-.q-card{width:100%;max-width:640px;text-align:center;}
-.q-visual{margin:14px 0;display:flex;justify-content:center;gap:16px;flex-wrap:wrap;}
-.q-text{font-size:21px;font-weight:800;color:var(--morado);line-height:1.4;}
-.q-tag{display:inline-block;font-size:11.5px;font-weight:800;color:var(--morado);background:#eee7fb;padding:3px 10px;border-radius:10px;margin-bottom:6px;}
-.options{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px;}
-@media(max-width:520px){.options{grid-template-columns:1fr;}}
-.opt-btn{border:none;border-radius:20px;padding:20px 14px;font-size:19px;font-weight:800;background:#fff;color:var(--morado);box-shadow:0 6px 0 #d8d0ec;transition:transform .1s, box-shadow .1s;border:3px solid #e6def7;}
-.opt-btn:active{transform:translateY(6px);box-shadow:none;}
-.opt-btn.correct{background:var(--verde);color:#fff;border-color:#2aa863;animation:pop .4s;}
-.opt-btn.wrong{background:var(--rojo);color:#fff;border-color:#c94044;animation:shake .4s;}
-.opt-btn.dim{opacity:.45;}
-@keyframes pop{0%{transform:scale(1);}50%{transform:scale(1.08);}100%{transform:scale(1);}}
-@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-8px);}75%{transform:translateX(8px);}}
-.feedback-box{margin-top:16px;padding:14px 18px;border-radius:16px;font-weight:700;font-size:15px;display:none;text-align:left;line-height:1.55;}
-.feedback-box.show{display:block;animation:fadeIn .3s;}
-.feedback-box.ok{background:#d8f7e6;color:#1f7a49;}
-.feedback-box.bad{background:#ffe1e2;color:#a13438;}
-.btn-siguiente{margin-top:16px;border:none;border-radius:18px;padding:16px 30px;font-size:18px;font-weight:800;background:var(--amarillo);color:var(--morado-osc);box-shadow:0 6px 0 #c99f1e;display:none;}
-.btn-siguiente.show{display:inline-block;}
-.btn-siguiente:active{transform:translateY(6px);box-shadow:none;}
-.interstitial{justify-content:center;align-items:center;text-align:center;gap:20px;}
-.interstitial .emoji-big{font-size:90px;animation:bounce 1.6s ease-in-out infinite;}
-.interstitial h2{color:#fff;font-size:32px;}
-.interstitial p{color:var(--amarillo);font-size:18px;font-weight:700;max-width:520px;}
-#screen-results{justify-content:center;align-items:center;text-align:center;gap:14px;}
-.medal{font-size:100px;animation:medalPop .6s cubic-bezier(.34,1.56,.64,1);}
-@keyframes medalPop{0%{transform:scale(0) rotate(-30deg);}100%{transform:scale(1) rotate(0);}}
-.result-title{color:#fff;font-size:34px;font-weight:800;}
-.result-pct{font-size:60px;font-weight:900;color:var(--amarillo);text-shadow:0 3px 0 rgba(0,0,0,.2);}
-.result-stats{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:6px;}
-.result-stats .stat{background:rgba(255,255,255,.15);color:#fff;padding:10px 16px;border-radius:14px;font-weight:700;min-width:110px;}
-.result-msg{color:#fff;font-size:18px;font-weight:700;max-width:500px;}
-.btn-replay{margin-top:10px;border:none;border-radius:20px;padding:20px 34px;font-size:22px;font-weight:800;background:linear-gradient(145deg,var(--verde),#28a866);color:#fff;box-shadow:0 8px 0 rgba(0,0,0,0.25);}
-.btn-replay:active{transform:translateY(8px);box-shadow:none;}
-#confetti-layer{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:200;}
-.confetti-piece{position:absolute;top:-20px;width:10px;height:16px;opacity:0.95;animation-name:confettiFall;animation-timing-function:ease-in;animation-fill-mode:forwards;}
-@keyframes confettiFall{from{transform:translateY(-10vh) rotate(0deg);}to{transform:translateY(110vh) rotate(680deg);}}
-.star-burst{position:absolute;font-size:22px;animation:starBurst .8s ease-out forwards;pointer-events:none;}
-@keyframes starBurst{0%{transform:translate(0,0) scale(0.3);opacity:1;}100%{transform:translate(var(--sx),var(--sy)) scale(1.3);opacity:0;}}
-@media(max-width:600px){
-  .home-title{font-size:34px;}
-  .big-btn{font-size:24px;padding:26px 30px;min-width:170px;}
-  .q-text{font-size:17px;}
-  .slide-title{font-size:22px;}
-  #mascot{font-size:52px;}
-  #speech{font-size:13px;max-width:150px;}
-  .seq-term{min-width:46px;height:42px;font-size:14px;}
-}
+  :root{
+    --primary:#2D1B69;
+    --primary-light:#4A2FA0;
+    --secondary:#00B39B;
+    --accent:#FFC93C;
+    --accent-hot:#FF6B6B;
+    --bg:#F4F2FB;
+    --card:#FFFFFF;
+    --text:#221845;
+    --muted:#6C6480;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{height:100%;}
+  body{
+    font-family:'Segoe UI', Verdana, sans-serif;
+    background:linear-gradient(160deg,var(--primary) 0%, #472B94 45%, var(--primary) 100%);
+    color:var(--text);
+    min-height:100vh;
+    overflow-x:hidden;
+    position:relative;
+  }
+
+  /* floating background bolts */
+  .bg-bolt{
+    position:fixed; font-size:2.5rem; opacity:.12; color:var(--accent);
+    animation:float 9s ease-in-out infinite;
+    pointer-events:none; z-index:0;
+    user-select:none;
+  }
+  @keyframes float{
+    0%,100%{ transform:translateY(0) rotate(-6deg);}
+    50%{ transform:translateY(-40px) rotate(6deg);}
+  }
+
+  .screen{
+    position:relative; z-index:1;
+    min-height:100vh;
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:2rem 1rem;
+  }
+  .screen.active{display:flex;}
+
+  /* ---------- START SCREEN ---------- */
+  #start .logo{
+    font-size:5rem;
+    animation:spark 2.2s ease-in-out infinite;
+    filter:drop-shadow(0 0 20px rgba(255,201,60,.6));
+  }
+  @keyframes spark{
+    0%,100%{ transform:scale(1) rotate(0deg);}
+    50%{ transform:scale(1.12) rotate(-4deg);}
+  }
+  #start h1{
+    color:#fff;
+    font-size:clamp(2.4rem, 6vw, 4rem);
+    margin-top:.5rem;
+    text-align:center;
+    letter-spacing:1px;
+  }
+  #start h1 sup{
+    color:var(--accent);
+    font-size:.55em;
+    margin-left:.15em;
+  }
+  #start p.tag{
+    color:#C9C2EE;
+    font-style:italic;
+    margin:.6rem 0 2.5rem;
+    text-align:center;
+    font-size:1.1rem;
+  }
+  .mode-row{
+    display:flex; gap:1.5rem; flex-wrap:wrap; justify-content:center;
+  }
+  .mode-btn{
+    all:unset;
+    cursor:pointer;
+    background:var(--card);
+    color:var(--primary);
+    padding:1.6rem 2.4rem;
+    border-radius:22px;
+    font-size:1.3rem;
+    font-weight:800;
+    display:flex; flex-direction:column; align-items:center; gap:.5rem;
+    box-shadow:0 10px 0 rgba(0,0,0,.18), 0 15px 25px rgba(0,0,0,.25);
+    transition:transform .12s ease, box-shadow .12s ease;
+    min-width:200px;
+    text-align:center;
+  }
+  .mode-btn .emoji{font-size:2.4rem;}
+  .mode-btn:hover{ transform:translateY(-4px); }
+  .mode-btn:active{ transform:translateY(4px); box-shadow:0 4px 0 rgba(0,0,0,.18), 0 6px 12px rgba(0,0,0,.2); }
+  .mode-btn.practice{ background:var(--secondary); color:#fff; }
+  .mode-btn.practice small, .mode-btn.class small{ font-weight:500; font-size:.8rem; opacity:.75;}
+
+  /* ---------- CLASES SCREEN ---------- */
+  #clases .word{
+    color:#fff;
+    font-size:clamp(3rem, 12vw, 7rem);
+    font-weight:900;
+    letter-spacing:2px;
+    animation:pulseWord 2.6s ease-in-out infinite;
+    text-shadow:0 0 40px rgba(255,201,60,.5);
+  }
+  @keyframes pulseWord{
+    0%,100%{ transform:scale(1); }
+    50%{ transform:scale(1.05); }
+  }
+  .power-orbit{
+    position:relative; width:260px; height:260px; margin:2.5rem auto 0;
+  }
+  .power-orbit .p-item{
+    position:absolute; top:50%; left:50%;
+    font-weight:800; color:var(--accent); font-size:1.6rem;
+    transform-origin:0 0;
+    animation:orbit 10s linear infinite;
+  }
+  .power-orbit .p-item:nth-child(2){ animation-delay:-3.3s; color:var(--secondary);}
+  .power-orbit .p-item:nth-child(3){ animation-delay:-6.6s; color:#fff;}
+  @keyframes orbit{
+    from{ transform:rotate(0deg) translateX(120px) rotate(0deg); }
+    to{ transform:rotate(360deg) translateX(120px) rotate(-360deg); }
+  }
+
+  .back-btn{
+    all:unset; cursor:pointer;
+    position:fixed; top:1.2rem; left:1.2rem; z-index:5;
+    background:rgba(255,255,255,.12);
+    color:#fff; padding:.6rem 1.1rem; border-radius:14px;
+    font-weight:700; font-size:.95rem;
+    backdrop-filter:blur(4px);
+    transition:background .15s;
+  }
+  .back-btn:hover{ background:rgba(255,255,255,.25); }
+
+  /* ---------- CLASES SLIDESHOW ---------- */
+  .clases-shell{ width:100%; max-width:760px; margin:0 auto; padding-top:1.5rem;}
+  .slide-dots{ display:flex; justify-content:center; gap:.5rem; margin-bottom:1.2rem;}
+  .slide-dots .dot{ width:9px; height:9px; border-radius:50%; background:rgba(255,255,255,.25); transition:all .25s;}
+  .slide-dots .dot.active{ background:var(--accent); width:26px; border-radius:6px; }
+
+  .slide-card{
+    background:var(--card); border-radius:26px; padding:2.4rem 2rem;
+    min-height:400px; box-shadow:0 20px 45px rgba(0,0,0,.3);
+    animation:cardIn .35s ease;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+  }
+  .s-eyebrow{ color:var(--secondary); font-weight:800; font-size:.8rem; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:.4rem;}
+  .s-title{ color:var(--primary); font-size:clamp(1.6rem,4.5vw,2.2rem); font-weight:800; margin-bottom:.8rem;}
+  .s-sub{ color:var(--muted); font-size:1.05rem; max-width:32rem; margin-bottom:1rem;}
+
+  .slide-nav{ display:flex; justify-content:space-between; margin-top:1.4rem; gap:1rem;}
+  .nav-btn{
+    all:unset; cursor:pointer; padding:.8rem 1.4rem; border-radius:14px; font-weight:800;
+    background:rgba(255,255,255,.12); color:#fff; transition:background .15s, transform .1s;
+  }
+  .nav-btn:hover{ background:rgba(255,255,255,.22); transform:translateY(-2px);}
+  .nav-btn.primary{ background:var(--accent); color:var(--primary); }
+  .nav-btn.disabled{ opacity:.35; pointer-events:none; }
+
+  /* slide 2: definition */
+  .power-def-card{
+    display:flex; align-items:center; justify-content:center; gap:1rem; flex-wrap:wrap;
+    background:#EDE9F9; border-radius:18px; padding:1.6rem 1.2rem; margin-top:.5rem; width:100%;
+  }
+  .pd-base{ font-size:2.4rem; font-weight:800; color:var(--primary); }
+  .pd-eq{ font-size:1.6rem; color:var(--muted); font-weight:700;}
+  .pd-expand{ font-size:1.7rem; font-weight:800; color:var(--secondary); }
+  .pd-note{ font-size:.95rem; color:var(--muted); font-style:italic;}
+  .pd-legend{ margin-top:1rem; display:flex; gap:1.5rem; flex-wrap:wrap; justify-content:center; color:var(--text); font-size:.95rem;}
+
+  /* slide 3: chips */
+  .chip-row{ display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; margin-top:.5rem;}
+  .chip{ background:#EDE9F9; border-radius:16px; padding:1.2rem 1rem; min-width:9rem; }
+  .chip.highlight{ background:var(--primary); }
+  .chip.highlight .chip-power{ color:var(--accent); }
+  .chip.highlight .chip-label{ color:#fff; }
+  .chip-power{ font-size:2rem; font-weight:800; color:var(--primary); margin-bottom:.4rem;}
+  .chip-label{ font-size:.85rem; font-weight:700; color:var(--text); }
+
+  /* slide 4: solve */
+  .solve-expr{ font-size:1.8rem; font-weight:800; color:var(--primary); }
+  .steps-row{ display:flex; gap:.8rem; flex-wrap:wrap; justify-content:center; margin-top:1.2rem;}
+  .step-chip{ background:#EDE9F9; color:var(--primary); font-weight:800; padding:.9rem 1.2rem; border-radius:14px; font-size:1.05rem;}
+  .step-chip.final{ background:var(--secondary); color:#fff; }
+
+  /* slide 5: sign compare */
+  .sign-compare{ display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; margin-top:.8rem;}
+  .sign-card{ border-radius:18px; padding:1.4rem 1.6rem; min-width:11rem; }
+  .sign-card.ok{ background:var(--secondary); color:#fff; }
+  .sign-card.bad{ background:var(--accent); color:var(--primary); }
+  .sign-expr{ font-size:1.6rem; font-weight:800; }
+  .sign-res{ font-size:1.6rem; font-weight:800; margin:.3rem 0;}
+  .sign-note{ font-size:.85rem; font-weight:600; opacity:.9;}
+
+  /* ---------- GUIDED EXERCISES ---------- */
+  .guided-shell{ width:100%; max-width:640px; margin:0 auto; padding-top:5rem;}
+  .guided-header{ margin-bottom:1rem;}
+  .guided-card{
+    background:var(--card); border-radius:24px; padding:2.2rem 1.8rem;
+    min-height:340px; box-shadow:0 20px 45px rgba(0,0,0,.3);
+    animation:cardIn .35s ease;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+  }
+  .g-eyebrow{ color:var(--secondary); font-weight:800; font-size:.8rem; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:.6rem;}
+  .g-prompt{ font-size:clamp(2rem,7vw,2.8rem); font-weight:800; color:var(--primary); margin-bottom:1.2rem;}
+  .g-hint{ color:var(--muted); font-size:.95rem; margin-bottom:1.4rem; font-style:italic;}
+  .reveal-btn{
+    all:unset; cursor:pointer; background:var(--secondary); color:#fff; font-weight:800;
+    padding:.9rem 1.8rem; border-radius:14px; font-size:1.05rem;
+    box-shadow:0 6px 0 #007568; transition:transform .1s;
+  }
+  .reveal-btn:hover{ transform:translateY(-2px); }
+  .reveal-btn:active{ transform:translateY(3px); box-shadow:0 2px 0 #007568;}
+  .g-steps{ width:100%; margin-top:1rem; }
+  .g-step{
+    background:#EDE9F9; color:var(--primary); font-weight:700; padding:.8rem 1rem; border-radius:12px;
+    margin-bottom:.6rem; opacity:0; transform:translateY(8px); animation:stepIn .35s ease forwards;
+  }
+  @keyframes stepIn{ to{ opacity:1; transform:none; } }
+  .g-result{
+    margin-top:.8rem; font-size:1.6rem; font-weight:900; color:var(--secondary);
+    opacity:0; animation:stepIn .35s ease forwards;
+  }
+  .g-next-btn{
+    all:unset; cursor:pointer; margin-top:1.4rem; background:var(--accent); color:var(--primary);
+    font-weight:800; padding:.85rem 1.8rem; border-radius:14px; font-size:1.05rem;
+    box-shadow:0 6px 0 #cf9f20; transition:transform .1s;
+    opacity:0; animation:stepIn .35s ease forwards; animation-delay:.15s;
+  }
+  .g-next-btn:hover{ transform:translateY(-2px);}
+
+  .guided-done .trophy{ font-size:4rem; animation:bounce 1.4s ease infinite; margin-bottom:.5rem;}
+  .guided-done h3{ color:var(--primary); font-size:1.6rem; margin-bottom:.5rem;}
+  .guided-done p{ color:var(--muted); margin-bottom:1.4rem; }
+  .guided-done-btns{ display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; }
+  .g-done-btn{
+    all:unset; cursor:pointer; padding:.85rem 1.6rem; border-radius:14px; font-weight:800; font-size:1rem;
+    transition:transform .1s;
+  }
+  .g-done-btn:hover{ transform:translateY(-2px);}
+  .g-done-btn.solo{ background:var(--secondary); color:#fff; }
+  .g-done-btn.home{ background:#EDE9F9; color:var(--primary); }
+
+  /* ---------- PRACTICE SCREEN ---------- */
+  #practice{ justify-content:flex-start; padding-top:5rem; width:100%; max-width:720px; margin:0 auto;}
+  .quiz-header{
+    width:100%; display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:1rem; gap:1rem; flex-wrap:wrap;
+  }
+  .progress-wrap{ flex:1; min-width:180px;}
+  .progress-label{ color:#C9C2EE; font-size:.85rem; margin-bottom:.3rem; font-weight:700;}
+  .progress-bar{ background:rgba(255,255,255,.15); height:10px; border-radius:6px; overflow:hidden;}
+  .progress-fill{ height:100%; background:linear-gradient(90deg,var(--secondary),var(--accent)); width:0%; transition:width .4s ease;}
+
+  .timer-ring{ position:relative; width:64px; height:64px; flex-shrink:0;}
+  .timer-ring svg{ transform:rotate(-90deg); }
+  .timer-ring circle{ fill:none; stroke-width:6; }
+  .timer-ring .bg-c{ stroke:rgba(255,255,255,.15); }
+  .timer-ring .fg-c{ stroke:var(--secondary); stroke-linecap:round; transition:stroke-dashoffset 1s linear, stroke .3s; }
+  .timer-num{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    color:#fff; font-weight:800; font-size:1.1rem;
+  }
+
+  .streak-chip{
+    background:rgba(255,201,60,.15); color:var(--accent); font-weight:800;
+    padding:.4rem .8rem; border-radius:12px; font-size:.85rem;
+    display:flex; align-items:center; gap:.3rem; white-space:nowrap;
+  }
+
+  .quiz-card{
+    background:var(--card); border-radius:24px; padding:2.2rem 1.8rem;
+    width:100%; box-shadow:0 20px 45px rgba(0,0,0,.3);
+    animation:cardIn .35s ease;
+  }
+  @keyframes cardIn{ from{ opacity:0; transform:translateY(14px) scale(.97);} to{opacity:1; transform:none;} }
+
+  .q-eyebrow{ color:var(--secondary); font-weight:800; font-size:.8rem; letter-spacing:1.5px; text-transform:uppercase;}
+  .q-text{
+    font-size:clamp(1.6rem, 5vw, 2.3rem); font-weight:800; color:var(--primary);
+    margin:.6rem 0 1.8rem; text-align:center;
+  }
+  .q-text sup{ font-size:.55em; color:var(--accent-hot); }
+
+  .options{ display:grid; grid-template-columns:1fr 1fr; gap:.9rem; }
+  @media (max-width:480px){ .options{ grid-template-columns:1fr; } }
+  .opt-btn{
+    all:unset; cursor:pointer; text-align:center;
+    background:#EDE9F9; color:var(--primary); font-weight:800; font-size:1.15rem;
+    padding:1rem .5rem; border-radius:16px; border:3px solid transparent;
+    transition:transform .1s ease, background .15s, border-color .15s;
+  }
+  .opt-btn:hover{ transform:translateY(-2px); background:#E1DAF7; }
+  .opt-btn.correct{ background:var(--secondary); color:#fff; border-color:#00806f; }
+  .opt-btn.wrong{ background:var(--accent-hot); color:#fff; border-color:#c23; }
+  .opt-btn.disabled{ pointer-events:none; }
+  .opt-btn.dim{ opacity:.45; }
+
+  .feedback{
+    text-align:center; font-weight:800; margin-top:1.2rem; min-height:1.6rem; font-size:1.05rem;
+  }
+  .feedback.ok{ color:var(--secondary); }
+  .feedback.bad{ color:var(--accent-hot); }
+
+  /* ---------- RESULT SCREEN ---------- */
+  #result .trophy{ font-size:5rem; animation:bounce 1.4s ease infinite; }
+  @keyframes bounce{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(-16px);} }
+  #result h2{ color:#fff; font-size:2.2rem; margin:.6rem 0; text-align:center;}
+  #result .score-big{ font-size:4rem; font-weight:900; color:var(--accent); text-align:center; }
+  #result .score-sub{ color:#C9C2EE; text-align:center; margin-bottom:2rem; }
+  .restart-btn{
+    all:unset; cursor:pointer; background:var(--accent); color:var(--primary);
+    padding:1rem 2.2rem; border-radius:16px; font-weight:800; font-size:1.1rem;
+    box-shadow:0 8px 0 #cf9f20;
+    transition:transform .12s;
+  }
+  .restart-btn:hover{ transform:translateY(-3px); }
+  .restart-btn:active{ transform:translateY(3px); box-shadow:0 3px 0 #cf9f20;}
+
+  .confetti{
+    position:fixed; top:-20px; width:10px; height:16px; z-index:20; pointer-events:none;
+    animation:fall linear forwards;
+  }
+  @keyframes fall{
+    to{ transform:translateY(110vh) rotate(540deg); opacity:.9; }
+  }
 </style>
 </head>
 <body>
-<div id="app">
-  <div id="confetti-layer"></div>
-  <div id="topbar">
-    <button class="btn-back" onclick="goHome()">⬅️</button>
-    <div class="progress-outer"><div class="progress-inner" id="progress-bar"></div></div>
-    <div id="hud-stats"></div>
+
+<!-- floating decorative bolts -->
+<div class="bg-bolt" style="top:8%; left:6%;">⚡</div>
+<div class="bg-bolt" style="top:70%; left:12%; animation-delay:-3s;">✳</div>
+<div class="bg-bolt" style="top:20%; left:85%; animation-delay:-5s;">⚡</div>
+<div class="bg-bolt" style="top:80%; left:80%; animation-delay:-1.5s;">✦</div>
+<div class="bg-bolt" style="top:45%; left:50%; animation-delay:-7s;">⚡</div>
+
+<!-- START -->
+<section id="start" class="screen active">
+  <div class="logo">⚡</div>
+  <h1>Potencias</h1>
+  <p class="tag">Elige a dónde quieres ir</p>
+  <div class="mode-row">
+    <button class="mode-btn class" onclick="startClases()">
+      <span class="emoji">🎓</span>
+      Clases
+      <small>Ver el tema</small>
+    </button>
+    <button class="mode-btn practice" onclick="startPractice()">
+      <span class="emoji">🎯</span>
+      Práctica
+      <small>20 ejercicios · 25s cada uno</small>
+    </button>
   </div>
-  <main id="main">
-    <section id="screen-home" class="screen active">
-      <h1 class="home-title">✨ Clase 4 ✨</h1>
-      <p class="home-sub">🔢 Sucesiones avanzadas: números grandes, sumas, restas, multiplicaciones, divisiones, cubos y términos faltantes</p>
-      <div class="home-buttons">
-        <button class="big-btn clase" onclick="startClase()">📚 Clase</button>
-        <button class="big-btn practica" onclick="startPractica()">🎮 Práctica</button>
-      </div>
-    </section>
+</section>
 
-    <section id="screen-slides" class="screen">
-      <div class="slide-card" id="slide-card"></div>
-      <div class="dots" id="slide-dots"></div>
-      <div class="slide-nav">
-        <button class="nav-btn prev" id="slide-prev" onclick="prevSlide()">⬅️ Anterior</button>
-        <button class="nav-btn next" id="slide-next" onclick="nextSlide()">Siguiente ➡️</button>
-      </div>
-    </section>
-
-    <section id="screen-exercise" class="screen">
-      <div class="exercise-header">
-        <div class="tema-label" id="exercise-tema-label">SUCESIONES</div>
-        <div class="streak" id="exercise-streak">🔥 Racha: 0</div>
-      </div>
-      <div class="card q-card">
-        <div class="pill" id="q-counter">Pregunta 1</div>
-        <div class="q-tag" id="q-tag"></div>
-        <div class="q-text" id="q-text"></div>
-        <div class="q-visual" id="q-visual"></div>
-        <div class="options" id="q-options"></div>
-        <div class="feedback-box" id="q-feedback"></div>
-        <button class="btn-siguiente" id="btn-siguiente" onclick="nextQuestion()">Siguiente ➡️</button>
-      </div>
-    </section>
-
-    <section id="screen-inter" class="screen interstitial">
-      <div class="emoji-big" id="inter-emoji">🎉</div>
-      <h2 id="inter-title"></h2>
-      <p id="inter-sub"></p>
-      <button class="nav-btn next" onclick="interContinue()">Continuar ➡️</button>
-    </section>
-
-    <section id="screen-results" class="screen">
-      <div class="medal" id="result-medal">🥇</div>
-      <div class="result-title" id="result-title">¡Resultados!</div>
-      <div class="result-pct" id="result-pct">0%</div>
-      <div class="result-stats" id="result-stats"></div>
-      <p class="result-msg" id="result-msg"></p>
-      <button class="btn-replay" onclick="goHome()">🔄 Volver a jugar</button>
-    </section>
-  </main>
-  <div id="mascot-wrap">
-    <div id="speech"></div>
-    <div id="mascot">🦉</div>
+<!-- CLASES: mini slideshow -->
+<section id="clases" class="screen">
+  <button class="back-btn" onclick="exitClases()">← Volver</button>
+  <div class="clases-shell">
+    <div class="slide-dots" id="slideDots"></div>
+    <div class="slide-card" id="slideCard"></div>
+    <div class="slide-nav">
+      <button class="nav-btn" id="prevBtn" onclick="prevSlide()">← Anterior</button>
+      <button class="nav-btn primary" id="nextBtn" onclick="nextSlide()">Siguiente →</button>
+    </div>
   </div>
-</div>
+</section>
+
+<!-- GUIDED EXERCISES -->
+<section id="guided" class="screen">
+  <button class="back-btn" onclick="exitClases()">← Volver</button>
+  <div class="guided-shell">
+    <div class="guided-header">
+      <div class="progress-label" id="guidedLabel">Ejercicio guiado 1 / 5</div>
+      <div class="progress-bar"><div class="progress-fill" id="guidedFill"></div></div>
+    </div>
+    <div class="guided-card" id="guidedCard"></div>
+  </div>
+</section>
+
+<!-- PRACTICE -->
+<section id="practice" class="screen">
+  <button class="back-btn" onclick="confirmExit()">← Salir</button>
+  <div class="quiz-header">
+    <div class="progress-wrap">
+      <div class="progress-label" id="progressLabel">Pregunta 1 / 20</div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+    <div class="timer-ring">
+      <svg width="64" height="64">
+        <circle class="bg-c" cx="32" cy="32" r="26"></circle>
+        <circle class="fg-c" id="timerCircle" cx="32" cy="32" r="26"></circle>
+      </svg>
+      <div class="timer-num" id="timerNum">25</div>
+    </div>
+    <div class="streak-chip">🔥 <span id="streakNum">0</span></div>
+  </div>
+
+  <div class="quiz-card">
+    <div class="q-eyebrow" id="qDifficulty">Nivel fácil</div>
+    <div class="q-text" id="qText"></div>
+    <div class="options" id="optionsWrap"></div>
+    <div class="feedback" id="feedback"></div>
+  </div>
+</section>
+
+<!-- RESULT -->
+<section id="result" class="screen">
+  <div class="trophy" id="trophyEmoji">🏆</div>
+  <h2 id="resultTitle">¡Bien hecho!</h2>
+  <div class="score-big" id="scoreBig">0 / 20</div>
+  <div class="score-sub" id="scoreSub"></div>
+  <button class="restart-btn" onclick="startPractice()">Volver a intentar</button>
+</section>
 
 <script>
-/* ============================================================================
-   CLASE 4 — SUCESIONES AVANZADAS
-   ========================================================================== */
-
-/* 1. UTILIDADES ------------------------------------------------------------ */
-function rnd(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
-function pick(arr){ return arr[rnd(0,arr.length-1)]; }
-function shuffle(arr){
-  const a=arr.slice();
-  for(let i=a.length-1;i>0;i--){ const j=rnd(0,i); [a[i],a[j]]=[a[j],a[i]]; }
-  return a;
-}
-const COLORS_CONFETTI=['#FF6FA5','#FFD23F','#3CCB7F','#3EC6FF','#FF8C42','#B48CF2'];
-function launchConfetti(n){
-  n = n||40;
-  const layer=document.getElementById('confetti-layer');
-  for(let i=0;i<n;i++){
-    const p=document.createElement('div');
-    p.className='confetti-piece';
-    p.style.left = rnd(0,100)+'vw';
-    p.style.background = pick(COLORS_CONFETTI);
-    p.style.animationDuration = (rnd(22,38)/10)+'s';
-    p.style.borderRadius = Math.random()>0.5 ? '50%' : '3px';
-    layer.appendChild(p);
-    setTimeout(()=>p.remove(), 4200);
-  }
-}
-function starBurstAt(x,y,count){
-  count = count||8;
-  const layer=document.getElementById('confetti-layer');
-  for(let i=0;i<count;i++){
-    const s=document.createElement('div');
-    s.className='star-burst';
-    s.textContent = pick(['⭐','✨','🌟']);
-    s.style.left = x+'px';
-    s.style.top = y+'px';
-    const ang = Math.random()*Math.PI*2;
-    const dist = rnd(40,110);
-    s.style.setProperty('--sx', Math.cos(ang)*dist+'px');
-    s.style.setProperty('--sy', Math.sin(ang)*dist+'px');
-    layer.appendChild(s);
-    setTimeout(()=>s.remove(), 850);
-  }
-}
-
-/* 2. SONIDOS ---------------------------------------------------------------- */
-let audioCtx=null;
-function ensureAudio(){
-  if(!audioCtx){ audioCtx = new (window.AudioContext||window.webkitAudioContext)(); }
-  if(audioCtx.state==='suspended') audioCtx.resume();
-}
-function playTone(freq, duration, type, delay, vol){
-  ensureAudio();
-  type = type||'sine'; delay = delay||0; vol = vol===undefined?0.2:vol;
-  const t = audioCtx.currentTime + delay;
-  const osc = audioCtx.createOscillator();
-  const gain = audioCtx.createGain();
-  osc.type = type;
-  osc.frequency.setValueAtTime(freq, t);
-  gain.gain.setValueAtTime(vol, t);
-  gain.gain.exponentialRampToValueAtTime(0.001, t+duration);
-  osc.connect(gain); gain.connect(audioCtx.destination);
-  osc.start(t); osc.stop(t+duration+0.02);
-}
-function playClick(){ playTone(520,0.08,'triangle',0,0.15); }
-function playCorrect(){
-  playTone(523.25,0.14,'sine',0, 0.22);
-  playTone(659.25,0.14,'sine',0.1, 0.22);
-  playTone(783.99,0.22,'sine',0.2, 0.24);
-}
-function playWrong(){
-  playTone(220,0.22,'sawtooth',0,0.16);
-  playTone(160,0.28,'sawtooth',0.12,0.16);
-}
-function playFanfare(){
-  const notes=[523.25,659.25,783.99,1046.5];
-  notes.forEach((f,i)=>playTone(f,0.3,'square',i*0.15,0.15));
-}
-function playWhoosh(){ playTone(300,0.15,'sine',0,0.1); playTone(500,0.15,'sine',0.05,0.1); }
-
-/* 3. MASCOTA ------------------------------------------------------------- */
-const MSG_BIENVENIDA = ["¡Hola! Soy Numi 🦉","¿Listo para el reto de sucesiones avanzadas? 🚀","¡Vamos a pensar como matemáticos!"];
-const MSG_CORRECTO = ["¡Genial! 🎉","¡Excelente! ⭐","¡Lo lograste! 💪","¡Súper bien! 🌟","¡Sigue así, campeón! 🚀","¡Increíble! 🥳"];
-const MSG_INCORRECTO = ["¡Casi! Revisemos 💡","No pasa nada, aprendemos 😊","¡Tú puedes! Vamos de nuevo 💪","Repasemos juntos 🔍"];
-function mascotSay(text){
-  const bubble = document.getElementById('speech');
-  bubble.textContent = text;
-  bubble.classList.remove('show');
-  void bubble.offsetWidth;
-  bubble.classList.add('show');
-  clearTimeout(mascotSay._t);
-  mascotSay._t = setTimeout(()=>bubble.classList.remove('show'), 3200);
-}
-mascotSay(pick(MSG_BIENVENIDA));
-
-/* 4. NAVEGACIÓN ------------------------------------------------------------ */
-function showScreen(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  document.getElementById('topbar').classList.toggle('show', id!=='screen-home');
-}
-function goHome(){
-  playClick();
-  showScreen('screen-home');
-  document.getElementById('hud-stats').innerHTML='';
-  document.getElementById('progress-bar').style.width='0%';
-  mascotSay(pick(MSG_BIENVENIDA));
-}
-function setProgress(pct){ document.getElementById('progress-bar').style.width = Math.min(100,pct)+'%'; }
-function setHud(html){ document.getElementById('hud-stats').innerHTML = html; }
-
-/* 5. VISUAL: fila de términos de una sucesión ------------------------------ */
-function seqRowHTML(terms, blankIndex){
-  let html = '<div class="seq-row">';
-  terms.forEach((t,i)=>{
-    if(i>0) html += '<div class="seq-arrow">➜</div>';
-    if(i===blankIndex) html += '<div class="seq-term blank">?</div>';
-    else {
-      const isNeg = (typeof t === 'number' && t<0);
-      html += `<div class="seq-term ${isNeg?'neg':''}">${t}</div>`;
-    }
-  });
-  html += '</div>';
-  return html;
-}
-
-/* 5b. Formateo seguro de restas con posibles negativos ---------------------- */
-function fmtSub(a,b){
-  // muestra a−b, pero si b es negativo lo envuelve en paréntesis: a−(b)
-  return b<0 ? `${a}−(${b})` : `${a}−${b}`;
-}
-
-/* 6. CONTENIDO DE DIAPOSITIVAS (8) ------------------------------------------ */
-const SLIDES_SUCESIONES = [
-{
-  title:"Repaso rápido 🔁",
-  sub:"Recuerda: una sucesión sigue siempre la misma regla",
-  visual: seqRowHTML([5,9,13,17,'…']),
-  extra:`<div class="resolve-box"><b>Regla:</b> +4 &nbsp;→&nbsp; 9−5=4, 13−9=4, 17−13=4. Se repite siempre.<br>Ahora vamos a complicarlo: números más grandes, restas, multiplicaciones, divisiones y potencias.</div>`
-},
-{
-  title:"Sumas con números grandes ➕",
-  sub:"La misma idea, pero con cifras más grandes",
-  visual: seqRowHTML([238,261,284,307,'?']),
-  extra:`<div class="resolve-box">
-    <b>Resolución:</b> 261−238 = 23 &nbsp;·&nbsp; 284−261 = 23 &nbsp;·&nbsp; 307−284 = 23<br>
-    <b>Regla:</b> +23 &nbsp;→&nbsp; siguiente término: 307 + 23 = <b>330</b><br>
-    <b>Explicación:</b> aunque los números sean grandes, el método es el mismo: resta términos seguidos para hallar la regla y aplícala.
-  </div>`
-},
-{
-  title:"Restas con números grandes ➖",
-  sub:"¡Cuidado! El resultado puede ser negativo",
-  visual: seqRowHTML([180,152,124,96,'?']),
-  extra:`<div class="resolve-box">
-    <b>Resolución:</b> 152−180 = −28 &nbsp;·&nbsp; 124−152 = −28 &nbsp;·&nbsp; 96−124 = −28<br>
-    <b>Regla:</b> −28 &nbsp;→&nbsp; siguiente término: 96 − 28 = <b>68</b><br>
-    <b>Explicación:</b> si la sucesión sigue bajando, puede llegar a números negativos. Eso también es válido en matemáticas: son números enteros.
-  </div>`
-},
-{
-  title:"Sucesiones con división ➗",
-  sub:"Cada término se divide entre el mismo número",
-  visual: seqRowHTML([1875,375,75,15,'?']),
-  extra:`<div class="resolve-box">
-    <b>Resolución:</b> 1875÷5=375 &nbsp;·&nbsp; 375÷5=75 &nbsp;·&nbsp; 75÷5=15<br>
-    <b>Regla:</b> ÷5 &nbsp;→&nbsp; siguiente término: 15 ÷ 5 = <b>3</b><br>
-    <b>Explicación:</b> en vez de sumar o restar, aquí cada término se obtiene dividiendo el anterior entre un número fijo.
-  </div>`
-},
-{
-  title:"Multiplicaciones con razones grandes ✖️",
-  sub:"El término crece muy rápido",
-  visual: seqRowHTML([3,15,75,375,'?']),
-  extra:`<div class="resolve-box">
-    <b>Resolución:</b> 3×5=15 &nbsp;·&nbsp; 15×5=75 &nbsp;·&nbsp; 75×5=375<br>
-    <b>Regla:</b> ×5 &nbsp;→&nbsp; siguiente término: 375 × 5 = <b>1875</b><br>
-    <b>Explicación:</b> cuando la razón (el número por el que multiplicas) es grande, la sucesión crece muy rápido. Por eso conviene comprobar dividiendo el término 2 entre el término 1.
-  </div>`
-},
-{
-  title:"Números cúbicos 🧊",
-  sub:"Cada término es un número elevado al cubo",
-  visual: seqRowHTML([1,8,27,64,'?']),
-  extra:`<div class="resolve-box">
-    <b>Resolución:</b> 1³=1 &nbsp;·&nbsp; 2³=8 &nbsp;·&nbsp; 3³=27 &nbsp;·&nbsp; 4³=64<br>
-    <b>Regla:</b> nᶟ &nbsp;→&nbsp; siguiente término: 5³ = 5×5×5 = <b>125</b><br>
-    <b>Explicación:</b> "al cubo" significa multiplicar un número por sí mismo 3 veces. Es como los cuadrados, pero una dimensión más.
-  </div>`
-},
-{
-  title:"Actividad corta 1 🎯",
-  sub:"El término faltante puede estar en cualquier lugar",
-  visual: seqRowHTML([412,'?',358,331,304]),
-  extra:`<div class="mini-reto">
-    <b>Reto:</b> la regla de esta sucesión es −27. ¿Qué número va en el espacio?
-    <div class="mini-reto-opts">
-      <button class="mini-opt" onclick="miniCheck(this,true)">385</button>
-      <button class="mini-opt" onclick="miniCheck(this,false)">395</button>
-      <button class="mini-opt" onclick="miniCheck(this,false)">412</button>
-    </div>
-    <div class="mini-feedback" id="mini-feedback-1"></div>
-  </div>`
-},
-{
-  title:"Actividad corta 2 🎯 · ¡Resumen!",
-  sub:"Pon a prueba lo que aprendiste hoy",
-  visual:`<div style="text-align:left;max-width:380px;font-weight:700;line-height:1.9;font-size:14.5px;">
-            ✅ Resta términos seguidos para hallar la regla<br>
-            ✅ La regla puede ser +, −, × o ÷<br>
-            ✅ Con números grandes el método es el mismo<br>
-            ✅ Las restas pueden dar resultados negativos<br>
-            ✅ nᶟ = n × n × n (números cúbicos)<br>
-            ✅ El término que falta puede estar en cualquier posición
-          </div>`,
-  extra:`<div class="mini-reto">
-            <b>Reto:</b> en la sucesión 2, 16, 128, 1024… ¿cuál es la regla?
-            <div class="mini-reto-opts">
-              <button class="mini-opt" onclick="miniCheck(this,true)">×8</button>
-              <button class="mini-opt" onclick="miniCheck(this,false)">×6</button>
-              <button class="mini-opt" onclick="miniCheck(this,false)">+14</button>
-            </div>
-            <div class="mini-feedback" id="mini-feedback-2"></div>
-          </div>`
-}
+/* ---------------- Data: 20 exercises, easy -> hard ---------------- */
+const QUESTIONS = [
+  { level:"Nivel fácil", html:"2<sup>2</sup> = ?", options:["4","2","6","8"], correct:0 },
+  { level:"Nivel fácil", html:"3<sup>2</sup> = ?", options:["9","6","5","12"], correct:0 },
+  { level:"Nivel fácil", html:"4<sup>2</sup> = ?", options:["16","8","12","20"], correct:0 },
+  { level:"Nivel fácil", html:"5<sup>2</sup> = ?", options:["25","10","20","15"], correct:0 },
+  { level:"Nivel fácil", html:"10<sup>2</sup> = ?", options:["100","20","12","1000"], correct:0 },
+  { level:"Nivel fácil", html:"2<sup>3</sup> = ?", options:["8","6","9","12"], correct:0 },
+  { level:"Nivel fácil", html:"3<sup>3</sup> = ?", options:["27","9","18","21"], correct:0 },
+  { level:"Nivel medio", html:"6<sup>2</sup> = ?", options:["36","12","18","30"], correct:0 },
+  { level:"Nivel medio", html:"7<sup>2</sup> = ?", options:["49","14","21","35"], correct:0 },
+  { level:"Nivel medio", html:"4<sup>3</sup> = ?", options:["64","12","43","48"], correct:0 },
+  { level:"Nivel medio", html:"2<sup>4</sup> = ?", options:["16","8","12","32"], correct:0 },
+  { level:"Nivel medio", html:"5<sup>3</sup> = ?", options:["125","15","25","75"], correct:0 },
+  { level:"Nivel medio", html:"9<sup>2</sup> = ?", options:["81","18","27","90"], correct:0 },
+  { level:"Nivel medio", html:"10<sup>3</sup> = ?", options:["1000","30","100","300"], correct:0 },
+  { level:"Nivel difícil", html:"2<sup>5</sup> = ?", options:["32","16","10","64"], correct:0 },
+  { level:"Nivel difícil", html:"8<sup>0</sup> = ?", options:["1","0","8","80"], correct:0 },
+  { level:"Nivel difícil", html:"12<sup>1</sup> = ?", options:["12","1","0","24"], correct:0 },
+  { level:"Nivel difícil", html:"(&minus;3)<sup>2</sup> = ?", options:["9","&minus;9","6","&minus;6"], correct:0 },
+  { level:"Nivel difícil", html:"&minus;4<sup>2</sup> = ?", options:["&minus;16","16","&minus;8","8"], correct:0 },
+  { level:"Reto final", html:"2<sup>2</sup> &times; 2<sup>3</sup> = 2<sup>?</sup>", options:["5","6","8","4"], correct:0 },
 ];
 
-function miniCheck(btn, isCorrect){
-  const fb = btn.closest('.mini-reto').querySelector('.mini-feedback');
-  if(isCorrect){
-    playCorrect();
-    fb.style.color = '#1f7a49';
-    fb.textContent = '¡Correcto! 🎉 ' + pick(MSG_CORRECTO);
-    const r = btn.getBoundingClientRect();
-    starBurstAt(r.left+r.width/2, r.top, 10);
-  } else {
-    playWrong();
-    fb.style.color = '#a13438';
-    fb.textContent = 'Casi... ¡inténtalo otra vez! 💡';
-  }
-}
+/* ---------------- Clases: intro slideshow ---------------- */
+const INTRO_SLIDES = [
+  `<div class="s-eyebrow">Vamos a aprender esto</div>
+   <h2 class="s-title">¿Qué son las potencias?</h2>
+   <p class="s-sub">Una forma rápida de escribir una multiplicación en la que el mismo número se repite varias veces.</p>
+   <div class="power-orbit">
+     <div class="p-item">2³</div>
+     <div class="p-item">5²</div>
+     <div class="p-item">10⁴</div>
+   </div>`,
 
-/* ---- Motor de diapositivas ---- */
-let slideState = { list:[], index:0, onFinish:null };
-function openSlides(list, onFinish){
-  slideState = { list, index:0, onFinish };
-  showScreen('screen-slides');
+  `<div class="s-eyebrow">Concepto</div>
+   <h2 class="s-title">Las partes de una potencia</h2>
+   <div class="power-def-card">
+     <span class="pd-base">b<sup>n</sup></span>
+     <span class="pd-eq">=</span>
+     <span class="pd-expand">b &times; b &times; b &times; ... &times; b</span>
+     <span class="pd-note">(n veces)</span>
+   </div>
+   <div class="pd-legend"><span>🟣 <b>b</b> es la base</span><span>🟢 <b>n</b> es el exponente</span></div>`,
+
+  `<div class="s-eyebrow">Concepto</div>
+   <h2 class="s-title">Cómo se leen</h2>
+   <p class="s-sub">El exponente nos dice cuántas veces se repite la base.</p>
+   <div class="chip-row">
+     <div class="chip"><div class="chip-power">4<sup>2</sup></div><div class="chip-label">cuatro al cuadrado</div></div>
+     <div class="chip highlight"><div class="chip-power">2<sup>3</sup></div><div class="chip-label">dos al cubo</div></div>
+     <div class="chip"><div class="chip-power">7<sup>5</sup></div><div class="chip-label">siete elevado a la cinco</div></div>
+   </div>`,
+
+  `<div class="s-eyebrow">Esto se resuelve así</div>
+   <h2 class="s-title">Ejemplo: 2<sup>4</sup></h2>
+   <div class="solve-expr">2<sup>4</sup> = 2 &times; 2 &times; 2 &times; 2</div>
+   <div class="steps-row">
+     <div class="step-chip">2 × 2 = 4</div>
+     <div class="step-chip">4 × 2 = 8</div>
+     <div class="step-chip final">8 × 2 = 16</div>
+   </div>`,
+
+  `<div class="s-eyebrow">Cuidado con los signos</div>
+   <h2 class="s-title">El paréntesis importa</h2>
+   <div class="sign-compare">
+     <div class="sign-card ok">
+       <div class="sign-expr">(&minus;3)<sup>2</sup></div>
+       <div class="sign-res">= 9</div>
+       <div class="sign-note">el signo entra en la base</div>
+     </div>
+     <div class="sign-card bad">
+       <div class="sign-expr">&minus;3<sup>2</sup></div>
+       <div class="sign-res">= &minus;9</div>
+       <div class="sign-note">el signo se aplica al final</div>
+     </div>
+   </div>`,
+];
+
+let slideIndex = 0;
+
+function startClases(){
+  slideIndex = 0;
+  showScreen('clases');
   renderSlide();
 }
+
 function renderSlide(){
-  const s = slideState.list[slideState.index];
-  const card = document.getElementById('slide-card');
-  card.innerHTML = `
-    <div class="pill">Diapositiva ${slideState.index+1} / ${slideState.list.length}</div>
-    <h2 class="slide-title">${s.title}</h2>
-    <p class="slide-sub">${s.sub}</p>
-    <div class="slide-visual">${s.visual}</div>
-    ${s.extra||''}
-  `;
-  const dotsWrap = document.getElementById('slide-dots');
-  dotsWrap.innerHTML = slideState.list.map((_,i)=>`<div class="dot ${i===slideState.index?'active':''}"></div>`).join('');
-  document.getElementById('slide-prev').disabled = slideState.index===0;
-  const last = slideState.index === slideState.list.length-1;
-  document.getElementById('slide-next').textContent = last ? '¡Empezar ejercicios! 🚀' : 'Siguiente ➡️';
-  setProgress( (slideState.index+1)/slideState.list.length*100 );
+  document.getElementById('slideCard').innerHTML = INTRO_SLIDES[slideIndex];
+  const dotsWrap = document.getElementById('slideDots');
+  dotsWrap.innerHTML = INTRO_SLIDES.map((_, i) =>
+    `<div class="dot ${i === slideIndex ? 'active' : ''}"></div>`).join('');
+  document.getElementById('prevBtn').classList.toggle('disabled', slideIndex === 0);
+  document.getElementById('nextBtn').textContent =
+    slideIndex === INTRO_SLIDES.length - 1 ? 'Empezar ejercicios guiados →' : 'Siguiente →';
 }
-function nextSlide(){
-  playClick();
-  if(slideState.index < slideState.list.length-1){ slideState.index++; renderSlide(); }
-  else { slideState.onFinish(); }
-}
+
 function prevSlide(){
-  playClick();
-  if(slideState.index>0){ slideState.index--; renderSlide(); }
+  if(slideIndex > 0){ slideIndex--; renderSlide(); }
 }
 
-/* 7. GENERADOR DE EJERCICIOS AVANZADOS -------------------------------------- */
-function uniqOptions(answer, generator, count){
-  // generator() must return a candidate number; ensures 'count' unique options including answer
-  const opts = new Set([answer]);
-  let guard=0;
-  while(opts.size<count && guard<200){
-    guard++;
-    const cand = generator();
-    if(cand!==null && cand!==undefined && !Number.isNaN(cand)) opts.add(cand);
-  }
-  return shuffle([...opts]);
-}
-
-function genSucesionAvanzada(usedKeys){
-  const types = ['grande-add','grande-sub','division','multiplicacion','cubos','faltante','alternante','regla-mixta'];
-  let attempt=0;
-  while(attempt<60){
-    attempt++;
-    const type = pick(types);
-    let q=null;
-
-    if(type==='grande-add'){
-      const start = rnd(100,650);
-      const step = rnd(11,49);
-      const terms = [start, start+step, start+2*step, start+3*step];
-      const answer = start+4*step;
-      const key = `gadd-${start}-${step}`;
-      if(usedKeys.has(key)) continue;
-      const options = uniqOptions(answer, ()=>pick([answer+step, answer-step, terms[3], answer+2, answer-2, answer+step*2]), 4);
-      q = {
-        key, tag:'Suma · números grandes',
-        text:'¿Cuál es el siguiente número de la sucesión?',
-        visualHTML: seqRowHTML(terms.concat(['?'])),
-        options: options.map(String),
-        answer: String(answer),
-        explain:`Resolución: ${terms[1]}−${terms[0]}=${step}, ${terms[2]}−${terms[1]}=${step}, ${terms[3]}−${terms[2]}=${step}. La regla es +${step}. Aplicándola: ${terms[3]} + ${step} = ${answer}.`
-      };
-    }
-    else if(type==='grande-sub'){
-      const step = rnd(13,45);
-      const start = rnd(90,420);
-      const terms = [start, start-step, start-2*step, start-3*step];
-      const answer = start-4*step;
-      const key = `gsub-${start}-${step}`;
-      if(usedKeys.has(key)) continue;
-      const options = uniqOptions(answer, ()=>pick([answer+step, answer-step, terms[3], answer+3, answer-3]), 4);
-      q = {
-        key, tag:'Resta · números grandes',
-        text:'¿Cuál es el siguiente número de la sucesión?',
-        visualHTML: seqRowHTML(terms.concat(['?'])),
-        options: options.map(String),
-        answer: String(answer),
-        explain:`Resolución: ${fmtSub(terms[0],terms[1])}=${step}, ${fmtSub(terms[1],terms[2])}=${step}, ${fmtSub(terms[2],terms[3])}=${step}. La regla es −${step}. Aplicándola: ${fmtSub(terms[3],step)} = ${answer}.`
-      };
-    }
-    else if(type==='division'){
-      const divisor = pick([2,3,4,5]);
-      const k = rnd(2,6);
-      const start = k * Math.pow(divisor,4);
-      if(start>6000) continue;
-      const terms = [start, start/divisor, start/Math.pow(divisor,2), start/Math.pow(divisor,3)];
-      const answer = start/Math.pow(divisor,4);
-      const key = `div-${start}-${divisor}`;
-      if(usedKeys.has(key)) continue;
-      const options = uniqOptions(answer, ()=>pick([answer*divisor, answer+divisor, Math.max(1,answer-1), answer+1, terms[3]]), 4);
-      q = {
-        key, tag:'División',
-        text:'¿Cuál es el siguiente número de la sucesión?',
-        visualHTML: seqRowHTML(terms.concat(['?'])),
-        options: options.map(String),
-        answer: String(answer),
-        explain:`Resolución: ${terms[0]}÷${divisor}=${terms[1]}, ${terms[1]}÷${divisor}=${terms[2]}, ${terms[2]}÷${divisor}=${terms[3]}. La regla es ÷${divisor}. Aplicándola: ${terms[3]} ÷ ${divisor} = ${answer}.`
-      };
-    }
-    else if(type==='multiplicacion'){
-      const ratio = pick([3,4,5,6]);
-      const start = rnd(2,7);
-      const terms = [start, start*ratio, start*Math.pow(ratio,2), start*Math.pow(ratio,3)];
-      const answer = terms[3]*ratio;
-      if(answer>12000) continue;
-      const key = `mult-${start}-${ratio}`;
-      if(usedKeys.has(key)) continue;
-      const options = uniqOptions(answer, ()=>pick([answer/ratio|0 || 1, terms[3]+ratio, terms[3], Math.round(answer*0.5), answer+ratio]), 4);
-      q = {
-        key, tag:'Multiplicación · razón grande',
-        text:'¿Cuál es el siguiente número de la sucesión?',
-        visualHTML: seqRowHTML(terms.concat(['?'])),
-        options: options.map(String),
-        answer: String(answer),
-        explain:`Resolución: ${terms[0]}×${ratio}=${terms[1]}, ${terms[1]}×${ratio}=${terms[2]}, ${terms[2]}×${ratio}=${terms[3]}. La regla es ×${ratio}. Aplicándola: ${terms[3]} × ${ratio} = ${answer}.`
-      };
-    }
-    else if(type==='cubos'){
-      const n = rnd(3,5);
-      const terms = [];
-      for(let i=1;i<=n;i++) terms.push(i*i*i);
-      const nextN = n+1;
-      const answer = nextN*nextN*nextN;
-      const key = `cubo-${n}`;
-      if(usedKeys.has(key)) continue;
-      const options = uniqOptions(answer, ()=>pick([nextN*nextN, answer-nextN*3, answer+nextN, terms[terms.length-1], answer- (nextN-1)]), 4);
-      q = {
-        key, tag:'Números cúbicos',
-        text:'Esta sucesión son números al cubo (n³). ¿Cuál sigue?',
-        visualHTML: seqRowHTML(terms.concat(['?'])),
-        options: options.map(String),
-        answer: String(answer),
-        explain:`Resolución: los términos son 1³, 2³, 3³… hasta ${n}³=${terms[terms.length-1]}. El siguiente es ${nextN}³ = ${nextN}×${nextN}×${nextN} = ${answer}.`
-      };
-    }
-    else if(type==='faltante'){
-      const subtype = pick(['add','sub','mult','div']);
-      let terms, ruleDesc, step, ratio, divisor;
-      if(subtype==='add'){
-        step = rnd(6,24); const start = rnd(50,320);
-        terms = [start,start+step,start+2*step,start+3*step,start+4*step];
-        ruleDesc = `+${step}`;
-      } else if(subtype==='sub'){
-        step = rnd(6,24); const start = rnd(180,520);
-        terms = [start,start-step,start-2*step,start-3*step,start-4*step];
-        ruleDesc = `−${step}`;
-      } else if(subtype==='mult'){
-        ratio = pick([2,3,4]); const start = rnd(2,5);
-        terms = [start,start*ratio,start*ratio*ratio,start*ratio*ratio*ratio];
-        ruleDesc = `×${ratio}`;
-      } else {
-        divisor = pick([2,3,4]); const k = rnd(2,5);
-        const start = k*Math.pow(divisor,3);
-        terms = [start, start/divisor, start/Math.pow(divisor,2), start/Math.pow(divisor,3)];
-        ruleDesc = `÷${divisor}`;
-      }
-      const blankIndex = rnd(0, terms.length-1);
-      const answer = terms[blankIndex];
-      const key = `falt-${subtype}-${terms.join('-')}-${blankIndex}`;
-      if(usedKeys.has(key)) continue;
-      const delta = step || ratio || divisor;
-      const options = uniqOptions(answer, ()=>pick([answer+delta, answer-delta, answer*2, Math.max(0,answer-1), answer+1]), 4);
-      const displayTerms = terms.map((t,i)=> i===blankIndex? '?' : t);
-      q = {
-        key, tag:'Término faltante',
-        text:'¿Qué número falta en la sucesión?',
-        visualHTML: seqRowHTML(displayTerms, blankIndex),
-        options: options.map(String),
-        answer: String(answer),
-        explain:`Resolución: la regla de esta sucesión es ${ruleDesc}. Aplicándola en orden desde un término conocido, el número que falta en esa posición es ${answer}.`
-      };
-    }
-    else if(type==='alternante'){
-      const d1 = rnd(4,12);
-      const d2 = -rnd(2,9);
-      const start = rnd(20,120);
-      const t0=start, t1=t0+d1, t2=t1+d2, t3=t2+d1, t4=t3+d2;
-      const answer = t4+d1;
-      const key = `alt-${start}-${d1}-${d2}`;
-      if(usedKeys.has(key)) continue;
-      const options = uniqOptions(answer, ()=>pick([t4+d2, answer+d1, answer-d1, t4, answer+2]), 4);
-      q = {
-        key, tag:'Reto · patrón alterno',
-        text:'Esta sucesión alterna dos reglas. ¿Cuál es el siguiente número?',
-        visualHTML: seqRowHTML([t0,t1,t2,t3,t4,'?']),
-        options: options.map(String),
-        answer: String(answer),
-        explain:`Resolución: el patrón alterna ${d1>=0?'+'+d1:d1} y ${d2>=0?'+'+d2:d2}: ${t0}→${t1} (${d1>=0?'+'+d1:d1}), ${t1}→${t2} (${d2>=0?'+'+d2:d2}), y así sucesivamente. Como el último paso fue ${d2>=0?'+'+d2:d2}, el siguiente paso es ${d1>=0?'+'+d1:d1}: ${t4} ${d1>=0?'+':''}${d1} = ${answer}.`
-      };
-    }
-    else if(type==='regla-mixta'){
-      const kind = pick(['add','sub','mult','div']);
-      let terms, ruleText, distractRules;
-      if(kind==='add'){ const step=rnd(9,28); const start=rnd(60,400); terms=[start,start+step,start+2*step,start+3*step]; ruleText=`+${step}`; distractRules=[`−${step}`,`×${Math.max(2,Math.round(step/9))}`,`+${step+5}`]; }
-      else if(kind==='sub'){ const step=rnd(9,28); const start=rnd(300,700); terms=[start,start-step,start-2*step,start-3*step]; ruleText=`−${step}`; distractRules=[`+${step}`,`÷2`,`−${step-4}`]; }
-      else if(kind==='mult'){ const ratio=pick([3,4,5]); const start=rnd(2,6); terms=[start,start*ratio,start*ratio*ratio,start*ratio*ratio*ratio]; ruleText=`×${ratio}`; distractRules=[`+${ratio*10}`,`×${ratio+1}`,`÷${ratio}`]; }
-      else { const divisor=pick([2,3,4]); const k=rnd(2,5); const start=k*Math.pow(divisor,3); terms=[start,start/divisor,start/Math.pow(divisor,2),start/Math.pow(divisor,3)]; ruleText=`÷${divisor}`; distractRules=[`×${divisor}`,`−${divisor*10}`,`÷${divisor+1}`]; }
-      const key = `rmix-${kind}-${terms.join('-')}`;
-      if(usedKeys.has(key)) continue;
-      q = {
-        key, tag:'Identificar la regla',
-        text:'¿Cuál es la regla exacta de esta sucesión?',
-        visualHTML: seqRowHTML(terms),
-        options: shuffle([ruleText, ...distractRules]),
-        answer: ruleText,
-        explain:`Resolución: comparando términos seguidos de forma exacta (no solo si sube o baja, sino por cuánto exactamente), la regla que se repite en los tres pasos es ${ruleText}.`
-      };
-    }
-
-    if(q){ usedKeys.add(q.key); return q; }
-  }
-  const start=50, step=17;
-  const terms=[start,start+step,start+2*step,start+3*step];
-  return { key:`fallback-${Date.now()}-${Math.random()}`, tag:'Suma', text:'¿Cuál es el siguiente número?', visualHTML: seqRowHTML(terms.concat(['?'])), options: shuffle([String(start+4*step),String(start+3*step+2),String(start+5*step),String(start+4*step-3)]), answer:String(start+4*step), explain:`La regla es +${step}.` };
-}
-
-/* 8. MOTOR DE EJERCICIOS ----------------------------------------------------- */
-let exState = { mode:'clase', temaLabel:'SUCESIONES', questions:[], index:0, correct:0, wrong:0, streak:0, maxStreak:0, startTime:0, onFinish:null };
-
-function startExerciseSet(questions, temaLabel, mode, onFinish){
-  exState = { mode, temaLabel, questions, index:0, correct:0, wrong:0, streak:0, maxStreak:0, startTime:Date.now(), onFinish };
-  showScreen('screen-exercise');
-  renderQuestion();
-}
-function renderQuestion(){
-  const total = exState.questions.length;
-  const q = exState.questions[exState.index];
-  document.getElementById('exercise-tema-label').textContent =
-    exState.mode==='practica' ? `🏆 PRÁCTICA · ${exState.temaLabel}` : exState.temaLabel;
-  document.getElementById('exercise-streak').textContent = `🔥 Racha: ${exState.streak}`;
-  document.getElementById('q-counter').textContent = `Pregunta ${exState.index+1} / ${total}`;
-  document.getElementById('q-tag').textContent = q.tag||'';
-  document.getElementById('q-text').textContent = q.text;
-  document.getElementById('q-visual').innerHTML = q.visualHTML||'';
-  const optsWrap = document.getElementById('q-options');
-  optsWrap.innerHTML='';
-  q.options.forEach(opt=>{
-    const b = document.createElement('button');
-    b.className='opt-btn';
-    b.textContent = opt;
-    b.onclick = ()=>checkAnswer(b, opt, q);
-    optsWrap.appendChild(b);
-  });
-  const fb = document.getElementById('q-feedback');
-  fb.className='feedback-box'; fb.textContent='';
-  document.getElementById('btn-siguiente').classList.remove('show');
-  setProgress( (exState.index)/total*100 );
-  setHud(`<span>✅ ${exState.correct}</span><span>❌ ${exState.wrong}</span>`);
-}
-function checkAnswer(btn, chosen, q){
-  const optsWrap = document.getElementById('q-options');
-  const allBtns = [...optsWrap.querySelectorAll('.opt-btn')];
-  allBtns.forEach(b=>b.onclick=null);
-  const isCorrect = chosen === q.answer;
-  const fb = document.getElementById('q-feedback');
-  if(isCorrect){
-    btn.classList.add('correct');
-    exState.correct++; exState.streak++;
-    exState.maxStreak = Math.max(exState.maxStreak, exState.streak);
-    playCorrect();
-    const r = btn.getBoundingClientRect();
-    starBurstAt(r.left+r.width/2, r.top+r.height/2, 10);
-    if(exState.streak>0 && exState.streak%5===0) launchConfetti(30);
-    fb.classList.add('ok'); fb.classList.add('show');
-    fb.textContent = `✅ ¡Correcto! ${q.explain}`;
-    mascotSay(pick(MSG_CORRECTO));
+function nextSlide(){
+  if(slideIndex < INTRO_SLIDES.length - 1){
+    slideIndex++; renderSlide();
   } else {
-    btn.classList.add('wrong');
-    allBtns.forEach(b=>{ if(b.textContent===q.answer) b.classList.add('correct'); });
-    exState.wrong++; exState.streak=0;
-    playWrong();
-    fb.classList.add('bad'); fb.classList.add('show');
-    fb.textContent = `❌ La respuesta correcta era ${q.answer}. ${q.explain}`;
-    mascotSay(pick(MSG_INCORRECTO));
+    startGuided();
   }
-  allBtns.forEach(b=>{ if(b!==btn && b.textContent!==q.answer) b.classList.add('dim'); });
-  document.getElementById('exercise-streak').textContent = `🔥 Racha: ${exState.streak}`;
-  setHud(`<span>✅ ${exState.correct}</span><span>❌ ${exState.wrong}</span>`);
-  document.getElementById('btn-siguiente').classList.add('show');
-}
-function nextQuestion(){
-  playClick();
-  exState.index++;
-  if(exState.index < exState.questions.length){ renderQuestion(); }
-  else { setProgress(100); exState.onFinish(); }
 }
 
-/* 9. FLUJO "CLASE" (10 ejercicios) ------------------------------------------- */
-function startClase(){
-  playClick();
-  openSlides(SLIDES_SUCESIONES, ()=>{
-    playWhoosh();
-    const used = new Set();
-    const qs = []; for(let i=0;i<10;i++) qs.push(genSucesionAvanzada(used));
-    startExerciseSet(qs, '🔢 SUCESIONES', 'clase', onFinishClase);
-  });
-}
-function onFinishClase(){
-  launchConfetti(60);
-  playFanfare();
-  mascotSay('¡Clase terminada! 🎓');
-  showInterstitial('🏆','¡Clase completada!', `Acertaste ${exState.correct} de ${exState.questions.length}. Cuando quieras, ve a "🎮 Práctica" para poner a prueba lo aprendido con 25 ejercicios.`, ()=>{
-    goHome();
-  }, true);
-}
-let interCallback = null;
-function showInterstitial(emoji, title, sub, callback, isFinal){
-  document.getElementById('inter-emoji').textContent = emoji;
-  document.getElementById('inter-title').textContent = title;
-  document.getElementById('inter-sub').textContent = sub;
-  document.querySelector('#screen-inter .nav-btn').textContent = isFinal ? '🏠 Ir al inicio' : 'Continuar ➡️';
-  interCallback = callback;
-  showScreen('screen-inter');
-  if(!isFinal) launchConfetti(25);
-}
-function interContinue(){ playClick(); if(interCallback) interCallback(); }
-
-/* 10. FLUJO "PRÁCTICA" (25 ejercicios) ---------------------------------------- */
-let practicaStart=0;
-function startPractica(){
-  playClick();
-  const used = new Set();
-  const qs = []; for(let i=0;i<25;i++) qs.push(genSucesionAvanzada(used));
-  practicaStart = Date.now();
-  startExerciseSet(qs, '🏆 EXAMEN MIXTO', 'practica', onFinishPractica);
-  mascotSay('🏆 ¡Hora del reto grande!');
-}
-function onFinishPractica(){
-  const elapsedMs = Date.now() - practicaStart;
-  showResults(exState.correct, exState.wrong, exState.questions.length, elapsedMs, exState.maxStreak);
+function exitClases(){
+  showScreen('start');
 }
 
-/* 11. RESULTADOS -------------------------------------------------------------- */
-function formatTime(ms){
-  const s = Math.floor(ms/1000);
-  const m = Math.floor(s/60);
-  const rem = s%60;
-  return `${m}m ${rem}s`;
+/* ---------------- Guided exercises (done together with the student) ---------------- */
+const GUIDED = [
+  { prompt:"2<sup>3</sup>", hint:"Multiplica el 2 por sí mismo tres veces.", steps:["2 × 2 × 2","4 × 2"], result:"= 8" },
+  { prompt:"2<sup>4</sup>", hint:"Multiplica el 2 por sí mismo cuatro veces.", steps:["2 × 2 × 2 × 2","4 × 2 × 2","8 × 2"], result:"= 16" },
+  { prompt:"5<sup>0</sup>", hint:"Recuerda la regla del exponente cero.", steps:["Cualquier número (menos 0) elevado a 0 es igual a 1"], result:"= 1" },
+  { prompt:"4<sup>2</sup>", hint:"Multiplica el 4 por sí mismo dos veces.", steps:["4 × 4"], result:"= 16" },
+  { prompt:"(&minus;3)<sup>2</sup>", hint:"El signo va dentro del paréntesis, así que también se multiplica.", steps:["(&minus;3) × (&minus;3)"], result:"= 9" },
+];
+
+let guidedIndex = 0;
+
+function startGuided(){
+  guidedIndex = 0;
+  showScreen('guided');
+  renderGuided();
 }
-function showResults(correct, wrong, total, elapsedMs, maxStreak){
-  const pct = Math.round((correct/total)*100);
-  let medal, title, msg;
-  if(pct>=95){ medal='🥇'; title='¡Medalla de Oro!'; msg='¡Dominas las sucesiones avanzadas por completo!'; }
-  else if(pct>=80){ medal='🥈'; title='¡Medalla de Plata!'; msg='¡Muy buen trabajo! Estás cada vez más cerca de la perfección.'; }
-  else if(pct>=60){ medal='🥉'; title='¡Medalla de Bronce!'; msg='¡Buen esfuerzo! Sigue practicando para mejorar aún más.'; }
-  else { medal='💪'; title='¡Vamos con todo!'; msg='¡Podemos seguir practicando! Cada intento te hace más fuerte.'; }
-  document.getElementById('result-medal').textContent = medal;
-  document.getElementById('result-title').textContent = title;
-  document.getElementById('result-pct').textContent = pct+'%';
-  document.getElementById('result-stats').innerHTML = `
-    <div class="stat">✅ Aciertos<br>${correct}</div>
-    <div class="stat">❌ Errores<br>${wrong}</div>
-    <div class="stat">⏱️ Tiempo<br>${formatTime(elapsedMs)}</div>
-    <div class="stat">🔥 Mejor racha<br>${maxStreak}</div>
-    <div class="stat">⭐ Puntos<br>${correct*10}</div>
+
+function renderGuided(){
+  const fill = document.getElementById('guidedFill');
+  const label = document.getElementById('guidedLabel');
+  const card = document.getElementById('guidedCard');
+
+  if(guidedIndex >= GUIDED.length){
+    fill.style.width = '100%';
+    label.textContent = `Ejercicios guiados completos`;
+    card.className = 'guided-card guided-done';
+    card.innerHTML = `
+      <div class="trophy">🌟</div>
+      <h3>¡Terminamos los ejercicios guiados!</h3>
+      <p>Ahora el alumno puede intentarlo por su cuenta en la práctica cronometrada.</p>
+      <div class="guided-done-btns">
+        <button class="g-done-btn solo" onclick="startPractice()">Ir a práctica 🎯</button>
+        <button class="g-done-btn home" onclick="showScreen('start')">Volver al inicio</button>
+      </div>`;
+    return;
+  }
+
+  card.className = 'guided-card';
+  fill.style.width = `${(guidedIndex/GUIDED.length)*100}%`;
+  label.textContent = `Ejercicio guiado ${guidedIndex+1} / ${GUIDED.length}`;
+
+  const ex = GUIDED[guidedIndex];
+  card.innerHTML = `
+    <div class="g-eyebrow">Resuélvanlo juntos</div>
+    <div class="g-prompt">${ex.prompt} = ?</div>
+    <div class="g-hint">${ex.hint}</div>
+    <button class="reveal-btn" id="revealBtn">Ver desarrollo</button>
+    <div class="g-steps" id="gSteps"></div>
   `;
-  document.getElementById('result-msg').textContent = msg;
-  showScreen('screen-results');
-  document.getElementById('topbar').classList.remove('show');
-  if(pct>=60){ launchConfetti(80); playFanfare(); }
-  else { playTone(300,0.3,'sine',0,0.15); }
-  mascotSay(pct>=80 ? '¡Estoy muy orgulloso de ti! 🎉' : '¡Sigamos practicando juntos! 💪');
+  document.getElementById('revealBtn').onclick = revealGuidedSteps;
+}
+
+function revealGuidedSteps(){
+  const ex = GUIDED[guidedIndex];
+  document.getElementById('revealBtn').remove();
+  const stepsWrap = document.getElementById('gSteps');
+  stepsWrap.innerHTML = ex.steps.map((s, i) =>
+    `<div class="g-step" style="animation-delay:${i*0.15}s">${s}</div>`).join('') +
+    `<div class="g-result" style="animation-delay:${ex.steps.length*0.15}s">${ex.result}</div>`;
+
+  const nextLabel = guidedIndex === GUIDED.length - 1 ? 'Ver resultados' : 'Siguiente ejercicio →';
+  const btn = document.createElement('button');
+  btn.className = 'g-next-btn';
+  btn.textContent = nextLabel;
+  btn.style.animationDelay = `${(ex.steps.length+1)*0.15}s`;
+  btn.onclick = () => { guidedIndex++; renderGuided(); };
+  stepsWrap.appendChild(btn);
+}
+
+let current = 0, score = 0, streak = 0, timer = null, timeLeft = 25;
+const TOTAL_TIME = 25;
+const RADIUS = 26, CIRC = 2 * Math.PI * RADIUS;
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function confirmExit(){
+  clearInterval(timer);
+  showScreen('start');
+}
+
+function startPractice(){
+  current = 0; score = 0; streak = 0;
+  document.getElementById('streakNum').textContent = '0';
+  showScreen('practice');
+  loadQuestion();
+}
+
+function loadQuestion(){
+  clearInterval(timer);
+  const q = QUESTIONS[current];
+  document.getElementById('qDifficulty').textContent = q.level;
+  document.getElementById('qText').innerHTML = q.html;
+  document.getElementById('progressLabel').textContent = `Pregunta ${current+1} / ${QUESTIONS.length}`;
+  document.getElementById('progressFill').style.width = `${(current/QUESTIONS.length)*100}%`;
+  document.getElementById('feedback').textContent = '';
+  document.getElementById('feedback').className = 'feedback';
+
+  const wrap = document.getElementById('optionsWrap');
+  wrap.innerHTML = '';
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    btn.innerHTML = opt;
+    btn.onclick = () => selectAnswer(i);
+    wrap.appendChild(btn);
+  });
+
+  timeLeft = TOTAL_TIME;
+  updateTimerDisplay();
+  timer = setInterval(() => {
+    timeLeft--;
+    updateTimerDisplay();
+    if(timeLeft <= 0){
+      clearInterval(timer);
+      selectAnswer(-1); // timeout
+    }
+  }, 1000);
+}
+
+function updateTimerDisplay(){
+  const circle = document.getElementById('timerCircle');
+  const offset = CIRC * (1 - timeLeft / TOTAL_TIME);
+  circle.style.strokeDasharray = CIRC;
+  circle.style.strokeDashoffset = offset;
+  document.getElementById('timerNum').textContent = timeLeft;
+  circle.style.stroke = timeLeft > 10 ? '#00B39B' : (timeLeft > 5 ? '#FFC93C' : '#FF6B6B');
+}
+
+function selectAnswer(idx){
+  clearInterval(timer);
+  const q = QUESTIONS[current];
+  const buttons = document.querySelectorAll('.opt-btn');
+  buttons.forEach((b, i) => {
+    b.classList.add('disabled');
+    if(i === q.correct) b.classList.add('correct');
+    if(i === idx && idx !== q.correct) b.classList.add('wrong');
+    if(i !== q.correct && i !== idx) b.classList.add('dim');
+  });
+
+  const fb = document.getElementById('feedback');
+  if(idx === q.correct){
+    score++; streak++;
+    document.getElementById('streakNum').textContent = streak;
+    fb.textContent = '¡Correcto! 🎉';
+    fb.className = 'feedback ok';
+    burstConfetti();
+  } else if(idx === -1){
+    streak = 0;
+    document.getElementById('streakNum').textContent = streak;
+    fb.textContent = '⏰ ¡Se acabó el tiempo!';
+    fb.className = 'feedback bad';
+  } else {
+    streak = 0;
+    document.getElementById('streakNum').textContent = streak;
+    fb.textContent = 'Casi... ¡sigue intentando!';
+    fb.className = 'feedback bad';
+  }
+
+  setTimeout(() => {
+    current++;
+    if(current < QUESTIONS.length){
+      loadQuestion();
+    } else {
+      finishQuiz();
+    }
+  }, 1400);
+}
+
+function finishQuiz(){
+  document.getElementById('progressFill').style.width = '100%';
+  showScreen('result');
+  const pct = Math.round((score / QUESTIONS.length) * 100);
+  document.getElementById('scoreBig').textContent = `${score} / ${QUESTIONS.length}`;
+  let title, sub, trophy;
+  if(pct >= 90){ title = '¡Eres un maestro de las potencias!'; trophy='🏆'; sub='Dominas las potencias como todo un experto.'; }
+  else if(pct >= 70){ title = '¡Muy bien hecho!'; trophy='🥈'; sub='Ya casi dominas las potencias por completo.'; }
+  else if(pct >= 50){ title = '¡Buen intento!'; trophy='🥉'; sub='Vas por buen camino, repasa un poco más.'; }
+  else { title = '¡Sigue practicando!'; trophy='💪'; sub='Revisa la clase y vuelve a intentarlo.'; }
+  document.getElementById('resultTitle').textContent = title;
+  document.getElementById('scoreSub').textContent = sub;
+  document.getElementById('trophyEmoji').textContent = trophy;
+  if(pct >= 70) burstConfetti(30);
+}
+
+function burstConfetti(n){
+  const colors = ['#FFC93C','#00B39B','#FF6B6B','#fff','#4A2FA0'];
+  const count = n || 14;
+  for(let i=0;i<count;i++){
+    const c = document.createElement('div');
+    c.className = 'confetti';
+    c.style.left = Math.random()*100 + 'vw';
+    c.style.background = colors[Math.floor(Math.random()*colors.length)];
+    c.style.animationDuration = (1.6 + Math.random()*1.2) + 's';
+    c.style.borderRadius = Math.random() > .5 ? '50%' : '2px';
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 3200);
+  }
 }
 </script>
 </body>
