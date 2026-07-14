@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Potencias ⚡</title>
+<title>Ángulos ∠</title>
 <style>
   :root{
     --primary:#2D1B69;
@@ -11,6 +11,7 @@
     --secondary:#00B39B;
     --accent:#FFC93C;
     --accent-hot:#FF6B6B;
+    --violet:#7C5CD6;
     --bg:#F4F2FB;
     --card:#FFFFFF;
     --text:#221845;
@@ -27,12 +28,10 @@
     position:relative;
   }
 
-  /* floating background bolts */
   .bg-bolt{
     position:fixed; font-size:2.5rem; opacity:.12; color:var(--accent);
     animation:float 9s ease-in-out infinite;
-    pointer-events:none; z-index:0;
-    user-select:none;
+    pointer-events:none; z-index:0; user-select:none;
   }
   @keyframes float{
     0%,100%{ transform:translateY(0) rotate(-6deg);}
@@ -40,106 +39,41 @@
   }
 
   .screen{
-    position:relative; z-index:1;
-    min-height:100vh;
-    display:none;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
+    position:relative; z-index:1; min-height:100vh;
+    display:none; flex-direction:column; align-items:center; justify-content:center;
     padding:2rem 1rem;
   }
   .screen.active{display:flex;}
 
-  /* ---------- START SCREEN ---------- */
+  /* ---------- START ---------- */
   #start .logo{
-    font-size:5rem;
-    animation:spark 2.2s ease-in-out infinite;
+    font-size:5rem; animation:spark 2.2s ease-in-out infinite;
     filter:drop-shadow(0 0 20px rgba(255,201,60,.6));
   }
   @keyframes spark{
     0%,100%{ transform:scale(1) rotate(0deg);}
     50%{ transform:scale(1.12) rotate(-4deg);}
   }
-  #start h1{
-    color:#fff;
-    font-size:clamp(2.4rem, 6vw, 4rem);
-    margin-top:.5rem;
-    text-align:center;
-    letter-spacing:1px;
-  }
-  #start h1 sup{
-    color:var(--accent);
-    font-size:.55em;
-    margin-left:.15em;
-  }
-  #start p.tag{
-    color:#C9C2EE;
-    font-style:italic;
-    margin:.6rem 0 2.5rem;
-    text-align:center;
-    font-size:1.1rem;
-  }
-  .mode-row{
-    display:flex; gap:1.5rem; flex-wrap:wrap; justify-content:center;
-  }
+  #start h1{ color:#fff; font-size:clamp(2.4rem, 6vw, 4rem); margin-top:.5rem; text-align:center; letter-spacing:1px;}
+  #start p.tag{ color:#C9C2EE; font-style:italic; margin:.6rem 0 2.5rem; text-align:center; font-size:1.1rem;}
+  .mode-row{ display:flex; gap:1.5rem; flex-wrap:wrap; justify-content:center;}
   .mode-btn{
-    all:unset;
-    cursor:pointer;
-    background:var(--card);
-    color:var(--primary);
-    padding:1.6rem 2.4rem;
-    border-radius:22px;
-    font-size:1.3rem;
-    font-weight:800;
+    all:unset; cursor:pointer; background:var(--card); color:var(--primary);
+    padding:1.6rem 2.4rem; border-radius:22px; font-size:1.3rem; font-weight:800;
     display:flex; flex-direction:column; align-items:center; gap:.5rem;
     box-shadow:0 10px 0 rgba(0,0,0,.18), 0 15px 25px rgba(0,0,0,.25);
-    transition:transform .12s ease, box-shadow .12s ease;
-    min-width:200px;
-    text-align:center;
+    transition:transform .12s ease, box-shadow .12s ease; min-width:220px; text-align:center;
   }
   .mode-btn .emoji{font-size:2.4rem;}
   .mode-btn:hover{ transform:translateY(-4px); }
   .mode-btn:active{ transform:translateY(4px); box-shadow:0 4px 0 rgba(0,0,0,.18), 0 6px 12px rgba(0,0,0,.2); }
   .mode-btn.practice{ background:var(--secondary); color:#fff; }
-  .mode-btn.practice small, .mode-btn.class small{ font-weight:500; font-size:.8rem; opacity:.75;}
-
-  /* ---------- CLASES SCREEN ---------- */
-  #clases .word{
-    color:#fff;
-    font-size:clamp(3rem, 12vw, 7rem);
-    font-weight:900;
-    letter-spacing:2px;
-    animation:pulseWord 2.6s ease-in-out infinite;
-    text-shadow:0 0 40px rgba(255,201,60,.5);
-  }
-  @keyframes pulseWord{
-    0%,100%{ transform:scale(1); }
-    50%{ transform:scale(1.05); }
-  }
-  .power-orbit{
-    position:relative; width:260px; height:260px; margin:2.5rem auto 0;
-  }
-  .power-orbit .p-item{
-    position:absolute; top:50%; left:50%;
-    font-weight:800; color:var(--accent); font-size:1.6rem;
-    transform-origin:0 0;
-    animation:orbit 10s linear infinite;
-  }
-  .power-orbit .p-item:nth-child(2){ animation-delay:-3.3s; color:var(--secondary);}
-  .power-orbit .p-item:nth-child(3){ animation-delay:-6.6s; color:#fff;}
-  @keyframes orbit{
-    from{ transform:rotate(0deg) translateX(120px) rotate(0deg); }
-    to{ transform:rotate(360deg) translateX(120px) rotate(-360deg); }
-  }
+  .mode-btn small{ font-weight:500; font-size:.8rem; opacity:.75;}
 
   .back-btn{
-    all:unset; cursor:pointer;
-    position:fixed; top:1.2rem; left:1.2rem; z-index:5;
-    background:rgba(255,255,255,.12);
-    color:#fff; padding:.6rem 1.1rem; border-radius:14px;
-    font-weight:700; font-size:.95rem;
-    backdrop-filter:blur(4px);
-    transition:background .15s;
+    all:unset; cursor:pointer; position:fixed; top:1.2rem; left:1.2rem; z-index:5;
+    background:rgba(255,255,255,.12); color:#fff; padding:.6rem 1.1rem; border-radius:14px;
+    font-weight:700; font-size:.95rem; backdrop-filter:blur(4px); transition:background .15s;
   }
   .back-btn:hover{ background:rgba(255,255,255,.25); }
 
@@ -150,16 +84,16 @@
   .slide-dots .dot.active{ background:var(--accent); width:26px; border-radius:6px; }
 
   .slide-card{
-    background:var(--card); border-radius:26px; padding:2.4rem 2rem;
-    min-height:400px; box-shadow:0 20px 45px rgba(0,0,0,.3);
-    animation:cardIn .35s ease;
+    background:var(--card); border-radius:26px; padding:2.4rem 2rem; min-height:420px;
+    box-shadow:0 20px 45px rgba(0,0,0,.3); animation:cardIn .35s ease;
     display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
   }
+  @keyframes cardIn{ from{ opacity:0; transform:translateY(14px) scale(.97);} to{opacity:1; transform:none;} }
   .s-eyebrow{ color:var(--secondary); font-weight:800; font-size:.8rem; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:.4rem;}
   .s-title{ color:var(--primary); font-size:clamp(1.6rem,4.5vw,2.2rem); font-weight:800; margin-bottom:.8rem;}
   .s-sub{ color:var(--muted); font-size:1.05rem; max-width:32rem; margin-bottom:1rem;}
 
-  .slide-nav{ display:flex; justify-content:space-between; margin-top:1.4rem; gap:1rem;}
+  .slide-nav{ display:flex; justify-content:space-between; margin-top:1.4rem; gap:1rem; width:100%; max-width:760px;}
   .nav-btn{
     all:unset; cursor:pointer; padding:.8rem 1.4rem; border-radius:14px; font-weight:800;
     background:rgba(255,255,255,.12); color:#fff; transition:background .15s, transform .1s;
@@ -168,96 +102,48 @@
   .nav-btn.primary{ background:var(--accent); color:var(--primary); }
   .nav-btn.disabled{ opacity:.35; pointer-events:none; }
 
-  /* slide 2: definition */
-  .power-def-card{
-    display:flex; align-items:center; justify-content:center; gap:1rem; flex-wrap:wrap;
-    background:#EDE9F9; border-radius:18px; padding:1.6rem 1.2rem; margin-top:.5rem; width:100%;
+  /* angle diagram (css conic-gradient wedge) */
+  .angle-diagram{
+    position:relative; width:180px; height:180px; margin:1rem auto 0;
   }
-  .pd-base{ font-size:2.4rem; font-weight:800; color:var(--primary); }
-  .pd-eq{ font-size:1.6rem; color:var(--muted); font-weight:700;}
-  .pd-expand{ font-size:1.7rem; font-weight:800; color:var(--secondary); }
-  .pd-note{ font-size:.95rem; color:var(--muted); font-style:italic;}
-  .pd-legend{ margin-top:1rem; display:flex; gap:1.5rem; flex-wrap:wrap; justify-content:center; color:var(--text); font-size:.95rem;}
+  .angle-diagram .wedge{
+    position:absolute; inset:0; border-radius:50%;
+    background:conic-gradient(from -1turn, transparent 0deg, transparent calc(360deg - var(--deg)), var(--wedge-color) calc(360deg - var(--deg)), var(--wedge-color) 360deg);
+  }
+  .angle-diagram .ray{
+    position:absolute; left:50%; top:50%; width:50%; height:3px; background:var(--primary);
+    transform-origin:0 50%;
+  }
+  .angle-diagram .ray.base{ transform:rotate(0deg); }
+  .angle-diagram .ray.top{ transform:rotate(calc(var(--deg) * -1deg)); }
+  .angle-diagram .vertex{
+    position:absolute; left:50%; top:50%; width:10px; height:10px; margin:-5px;
+    background:var(--primary); border-radius:50%;
+  }
+  .angle-diagram .deg-label{
+    position:absolute; left:50%; top:50%; font-weight:800; color:var(--primary); font-size:1.1rem;
+    transform:translate(-50%,-50%) rotate(calc(var(--deg) * -0.5deg)) translate(38px) rotate(calc(var(--deg) * 0.5deg));
+  }
 
-  /* slide 3: chips */
-  .chip-row{ display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; margin-top:.5rem;}
-  .chip{ background:#EDE9F9; border-radius:16px; padding:1.2rem 1rem; min-width:9rem; }
-  .chip.highlight{ background:var(--primary); }
-  .chip.highlight .chip-power{ color:var(--accent); }
-  .chip.highlight .chip-label{ color:#fff; }
-  .chip-power{ font-size:2rem; font-weight:800; color:var(--primary); margin-bottom:.4rem;}
-  .chip-label{ font-size:.85rem; font-weight:700; color:var(--text); }
+  .def-row{ display:flex; align-items:center; gap:1rem; flex-wrap:wrap; justify-content:center; margin-top:.8rem; width:100%;}
+  .def-item{ display:flex; align-items:center; gap:.6rem; background:#EDE9F9; padding:.7rem 1rem; border-radius:14px; font-size:.95rem;}
+  .def-dot{ width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:.9rem; color:#fff; flex-shrink:0;}
 
-  /* slide 4: solve */
-  .solve-expr{ font-size:1.8rem; font-weight:800; color:var(--primary); }
-  .steps-row{ display:flex; gap:.8rem; flex-wrap:wrap; justify-content:center; margin-top:1.2rem;}
-  .step-chip{ background:#EDE9F9; color:var(--primary); font-weight:800; padding:.9rem 1.2rem; border-radius:14px; font-size:1.05rem;}
-  .step-chip.final{ background:var(--secondary); color:#fff; }
+  .chip-row{ display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; margin-top:.8rem;}
+  .chip{ background:#EDE9F9; border-radius:16px; padding:1rem; min-width:8rem; text-align:center;}
+  .chip-title{ font-size:1.3rem; font-weight:800; color:var(--primary); margin-bottom:.2rem;}
+  .chip-sub{ font-size:.8rem; color:var(--muted); font-weight:600;}
 
-  /* slide 5: sign compare */
-  .sign-compare{ display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; margin-top:.8rem;}
-  .sign-card{ border-radius:18px; padding:1.4rem 1.6rem; min-width:11rem; }
-  .sign-card.ok{ background:var(--secondary); color:#fff; }
-  .sign-card.bad{ background:var(--accent); color:var(--primary); }
-  .sign-expr{ font-size:1.6rem; font-weight:800; }
-  .sign-res{ font-size:1.6rem; font-weight:800; margin:.3rem 0;}
-  .sign-note{ font-size:.85rem; font-weight:600; opacity:.9;}
+  .type-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:.8rem; margin-top:.8rem; width:100%;}
+  @media (max-width:600px){ .type-grid{ grid-template-columns:1fr 1fr; } }
+  .type-card{ background:#EDE9F9; border-radius:16px; padding:1rem .6rem; text-align:center;}
+  .type-card .angle-diagram{ width:90px; height:90px; }
+  .type-name{ font-weight:800; color:var(--primary); font-size:1rem; margin-top:.5rem;}
+  .type-desc{ font-size:.72rem; color:var(--muted); }
 
-  /* ---------- GUIDED EXERCISES ---------- */
-  .guided-shell{ width:100%; max-width:640px; margin:0 auto; padding-top:5rem;}
-  .guided-header{ margin-bottom:1rem;}
-  .guided-card{
-    background:var(--card); border-radius:24px; padding:2.2rem 1.8rem;
-    min-height:340px; box-shadow:0 20px 45px rgba(0,0,0,.3);
-    animation:cardIn .35s ease;
-    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
-  }
-  .g-eyebrow{ color:var(--secondary); font-weight:800; font-size:.8rem; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:.6rem;}
-  .g-prompt{ font-size:clamp(2rem,7vw,2.8rem); font-weight:800; color:var(--primary); margin-bottom:1.2rem;}
-  .g-hint{ color:var(--muted); font-size:.95rem; margin-bottom:1.4rem; font-style:italic;}
-  .reveal-btn{
-    all:unset; cursor:pointer; background:var(--secondary); color:#fff; font-weight:800;
-    padding:.9rem 1.8rem; border-radius:14px; font-size:1.05rem;
-    box-shadow:0 6px 0 #007568; transition:transform .1s;
-  }
-  .reveal-btn:hover{ transform:translateY(-2px); }
-  .reveal-btn:active{ transform:translateY(3px); box-shadow:0 2px 0 #007568;}
-  .g-steps{ width:100%; margin-top:1rem; }
-  .g-step{
-    background:#EDE9F9; color:var(--primary); font-weight:700; padding:.8rem 1rem; border-radius:12px;
-    margin-bottom:.6rem; opacity:0; transform:translateY(8px); animation:stepIn .35s ease forwards;
-  }
-  @keyframes stepIn{ to{ opacity:1; transform:none; } }
-  .g-result{
-    margin-top:.8rem; font-size:1.6rem; font-weight:900; color:var(--secondary);
-    opacity:0; animation:stepIn .35s ease forwards;
-  }
-  .g-next-btn{
-    all:unset; cursor:pointer; margin-top:1.4rem; background:var(--accent); color:var(--primary);
-    font-weight:800; padding:.85rem 1.8rem; border-radius:14px; font-size:1.05rem;
-    box-shadow:0 6px 0 #cf9f20; transition:transform .1s;
-    opacity:0; animation:stepIn .35s ease forwards; animation-delay:.15s;
-  }
-  .g-next-btn:hover{ transform:translateY(-2px);}
-
-  .guided-done .trophy{ font-size:4rem; animation:bounce 1.4s ease infinite; margin-bottom:.5rem;}
-  .guided-done h3{ color:var(--primary); font-size:1.6rem; margin-bottom:.5rem;}
-  .guided-done p{ color:var(--muted); margin-bottom:1.4rem; }
-  .guided-done-btns{ display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; }
-  .g-done-btn{
-    all:unset; cursor:pointer; padding:.85rem 1.6rem; border-radius:14px; font-weight:800; font-size:1rem;
-    transition:transform .1s;
-  }
-  .g-done-btn:hover{ transform:translateY(-2px);}
-  .g-done-btn.solo{ background:var(--secondary); color:#fff; }
-  .g-done-btn.home{ background:#EDE9F9; color:var(--primary); }
-
-  /* ---------- PRACTICE SCREEN ---------- */
-  #practice{ justify-content:flex-start; padding-top:5rem; width:100%; max-width:720px; margin:0 auto;}
-  .quiz-header{
-    width:100%; display:flex; align-items:center; justify-content:space-between;
-    margin-bottom:1rem; gap:1rem; flex-wrap:wrap;
-  }
+  /* ---------- QUIZ (shared by clase & practica) ---------- */
+  .quiz-screen{ justify-content:flex-start; padding-top:5rem; width:100%; max-width:720px; margin:0 auto;}
+  .quiz-header{ width:100%; display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; gap:1rem; flex-wrap:wrap;}
   .progress-wrap{ flex:1; min-width:180px;}
   .progress-label{ color:#C9C2EE; font-size:.85rem; margin-bottom:.3rem; font-weight:700;}
   .progress-bar{ background:rgba(255,255,255,.15); height:10px; border-radius:6px; overflow:hidden;}
@@ -268,37 +154,25 @@
   .timer-ring circle{ fill:none; stroke-width:6; }
   .timer-ring .bg-c{ stroke:rgba(255,255,255,.15); }
   .timer-ring .fg-c{ stroke:var(--secondary); stroke-linecap:round; transition:stroke-dashoffset 1s linear, stroke .3s; }
-  .timer-num{
-    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-    color:#fff; font-weight:800; font-size:1.1rem;
-  }
+  .timer-num{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:1.1rem;}
 
   .streak-chip{
-    background:rgba(255,201,60,.15); color:var(--accent); font-weight:800;
-    padding:.4rem .8rem; border-radius:12px; font-size:.85rem;
-    display:flex; align-items:center; gap:.3rem; white-space:nowrap;
+    background:rgba(255,201,60,.15); color:var(--accent); font-weight:800; padding:.4rem .8rem;
+    border-radius:12px; font-size:.85rem; display:flex; align-items:center; gap:.3rem; white-space:nowrap;
   }
 
   .quiz-card{
-    background:var(--card); border-radius:24px; padding:2.2rem 1.8rem;
-    width:100%; box-shadow:0 20px 45px rgba(0,0,0,.3);
-    animation:cardIn .35s ease;
+    background:var(--card); border-radius:24px; padding:2.2rem 1.8rem; width:100%;
+    box-shadow:0 20px 45px rgba(0,0,0,.3); animation:cardIn .35s ease;
   }
-  @keyframes cardIn{ from{ opacity:0; transform:translateY(14px) scale(.97);} to{opacity:1; transform:none;} }
-
   .q-eyebrow{ color:var(--secondary); font-weight:800; font-size:.8rem; letter-spacing:1.5px; text-transform:uppercase;}
-  .q-text{
-    font-size:clamp(1.6rem, 5vw, 2.3rem); font-weight:800; color:var(--primary);
-    margin:.6rem 0 1.8rem; text-align:center;
-  }
-  .q-text sup{ font-size:.55em; color:var(--accent-hot); }
+  .q-text{ font-size:clamp(1.35rem, 4.4vw, 1.9rem); font-weight:800; color:var(--primary); margin:.6rem 0 1.8rem; text-align:center;}
 
   .options{ display:grid; grid-template-columns:1fr 1fr; gap:.9rem; }
   @media (max-width:480px){ .options{ grid-template-columns:1fr; } }
   .opt-btn{
-    all:unset; cursor:pointer; text-align:center;
-    background:#EDE9F9; color:var(--primary); font-weight:800; font-size:1.15rem;
-    padding:1rem .5rem; border-radius:16px; border:3px solid transparent;
+    all:unset; cursor:pointer; text-align:center; background:#EDE9F9; color:var(--primary);
+    font-weight:800; font-size:1.1rem; padding:1rem .5rem; border-radius:16px; border:3px solid transparent;
     transition:transform .1s ease, background .15s, border-color .15s;
   }
   .opt-btn:hover{ transform:translateY(-2px); background:#E1DAF7; }
@@ -307,67 +181,61 @@
   .opt-btn.disabled{ pointer-events:none; }
   .opt-btn.dim{ opacity:.45; }
 
-  .feedback{
-    text-align:center; font-weight:800; margin-top:1.2rem; min-height:1.6rem; font-size:1.05rem;
-  }
+  .feedback{ text-align:center; font-weight:800; margin-top:1.2rem; min-height:1.6rem; font-size:1.05rem;}
   .feedback.ok{ color:var(--secondary); }
   .feedback.bad{ color:var(--accent-hot); }
 
-  /* ---------- RESULT SCREEN ---------- */
-  #result .trophy{ font-size:5rem; animation:bounce 1.4s ease infinite; }
+  /* ---------- RESULT ---------- */
+  .result-screen .trophy{ font-size:5rem; animation:bounce 1.4s ease infinite; }
   @keyframes bounce{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(-16px);} }
-  #result h2{ color:#fff; font-size:2.2rem; margin:.6rem 0; text-align:center;}
-  #result .score-big{ font-size:4rem; font-weight:900; color:var(--accent); text-align:center; }
-  #result .score-sub{ color:#C9C2EE; text-align:center; margin-bottom:2rem; }
+  .result-screen h2{ color:#fff; font-size:2.2rem; margin:.6rem 0; text-align:center;}
+  .result-screen .score-big{ font-size:4rem; font-weight:900; color:var(--accent); text-align:center; }
+  .result-screen .score-sub{ color:#C9C2EE; text-align:center; margin-bottom:2rem; }
+  .result-btns{ display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; }
   .restart-btn{
-    all:unset; cursor:pointer; background:var(--accent); color:var(--primary);
-    padding:1rem 2.2rem; border-radius:16px; font-weight:800; font-size:1.1rem;
-    box-shadow:0 8px 0 #cf9f20;
-    transition:transform .12s;
+    all:unset; cursor:pointer; background:var(--accent); color:var(--primary); padding:1rem 2.2rem;
+    border-radius:16px; font-weight:800; font-size:1.1rem; box-shadow:0 8px 0 #cf9f20; transition:transform .12s;
   }
   .restart-btn:hover{ transform:translateY(-3px); }
   .restart-btn:active{ transform:translateY(3px); box-shadow:0 3px 0 #cf9f20;}
+  .restart-btn.secondary{ background:rgba(255,255,255,.14); color:#fff; box-shadow:0 8px 0 rgba(0,0,0,.25);}
 
   .confetti{
-    position:fixed; top:-20px; width:10px; height:16px; z-index:20; pointer-events:none;
-    animation:fall linear forwards;
+    position:fixed; top:-20px; width:10px; height:16px; z-index:20; pointer-events:none; animation:fall linear forwards;
   }
-  @keyframes fall{
-    to{ transform:translateY(110vh) rotate(540deg); opacity:.9; }
-  }
+  @keyframes fall{ to{ transform:translateY(110vh) rotate(540deg); opacity:.9; } }
 </style>
 </head>
 <body>
 
-<!-- floating decorative bolts -->
-<div class="bg-bolt" style="top:8%; left:6%;">⚡</div>
-<div class="bg-bolt" style="top:70%; left:12%; animation-delay:-3s;">✳</div>
-<div class="bg-bolt" style="top:20%; left:85%; animation-delay:-5s;">⚡</div>
+<div class="bg-bolt" style="top:8%; left:6%;">∠</div>
+<div class="bg-bolt" style="top:70%; left:12%; animation-delay:-3s;">📐</div>
+<div class="bg-bolt" style="top:20%; left:85%; animation-delay:-5s;">∠</div>
 <div class="bg-bolt" style="top:80%; left:80%; animation-delay:-1.5s;">✦</div>
-<div class="bg-bolt" style="top:45%; left:50%; animation-delay:-7s;">⚡</div>
+<div class="bg-bolt" style="top:45%; left:50%; animation-delay:-7s;">∠</div>
 
 <!-- START -->
 <section id="start" class="screen active">
-  <div class="logo">⚡</div>
-  <h1>Potencias</h1>
+  <div class="logo">∠</div>
+  <h1>Ángulos</h1>
   <p class="tag">Elige a dónde quieres ir</p>
   <div class="mode-row">
     <button class="mode-btn class" onclick="startClases()">
       <span class="emoji">🎓</span>
       Clases
-      <small>Ver el tema</small>
+      <small>Tema + 20 ejercicios · 25s cada uno</small>
     </button>
-    <button class="mode-btn practice" onclick="startPractice()">
-      <span class="emoji">🎯</span>
+    <button class="mode-btn practice" onclick="startQuiz('practice')">
+      <span class="emoji">📐</span>
       Práctica
       <small>20 ejercicios · 25s cada uno</small>
     </button>
   </div>
 </section>
 
-<!-- CLASES: mini slideshow -->
+<!-- CLASES: intro slideshow -->
 <section id="clases" class="screen">
-  <button class="back-btn" onclick="exitClases()">← Volver</button>
+  <button class="back-btn" onclick="showScreen('start')">← Volver</button>
   <div class="clases-shell">
     <div class="slide-dots" id="slideDots"></div>
     <div class="slide-card" id="slideCard"></div>
@@ -378,21 +246,9 @@
   </div>
 </section>
 
-<!-- GUIDED EXERCISES -->
-<section id="guided" class="screen">
-  <button class="back-btn" onclick="exitClases()">← Volver</button>
-  <div class="guided-shell">
-    <div class="guided-header">
-      <div class="progress-label" id="guidedLabel">Ejercicio guiado 1 / 5</div>
-      <div class="progress-bar"><div class="progress-fill" id="guidedFill"></div></div>
-    </div>
-    <div class="guided-card" id="guidedCard"></div>
-  </div>
-</section>
-
-<!-- PRACTICE -->
-<section id="practice" class="screen">
-  <button class="back-btn" onclick="confirmExit()">← Salir</button>
+<!-- QUIZ: shared markup for both class & practice -->
+<section id="quiz" class="screen quiz-screen">
+  <button class="back-btn" onclick="exitQuiz()">← Salir</button>
   <div class="quiz-header">
     <div class="progress-wrap">
       <div class="progress-label" id="progressLabel">Pregunta 1 / 20</div>
@@ -417,95 +273,82 @@
 </section>
 
 <!-- RESULT -->
-<section id="result" class="screen">
+<section id="result" class="screen result-screen">
   <div class="trophy" id="trophyEmoji">🏆</div>
   <h2 id="resultTitle">¡Bien hecho!</h2>
   <div class="score-big" id="scoreBig">0 / 20</div>
   <div class="score-sub" id="scoreSub"></div>
-  <button class="restart-btn" onclick="startPractice()">Volver a intentar</button>
+  <div class="result-btns" id="resultBtns"></div>
 </section>
 
 <script>
-/* ---------------- Data: 20 exercises, easy -> hard ---------------- */
-const QUESTIONS = [
-  { level:"Nivel fácil", html:"2<sup>2</sup> = ?", options:["4","2","6","8"], correct:0 },
-  { level:"Nivel fácil", html:"3<sup>2</sup> = ?", options:["9","6","5","12"], correct:0 },
-  { level:"Nivel fácil", html:"4<sup>2</sup> = ?", options:["16","8","12","20"], correct:0 },
-  { level:"Nivel fácil", html:"5<sup>2</sup> = ?", options:["25","10","20","15"], correct:0 },
-  { level:"Nivel fácil", html:"10<sup>2</sup> = ?", options:["100","20","12","1000"], correct:0 },
-  { level:"Nivel fácil", html:"2<sup>3</sup> = ?", options:["8","6","9","12"], correct:0 },
-  { level:"Nivel fácil", html:"3<sup>3</sup> = ?", options:["27","9","18","21"], correct:0 },
-  { level:"Nivel medio", html:"6<sup>2</sup> = ?", options:["36","12","18","30"], correct:0 },
-  { level:"Nivel medio", html:"7<sup>2</sup> = ?", options:["49","14","21","35"], correct:0 },
-  { level:"Nivel medio", html:"4<sup>3</sup> = ?", options:["64","12","43","48"], correct:0 },
-  { level:"Nivel medio", html:"2<sup>4</sup> = ?", options:["16","8","12","32"], correct:0 },
-  { level:"Nivel medio", html:"5<sup>3</sup> = ?", options:["125","15","25","75"], correct:0 },
-  { level:"Nivel medio", html:"9<sup>2</sup> = ?", options:["81","18","27","90"], correct:0 },
-  { level:"Nivel medio", html:"10<sup>3</sup> = ?", options:["1000","30","100","300"], correct:0 },
-  { level:"Nivel difícil", html:"2<sup>5</sup> = ?", options:["32","16","10","64"], correct:0 },
-  { level:"Nivel difícil", html:"8<sup>0</sup> = ?", options:["1","0","8","80"], correct:0 },
-  { level:"Nivel difícil", html:"12<sup>1</sup> = ?", options:["12","1","0","24"], correct:0 },
-  { level:"Nivel difícil", html:"(&minus;3)<sup>2</sup> = ?", options:["9","&minus;9","6","&minus;6"], correct:0 },
-  { level:"Nivel difícil", html:"&minus;4<sup>2</sup> = ?", options:["&minus;16","16","&minus;8","8"], correct:0 },
-  { level:"Reto final", html:"2<sup>2</sup> &times; 2<sup>3</sup> = 2<sup>?</sup>", options:["5","6","8","4"], correct:0 },
-];
-
-/* ---------------- Clases: intro slideshow ---------------- */
+/* ============================================================
+   CLASES: 4-slide intro
+   ============================================================ */
 const INTRO_SLIDES = [
   `<div class="s-eyebrow">Vamos a aprender esto</div>
-   <h2 class="s-title">¿Qué son las potencias?</h2>
-   <p class="s-sub">Una forma rápida de escribir una multiplicación en la que el mismo número se repite varias veces.</p>
-   <div class="power-orbit">
-     <div class="p-item">2³</div>
-     <div class="p-item">5²</div>
-     <div class="p-item">10⁴</div>
+   <h2 class="s-title">¿Qué son los ángulos?</h2>
+   <p class="s-sub">Un ángulo se forma cuando dos rayos comparten el mismo punto de origen: el vértice.</p>
+   <div class="angle-diagram" style="--deg:70; --wedge-color:#00B39B;">
+     <div class="wedge"></div>
+     <div class="ray base"></div>
+     <div class="ray top"></div>
+     <div class="vertex"></div>
+     <div class="deg-label">70°</div>
    </div>`,
 
   `<div class="s-eyebrow">Concepto</div>
-   <h2 class="s-title">Las partes de una potencia</h2>
-   <div class="power-def-card">
-     <span class="pd-base">b<sup>n</sup></span>
-     <span class="pd-eq">=</span>
-     <span class="pd-expand">b &times; b &times; b &times; ... &times; b</span>
-     <span class="pd-note">(n veces)</span>
+   <h2 class="s-title">Las partes de un ángulo</h2>
+   <div class="angle-diagram" style="--deg:55; --wedge-color:#FFC93C;">
+     <div class="wedge"></div>
+     <div class="ray base"></div>
+     <div class="ray top"></div>
+     <div class="vertex"></div>
+     <div class="deg-label">55°</div>
    </div>
-   <div class="pd-legend"><span>🟣 <b>b</b> es la base</span><span>🟢 <b>n</b> es el exponente</span></div>`,
+   <div class="def-row">
+     <div class="def-item"><span class="def-dot" style="background:#2D1B69;">●</span> <b>Vértice:</b>&nbsp;donde se unen los rayos</div>
+     <div class="def-item"><span class="def-dot" style="background:#7C5CD6;">╱</span> <b>Lados:</b>&nbsp;los dos rayos</div>
+     <div class="def-item"><span class="def-dot" style="background:#00B39B;">∠</span> <b>Abertura:</b>&nbsp;se mide en grados</div>
+   </div>`,
 
   `<div class="s-eyebrow">Concepto</div>
-   <h2 class="s-title">Cómo se leen</h2>
-   <p class="s-sub">El exponente nos dice cuántas veces se repite la base.</p>
+   <h2 class="s-title">¿Cómo se miden?</h2>
+   <p class="s-sub">Se miden en grados (°) con un transportador. Una vuelta completa mide 360°.</p>
    <div class="chip-row">
-     <div class="chip"><div class="chip-power">4<sup>2</sup></div><div class="chip-label">cuatro al cuadrado</div></div>
-     <div class="chip highlight"><div class="chip-power">2<sup>3</sup></div><div class="chip-label">dos al cubo</div></div>
-     <div class="chip"><div class="chip-power">7<sup>5</sup></div><div class="chip-label">siete elevado a la cinco</div></div>
+     <div class="chip"><div class="chip-title">90°</div><div class="chip-sub">un cuarto de vuelta</div></div>
+     <div class="chip"><div class="chip-title">180°</div><div class="chip-sub">media vuelta</div></div>
+     <div class="chip"><div class="chip-title">360°</div><div class="chip-sub">vuelta completa</div></div>
    </div>`,
 
-  `<div class="s-eyebrow">Esto se resuelve así</div>
-   <h2 class="s-title">Ejemplo: 2<sup>4</sup></h2>
-   <div class="solve-expr">2<sup>4</sup> = 2 &times; 2 &times; 2 &times; 2</div>
-   <div class="steps-row">
-     <div class="step-chip">2 × 2 = 4</div>
-     <div class="step-chip">4 × 2 = 8</div>
-     <div class="step-chip final">8 × 2 = 16</div>
-   </div>`,
-
-  `<div class="s-eyebrow">Cuidado con los signos</div>
-   <h2 class="s-title">El paréntesis importa</h2>
-   <div class="sign-compare">
-     <div class="sign-card ok">
-       <div class="sign-expr">(&minus;3)<sup>2</sup></div>
-       <div class="sign-res">= 9</div>
-       <div class="sign-note">el signo entra en la base</div>
+  `<div class="s-eyebrow">Concepto</div>
+   <h2 class="s-title">Tipos de ángulos</h2>
+   <div class="type-grid">
+     <div class="type-card">
+       <div class="angle-diagram" style="--deg:50; --wedge-color:#00B39B;"><div class="wedge"></div><div class="ray base"></div><div class="ray top"></div><div class="vertex"></div></div>
+       <div class="type-name">Agudo</div><div class="type-desc">&lt; 90°</div>
      </div>
-     <div class="sign-card bad">
-       <div class="sign-expr">&minus;3<sup>2</sup></div>
-       <div class="sign-res">= &minus;9</div>
-       <div class="sign-note">el signo se aplica al final</div>
+     <div class="type-card">
+       <div class="angle-diagram" style="--deg:90; --wedge-color:#FFC93C;"><div class="wedge"></div><div class="ray base"></div><div class="ray top"></div><div class="vertex"></div></div>
+       <div class="type-name">Recto</div><div class="type-desc">= 90°</div>
+     </div>
+     <div class="type-card">
+       <div class="angle-diagram" style="--deg:130; --wedge-color:#7C5CD6;"><div class="wedge"></div><div class="ray base"></div><div class="ray top"></div><div class="vertex"></div></div>
+       <div class="type-name">Obtuso</div><div class="type-desc">90°&ndash;180°</div>
+     </div>
+     <div class="type-card">
+       <div class="angle-diagram" style="--deg:180; --wedge-color:#FF6B6B;"><div class="wedge"></div><div class="ray base"></div><div class="ray top"></div><div class="vertex"></div></div>
+       <div class="type-name">Llano</div><div class="type-desc">= 180°</div>
      </div>
    </div>`,
 ];
 
 let slideIndex = 0;
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
 
 function startClases(){
   slideIndex = 0;
@@ -520,122 +363,97 @@ function renderSlide(){
     `<div class="dot ${i === slideIndex ? 'active' : ''}"></div>`).join('');
   document.getElementById('prevBtn').classList.toggle('disabled', slideIndex === 0);
   document.getElementById('nextBtn').textContent =
-    slideIndex === INTRO_SLIDES.length - 1 ? 'Empezar ejercicios guiados →' : 'Siguiente →';
+    slideIndex === INTRO_SLIDES.length - 1 ? 'Empezar ejercicios de clase →' : 'Siguiente →';
 }
 
 function prevSlide(){
   if(slideIndex > 0){ slideIndex--; renderSlide(); }
 }
-
 function nextSlide(){
-  if(slideIndex < INTRO_SLIDES.length - 1){
-    slideIndex++; renderSlide();
-  } else {
-    startGuided();
-  }
+  if(slideIndex < INTRO_SLIDES.length - 1){ slideIndex++; renderSlide(); }
+  else { startQuiz('class'); }
 }
 
-function exitClases(){
-  showScreen('start');
-}
-
-/* ---------------- Guided exercises (done together with the student) ---------------- */
-const GUIDED = [
-  { prompt:"2<sup>3</sup>", hint:"Multiplica el 2 por sí mismo tres veces.", steps:["2 × 2 × 2","4 × 2"], result:"= 8" },
-  { prompt:"2<sup>4</sup>", hint:"Multiplica el 2 por sí mismo cuatro veces.", steps:["2 × 2 × 2 × 2","4 × 2 × 2","8 × 2"], result:"= 16" },
-  { prompt:"5<sup>0</sup>", hint:"Recuerda la regla del exponente cero.", steps:["Cualquier número (menos 0) elevado a 0 es igual a 1"], result:"= 1" },
-  { prompt:"4<sup>2</sup>", hint:"Multiplica el 4 por sí mismo dos veces.", steps:["4 × 4"], result:"= 16" },
-  { prompt:"(&minus;3)<sup>2</sup>", hint:"El signo va dentro del paréntesis, así que también se multiplica.", steps:["(&minus;3) × (&minus;3)"], result:"= 9" },
+/* ============================================================
+   QUESTION BANKS — 20 for class (guided, timed) + 20 for practice
+   ============================================================ */
+const CLASS_QUESTIONS = [
+  { level:"Nivel fácil", text:"¿Qué tipo de ángulo es 30°?", options:["Agudo","Recto","Obtuso","Llano"], correct:0 },
+  { level:"Nivel fácil", text:"¿Qué tipo de ángulo es 90°?", options:["Recto","Agudo","Obtuso","Llano"], correct:0 },
+  { level:"Nivel fácil", text:"¿Qué tipo de ángulo es 120°?", options:["Obtuso","Agudo","Recto","Llano"], correct:0 },
+  { level:"Nivel fácil", text:"¿Qué tipo de ángulo es 180°?", options:["Llano","Recto","Obtuso","Agudo"], correct:0 },
+  { level:"Nivel fácil", text:"¿Qué tipo de ángulo es 15°?", options:["Agudo","Obtuso","Recto","Llano"], correct:0 },
+  { level:"Nivel fácil", text:"¿Qué tipo de ángulo es 175°?", options:["Obtuso","Llano","Agudo","Recto"], correct:0 },
+  { level:"Nivel medio", text:"¿Cuál es el complemento de 40°?", options:["50°","60°","140°","40°"], correct:0 },
+  { level:"Nivel medio", text:"¿Cuál es el complemento de 10°?", options:["80°","70°","170°","10°"], correct:0 },
+  { level:"Nivel medio", text:"¿Cuál es el suplemento de 100°?", options:["80°","100°","20°","260°"], correct:0 },
+  { level:"Nivel medio", text:"¿Cuál es el suplemento de 45°?", options:["135°","45°","55°","225°"], correct:0 },
+  { level:"Nivel medio", text:"¿Qué tipo de ángulo es 60°?", options:["Agudo","Recto","Obtuso","Llano"], correct:0 },
+  { level:"Nivel medio", text:"¿Qué tipo de ángulo es 91°?", options:["Obtuso","Agudo","Recto","Llano"], correct:0 },
+  { level:"Nivel medio", text:"¿Cuál es el complemento de 25°?", options:["65°","75°","155°","25°"], correct:0 },
+  { level:"Nivel medio", text:"¿Cuál es el suplemento de 170°?", options:["10°","190°","80°","170°"], correct:0 },
+  { level:"Nivel difícil", text:"¿Cuál es el suplemento de 90°?", options:["90°","180°","45°","0°"], correct:0 },
+  { level:"Nivel difícil", text:"¿Cuál es el complemento de 89°?", options:["1°","11°","91°","179°"], correct:0 },
+  { level:"Nivel difícil", text:"Dos ángulos suman 180° y uno mide 130°. ¿Cuánto mide el otro?", options:["50°","60°","40°","130°"], correct:0 },
+  { level:"Nivel difícil", text:"Dos ángulos suman 90° y uno mide 63°. ¿Cuánto mide el otro?", options:["27°","37°","17°","63°"], correct:0 },
+  { level:"Nivel difícil", text:"Un ángulo recto se divide en dos partes iguales. ¿Cuánto mide cada una?", options:["45°","90°","30°","60°"], correct:0 },
+  { level:"Reto final", text:"Un ángulo llano se divide en tres ángulos iguales. ¿Cuánto mide cada uno?", options:["60°","90°","45°","120°"], correct:0 },
 ];
 
-let guidedIndex = 0;
+const PRACTICE_QUESTIONS = [
+  { level:"Nivel fácil", text:"¿Qué tipo de ángulo es 45°?", options:["Agudo","Recto","Obtuso","Llano"], correct:0 },
+  { level:"Nivel fácil", text:"¿Qué tipo de ángulo es 90°?", options:["Recto","Agudo","Obtuso","Llano"], correct:0 },
+  { level:"Nivel fácil", text:"¿Qué tipo de ángulo es 100°?", options:["Obtuso","Agudo","Recto","Llano"], correct:0 },
+  { level:"Nivel fácil", text:"¿Qué tipo de ángulo es 180°?", options:["Llano","Recto","Obtuso","Agudo"], correct:0 },
+  { level:"Nivel fácil", text:"¿Qué tipo de ángulo es 5°?", options:["Agudo","Obtuso","Recto","Llano"], correct:0 },
+  { level:"Nivel fácil", text:"¿Qué tipo de ángulo es 165°?", options:["Obtuso","Llano","Agudo","Recto"], correct:0 },
+  { level:"Nivel medio", text:"¿Cuál es el complemento de 30°?", options:["60°","70°","150°","30°"], correct:0 },
+  { level:"Nivel medio", text:"¿Cuál es el complemento de 70°?", options:["20°","30°","110°","70°"], correct:0 },
+  { level:"Nivel medio", text:"¿Cuál es el suplemento de 60°?", options:["120°","60°","30°","240°"], correct:0 },
+  { level:"Nivel medio", text:"¿Cuál es el suplemento de 150°?", options:["30°","150°","60°","210°"], correct:0 },
+  { level:"Nivel medio", text:"¿Qué tipo de ángulo es 89°?", options:["Agudo","Recto","Obtuso","Llano"], correct:0 },
+  { level:"Nivel medio", text:"¿Qué tipo de ángulo es 95°?", options:["Obtuso","Agudo","Recto","Llano"], correct:0 },
+  { level:"Nivel medio", text:"¿Cuál es el complemento de 55°?", options:["35°","45°","125°","55°"], correct:0 },
+  { level:"Nivel medio", text:"¿Cuál es el suplemento de 20°?", options:["160°","20°","70°","200°"], correct:0 },
+  { level:"Nivel difícil", text:"¿Cuál es el suplemento de 130°?", options:["50°","130°","40°","230°"], correct:0 },
+  { level:"Nivel difícil", text:"¿Cuál es el complemento de 12°?", options:["78°","88°","168°","12°"], correct:0 },
+  { level:"Nivel difícil", text:"Dos ángulos suman 180° y uno mide 75°. ¿Cuánto mide el otro?", options:["105°","95°","115°","75°"], correct:0 },
+  { level:"Nivel difícil", text:"Dos ángulos suman 90° y uno mide 34°. ¿Cuánto mide el otro?", options:["56°","46°","66°","34°"], correct:0 },
+  { level:"Nivel difícil", text:"Un ángulo recto se divide en dos partes: una mide 30°. ¿Cuánto mide la otra?", options:["60°","30°","45°","70°"], correct:0 },
+  { level:"Reto final", text:"Un ángulo llano se divide en dos: uno es el doble del otro. ¿Cuánto miden?", options:["60° y 120°","45° y 135°","90° y 90°","30° y 150°"], correct:0 },
+];
 
-function startGuided(){
-  guidedIndex = 0;
-  showScreen('guided');
-  renderGuided();
-}
-
-function renderGuided(){
-  const fill = document.getElementById('guidedFill');
-  const label = document.getElementById('guidedLabel');
-  const card = document.getElementById('guidedCard');
-
-  if(guidedIndex >= GUIDED.length){
-    fill.style.width = '100%';
-    label.textContent = `Ejercicios guiados completos`;
-    card.className = 'guided-card guided-done';
-    card.innerHTML = `
-      <div class="trophy">🌟</div>
-      <h3>¡Terminamos los ejercicios guiados!</h3>
-      <p>Ahora el alumno puede intentarlo por su cuenta en la práctica cronometrada.</p>
-      <div class="guided-done-btns">
-        <button class="g-done-btn solo" onclick="startPractice()">Ir a práctica 🎯</button>
-        <button class="g-done-btn home" onclick="showScreen('start')">Volver al inicio</button>
-      </div>`;
-    return;
-  }
-
-  card.className = 'guided-card';
-  fill.style.width = `${(guidedIndex/GUIDED.length)*100}%`;
-  label.textContent = `Ejercicio guiado ${guidedIndex+1} / ${GUIDED.length}`;
-
-  const ex = GUIDED[guidedIndex];
-  card.innerHTML = `
-    <div class="g-eyebrow">Resuélvanlo juntos</div>
-    <div class="g-prompt">${ex.prompt} = ?</div>
-    <div class="g-hint">${ex.hint}</div>
-    <button class="reveal-btn" id="revealBtn">Ver desarrollo</button>
-    <div class="g-steps" id="gSteps"></div>
-  `;
-  document.getElementById('revealBtn').onclick = revealGuidedSteps;
-}
-
-function revealGuidedSteps(){
-  const ex = GUIDED[guidedIndex];
-  document.getElementById('revealBtn').remove();
-  const stepsWrap = document.getElementById('gSteps');
-  stepsWrap.innerHTML = ex.steps.map((s, i) =>
-    `<div class="g-step" style="animation-delay:${i*0.15}s">${s}</div>`).join('') +
-    `<div class="g-result" style="animation-delay:${ex.steps.length*0.15}s">${ex.result}</div>`;
-
-  const nextLabel = guidedIndex === GUIDED.length - 1 ? 'Ver resultados' : 'Siguiente ejercicio →';
-  const btn = document.createElement('button');
-  btn.className = 'g-next-btn';
-  btn.textContent = nextLabel;
-  btn.style.animationDelay = `${(ex.steps.length+1)*0.15}s`;
-  btn.onclick = () => { guidedIndex++; renderGuided(); };
-  stepsWrap.appendChild(btn);
-}
-
+/* ============================================================
+   QUIZ ENGINE (shared)
+   ============================================================ */
+let quizMode = 'class';
 let current = 0, score = 0, streak = 0, timer = null, timeLeft = 25;
 const TOTAL_TIME = 25;
 const RADIUS = 26, CIRC = 2 * Math.PI * RADIUS;
 
-function showScreen(id){
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+function activeQuestions(){ return quizMode === 'class' ? CLASS_QUESTIONS : PRACTICE_QUESTIONS; }
+
+function startQuiz(mode){
+  quizMode = mode;
+  current = 0; score = 0; streak = 0;
+  document.getElementById('streakNum').textContent = '0';
+  showScreen('quiz');
+  loadQuestion();
 }
 
-function confirmExit(){
+function exitQuiz(){
   clearInterval(timer);
   showScreen('start');
 }
 
-function startPractice(){
-  current = 0; score = 0; streak = 0;
-  document.getElementById('streakNum').textContent = '0';
-  showScreen('practice');
-  loadQuestion();
-}
-
 function loadQuestion(){
   clearInterval(timer);
-  const q = QUESTIONS[current];
+  const qs = activeQuestions();
+  const q = qs[current];
   document.getElementById('qDifficulty').textContent = q.level;
-  document.getElementById('qText').innerHTML = q.html;
-  document.getElementById('progressLabel').textContent = `Pregunta ${current+1} / ${QUESTIONS.length}`;
-  document.getElementById('progressFill').style.width = `${(current/QUESTIONS.length)*100}%`;
+  document.getElementById('qText').textContent = q.text;
+  document.getElementById('progressLabel').textContent = `Pregunta ${current+1} / ${qs.length}`;
+  document.getElementById('progressFill').style.width = `${(current/qs.length)*100}%`;
   document.getElementById('feedback').textContent = '';
   document.getElementById('feedback').className = 'feedback';
 
@@ -644,7 +462,7 @@ function loadQuestion(){
   q.options.forEach((opt, i) => {
     const btn = document.createElement('button');
     btn.className = 'opt-btn';
-    btn.innerHTML = opt;
+    btn.textContent = opt;
     btn.onclick = () => selectAnswer(i);
     wrap.appendChild(btn);
   });
@@ -654,10 +472,7 @@ function loadQuestion(){
   timer = setInterval(() => {
     timeLeft--;
     updateTimerDisplay();
-    if(timeLeft <= 0){
-      clearInterval(timer);
-      selectAnswer(-1); // timeout
-    }
+    if(timeLeft <= 0){ clearInterval(timer); selectAnswer(-1); }
   }, 1000);
 }
 
@@ -672,7 +487,8 @@ function updateTimerDisplay(){
 
 function selectAnswer(idx){
   clearInterval(timer);
-  const q = QUESTIONS[current];
+  const qs = activeQuestions();
+  const q = qs[current];
   const buttons = document.querySelectorAll('.opt-btn');
   buttons.forEach((b, i) => {
     b.classList.add('disabled');
@@ -702,32 +518,41 @@ function selectAnswer(idx){
 
   setTimeout(() => {
     current++;
-    if(current < QUESTIONS.length){
-      loadQuestion();
-    } else {
-      finishQuiz();
-    }
+    if(current < qs.length){ loadQuestion(); }
+    else { finishQuiz(); }
   }, 1400);
 }
 
 function finishQuiz(){
   document.getElementById('progressFill').style.width = '100%';
   showScreen('result');
-  const pct = Math.round((score / QUESTIONS.length) * 100);
-  document.getElementById('scoreBig').textContent = `${score} / ${QUESTIONS.length}`;
+  const qs = activeQuestions();
+  const pct = Math.round((score / qs.length) * 100);
+  document.getElementById('scoreBig').textContent = `${score} / ${qs.length}`;
   let title, sub, trophy;
-  if(pct >= 90){ title = '¡Eres un maestro de las potencias!'; trophy='🏆'; sub='Dominas las potencias como todo un experto.'; }
-  else if(pct >= 70){ title = '¡Muy bien hecho!'; trophy='🥈'; sub='Ya casi dominas las potencias por completo.'; }
+  if(pct >= 90){ title = '¡Eres un experto en ángulos!'; trophy='🏆'; sub='Dominas la clasificación y las reglas por completo.'; }
+  else if(pct >= 70){ title = '¡Muy bien hecho!'; trophy='🥈'; sub='Ya casi dominas los ángulos por completo.'; }
   else if(pct >= 50){ title = '¡Buen intento!'; trophy='🥉'; sub='Vas por buen camino, repasa un poco más.'; }
   else { title = '¡Sigue practicando!'; trophy='💪'; sub='Revisa la clase y vuelve a intentarlo.'; }
   document.getElementById('resultTitle').textContent = title;
   document.getElementById('scoreSub').textContent = sub;
   document.getElementById('trophyEmoji').textContent = trophy;
   if(pct >= 70) burstConfetti(30);
+
+  const btnsWrap = document.getElementById('resultBtns');
+  if(quizMode === 'class'){
+    btnsWrap.innerHTML = `
+      <button class="restart-btn" onclick="startQuiz('class')">Repetir clase</button>
+      <button class="restart-btn secondary" onclick="startQuiz('practice')">Ir a práctica 📐</button>`;
+  } else {
+    btnsWrap.innerHTML = `
+      <button class="restart-btn" onclick="startQuiz('practice')">Volver a intentar</button>
+      <button class="restart-btn secondary" onclick="showScreen('start')">Volver al inicio</button>`;
+  }
 }
 
 function burstConfetti(n){
-  const colors = ['#FFC93C','#00B39B','#FF6B6B','#fff','#4A2FA0'];
+  const colors = ['#FFC93C','#00B39B','#FF6B6B','#fff','#7C5CD6'];
   const count = n || 14;
   for(let i=0;i<count;i++){
     const c = document.createElement('div');
