@@ -76,17 +76,21 @@ h1,h2,h3,p{margin:0;}
 .screen.active{display:flex;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
 
-#screen-home{justify-content:center;text-align:center;gap:26px;}
-.home-title{color:#fff;font-size:46px;font-weight:800;text-shadow:0 4px 0 rgba(0,0,0,0.3);letter-spacing:1px;}
-.home-sub{color:var(--amarillo);font-size:20px;font-weight:700;margin-top:-10px;}
-.home-buttons{display:flex;gap:28px;flex-wrap:wrap;justify-content:center;margin-top:10px;}
-.big-btn{border:none;border-radius:28px;padding:34px 42px;font-size:28px;font-weight:800;color:#fff;min-width:220px;box-shadow:0 10px 0 rgba(0,0,0,0.3);transition:transform .12s, box-shadow .12s;animation:floaty 3s ease-in-out infinite;}
-.big-btn:active{transform:translateY(10px);box-shadow:0 0 0 rgba(0,0,0,0.3);}
+#screen-home{justify-content:center;text-align:center;gap:20px;}
+.home-title{color:#fff;font-size:42px;font-weight:800;text-shadow:0 4px 0 rgba(0,0,0,0.3);letter-spacing:1px;}
+.home-sub{color:var(--amarillo);font-size:19px;font-weight:700;margin-top:-5px;}
+.home-buttons{display:grid;grid-template-columns:repeat(2, 1fr);gap:16px;max-width:560px;width:100%;margin-top:10px;}
+@media(max-width:500px){.home-buttons{grid-template-columns:1fr;}}
+.big-btn{border:none;border-radius:22px;padding:22px 18px;font-size:20px;font-weight:800;color:#fff;box-shadow:0 8px 0 rgba(0,0,0,0.3);transition:transform .12s, box-shadow .12s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;}
+.big-btn:active{transform:translateY(8px);box-shadow:0 0 0 rgba(0,0,0,0.3);}
+.big-btn .btn-sub{font-size:13px;font-weight:600;opacity:0.9;}
 .big-btn.clase{background:linear-gradient(145deg,var(--azul),#1D6E9C);}
-.big-btn.practica{background:linear-gradient(145deg,var(--naranja),#B5501B);animation-delay:.4s;}
-@keyframes floaty{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
-.home-note{color:#C9B8F5;font-size:13px;max-width:440px;font-weight:600;}
-.difficulty-strip{display:flex;gap:8px;margin-top:6px;}
+.big-btn.diag{background:linear-gradient(145deg,var(--rosa),#C73870);}
+.big-btn.inter{background:linear-gradient(145deg,var(--naranja),#B5501B);}
+.big-btn.avan{background:linear-gradient(145deg,var(--morado),var(--morado-osc));}
+
+.home-note{color:#C9B8F5;font-size:13px;max-width:480px;font-weight:600;}
+.difficulty-strip{display:flex;gap:8px;margin-top:2px;}
 .diff-chip{padding:6px 14px;border-radius:16px;font-size:12px;font-weight:800;color:#fff;}
 .diff-chip.b{background:var(--verde);}
 .diff-chip.i{background:var(--amarillo);color:var(--morado-osc);}
@@ -189,8 +193,8 @@ h1,h2,h3,p{margin:0;}
 @keyframes starBurst{0%{transform:translate(0,0) scale(0.3);opacity:1;}100%{transform:translate(var(--sx),var(--sy)) scale(1.3);opacity:0;}}
 
 @media(max-width:600px){
-  .home-title{font-size:32px;}
-  .big-btn{font-size:22px;padding:26px 30px;min-width:160px;}
+  .home-title{font-size:30px;}
+  .big-btn{font-size:17px;padding:18px 12px;}
   .q-text{font-size:17px;}
   .slide-title{font-size:21px;}
   .mascot-helmet{width:64px;height:64px;font-size:36px;}
@@ -215,17 +219,31 @@ h1,h2,h3,p{margin:0;}
 
     <section id="screen-home" class="screen active">
       <h1 class="home-title">🚀 Misión: Lectura de Gráficos 🐱</h1>
-      <p class="home-sub">📊 De lo básico a lo avanzado</p>
+      <p class="home-sub">📊 Elige tu desafío de evaluación</p>
       <div class="difficulty-strip">
         <span class="diff-chip b">BÁSICO</span>
         <span class="diff-chip i">INTERMEDIO</span>
         <span class="diff-chip a">AVANZADO</span>
       </div>
       <div class="home-buttons">
-        <button class="big-btn clase" onclick="startClase()">📚 Clase</button>
-        <button class="big-btn practica" onclick="startPractica()">🎮 Práctica</button>
+        <button class="big-btn clase" onclick="startClase()">
+          📚 Clase
+          <span class="btn-sub">Aprende paso a paso</span>
+        </button>
+        <button class="big-btn diag" onclick="startModo('diagnostico')">
+          📋 Diagnóstico
+          <span class="btn-sub">20 Preguntas Básicas</span>
+        </button>
+        <button class="big-btn inter" onclick="startModo('intermedio')">
+          ⚙️ Intermedio
+          <span class="btn-sub">30 Preguntas Retadoras</span>
+        </button>
+        <button class="big-btn avan" onclick="startModo('avanzado')">
+          🔥 Avanzado
+          <span class="btn-sub">20 Preguntas Nivel Máster</span>
+        </button>
       </div>
-      <p class="home-note">En "Clase" aprenderás con Astrogato y resolverás 10 retos que van subiendo de dificultad. En "Práctica" harás una misión final con 20 retos nuevos mezclados. ¡Buena suerte, gatonauta! ✨</p>
+      <p class="home-note">¡Demuestra tus habilidades estadísticas, gatonauta! Selecciona un modo para comenzar tu misión. ✨</p>
     </section>
 
     <section id="screen-slides" class="screen">
@@ -278,11 +296,6 @@ h1,h2,h3,p{margin:0;}
 </div>
 
 <script>
-/* ============================================================================
-   MISIÓN ESPACIAL — LECTURA DE GRÁFICOS (2do de secundaria)
-   Dificultad progresiva: BÁSICO -> INTERMEDIO -> AVANZADO
-   ========================================================================== */
-
 /* 1. UTILIDADES */
 function rnd(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
 function pick(arr){ return arr[rnd(0,arr.length-1)]; }
@@ -323,7 +336,6 @@ function playClick(){ playTone(520,0.08,'triangle',0,0.15); }
 function playCorrect(){ playTone(523.25,0.14,'sine',0,0.22); playTone(659.25,0.14,'sine',0.1,0.22); playTone(783.99,0.22,'sine',0.2,0.24); }
 function playWrong(){ playTone(220,0.22,'sawtooth',0,0.16); playTone(160,0.28,'sawtooth',0.12,0.16); }
 function playFanfare(){ [523.25,659.25,783.99,1046.5].forEach((f,i)=>playTone(f,0.3,'square',i*0.15,0.15)); }
-function playWhoosh(){ playTone(300,0.15,'sine',0,0.1); playTone(500,0.15,'sine',0.05,0.1); }
 
 /* 3. MASCOTA */
 const MSG_BIENVENIDA=["¡Hola! Soy Astrogato 🐱🚀","¿Listo para leer gráficos como un experto?","¡Prepárate para despegar! 🚀"];
@@ -351,7 +363,7 @@ function goHome(){
 function setProgress(pct){ document.getElementById('progress-bar').style.width=Math.min(100,pct)+'%'; }
 function setHud(html){ document.getElementById('hud-stats').innerHTML=html; }
 
-/* 5. GENERADORES VISUALES (gráficos SVG) */
+/* 5. GENERADORES VISUALES */
 function niceMaxFor(values){
   const max=Math.max(...values);
   if(max<=5) return 5;
@@ -437,7 +449,6 @@ function makeLineSVG(labels, values, color){
     ${dots}${valuesSvg}${labelsSvg}</svg>`;
 }
 function makeMisleadingPairSVG(labA, valA, labB, valB, truncatedSide){
-  // honest: baseline 0. misleading: baseline near min to exaggerate
   const niceMax = niceMaxFor([valA,valB]);
   const minV = Math.min(valA,valB);
   const truncBaseline = Math.max(0, minV - Math.max(2, Math.round(minV*0.08)));
@@ -453,7 +464,7 @@ function makeMisleadingPairSVG(labA, valA, labB, valB, truncatedSide){
   </div>`;
 }
 
-/* 6. CONTENIDO DE DIAPOSITIVAS (Lectura de gráficos, progresión de dificultad) */
+/* 6. CLASE DIAPOSITIVAS */
 const SLIDES_GRAFICOS = [
 {
   title:"¿Qué es un gráfico estadístico? 📊",
@@ -463,7 +474,7 @@ const SLIDES_GRAFICOS = [
             <div class="label-tag" style="background:var(--rosa);">📈 Líneas: cambios en el tiempo</div>
             <div class="label-tag" style="background:var(--verde);">🥧 Circular: partes de un total</div>
           </div>`,
-  extra:`<p class="slide-sub">Hoy vamos a subir de nivel: de leer gráficos simples a detectar gráficos engañosos. 🚀</p>`
+  extra:`<p class="slide-sub">Hoy vamos a aprender a interpretar correctamente cualquier tipo de gráfico. 🚀</p>`
 },
 {
   title:"Elementos de un gráfico 🧩",
@@ -488,7 +499,7 @@ const SLIDES_GRAFICOS = [
 },
 {
   title:"Del porcentaje a la cantidad 🥧",
-  sub:"NIVEL INTERMEDIO — Ahora vamos a calcular, no solo leer",
+  sub:"NIVEL INTERMEDIO — Calcular datos a partir de gráficos",
   visual:`<div class="chart-wrap">${makeBarSVG(["40%","25%","20%","15%"],[40,25,20,15],"#3CCB7F")}</div>`,
   extra:`<p class="slide-sub">Si el total es 200 y una porción es 40%: 200 × 0.40 = 80. ¡Así pasamos de porcentaje a cantidad real! 🧮</p>`
 },
@@ -509,16 +520,16 @@ const SLIDES_GRAFICOS = [
 },
 {
   title:"¡Cuidado con los gráficos engañosos! ⚠️",
-  sub:"NIVEL AVANZADO — No todo gráfico dice la verdad completa",
+  sub:"NIVEL AVANZADO — Detectando manipulación de escalas",
   visual: makeMisleadingPairSVG("Marca A","48","Marca B","52","right"),
   extra:`<p class="slide-sub">Si el eje Y no empieza en 0, una diferencia pequeña puede parecer enorme. ¡Siempre revisa la escala! 🕵️</p>`
 },
 {
   title:"¡Resumen de la misión! 🌌",
-  sub:"Ya puedes leer gráficos como un verdadero gatonauta experto",
+  sub:"Ya estás listo para afrontar cualquier evaluación",
   visual:`<div style="text-align:left;max-width:360px;font-weight:700;line-height:2;">
             ✅ Identifica título, ejes y leyenda<br>
-            ✅ Lee barras, líneas y circulares<br>
+            ✅ Lee barras, líneas y agrupados<br>
             ✅ Calcula promedios y variación %<br>
             ✅ Detecta gráficos con ejes engañosos
           </div>`,
@@ -533,385 +544,289 @@ const SLIDES_GRAFICOS = [
 }
 ];
 
-function miniCheck(btn, isCorrect){
-  const fb=document.getElementById('mini-feedback');
-  if(isCorrect){
-    playCorrect(); fb.style.color='#1f7a49'; fb.textContent='¡Correcto! 🎉 '+pick(MSG_CORRECTO);
-    const r=btn.getBoundingClientRect(); starBurstAt(r.left+r.width/2, r.top, 10);
-  } else {
-    playWrong(); fb.style.color='#a13438'; fb.textContent='Casi... ¡inténtalo otra vez! 💡';
-  }
+let slideIdx=0;
+function startClase(){
+  playClick(); slideIdx=0; renderSlide(); showScreen('screen-slides');
+  mascotSay("¡Atención a la lección! 📖");
 }
-
-let slideState={list:[],index:0,onFinish:null};
-function openSlides(list,onFinish){ slideState={list,index:0,onFinish}; showScreen('screen-slides'); renderSlide(); }
 function renderSlide(){
-  const s=slideState.list[slideState.index];
-  const card=document.getElementById('slide-card');
-  card.innerHTML = `<div class="pill">Diapositiva ${slideState.index+1} / ${slideState.list.length}</div>
-    <h2 class="slide-title">${s.title}</h2><p class="slide-sub">${s.sub}</p>
-    <div class="slide-visual">${s.visual}</div>${s.extra||''}`;
-  const dotsWrap=document.getElementById('slide-dots');
-  dotsWrap.innerHTML = slideState.list.map((_,i)=>`<div class="dot ${i===slideState.index?'active':''}"></div>`).join('');
-  document.getElementById('slide-prev').disabled = slideState.index===0;
-  const last = slideState.index===slideState.list.length-1;
-  document.getElementById('slide-next').textContent = last ? '¡Empezar retos! 🚀' : 'Siguiente ➡️';
-  setProgress((slideState.index+1)/slideState.list.length*100);
+  const s=SLIDES_GRAFICOS[slideIdx];
+  document.getElementById('slide-card').innerHTML=`
+    <div class="slide-title">${s.title}</div>
+    <div class="slide-sub">${s.sub}</div>
+    <div class="slide-visual">${s.visual}</div>
+    ${s.extra}`;
+  document.getElementById('slide-dots').innerHTML=SLIDES_GRAFICOS.map((_,i)=>`<div class="dot ${i===slideIdx?'active':''}"></div>`).join('');
+  document.getElementById('slide-prev').disabled=(slideIdx===0);
+  document.getElementById('slide-next').textContent=(slideIdx===SLIDES_GRAFICOS.length-1)?"Terminar 🚀":"Siguiente ➡️";
+  setProgress(((slideIdx+1)/SLIDES_GRAFICOS.length)*100);
 }
-function nextSlide(){ playClick(); if(slideState.index<slideState.list.length-1){ slideState.index++; renderSlide(); } else { slideState.onFinish(); } }
-function prevSlide(){ playClick(); if(slideState.index>0){ slideState.index--; renderSlide(); } }
-
-/* 7. GENERADORES DE EJERCICIOS (con tiers de dificultad) */
-const BAR_SCENARIOS = [
-  { title:"Meteoritos vistos", labels:["Lun","Mar","Mié","Jue","Vie"], unit:"meteoritos", color:"#FFD23F", min:2, max:15 },
-  { title:"Cohetes lanzados por mes", labels:["Ene","Feb","Mar","Abr"], unit:"cohetes", color:"#FF6FA5", min:3, max:20 },
-  { title:"Gatonautas entrenados", labels:["Sem 1","Sem 2","Sem 3","Sem 4"], unit:"gatonautas", color:"#3CCB7F", min:2, max:12 },
-  { title:"Estrellas fugaces contadas", labels:["20h","21h","22h","23h"], unit:"estrellas", color:"#3EC6FF", min:1, max:10 },
-];
-const LINE_SCENARIOS = [
-  { title:"Velocidad del cohete", labels:["0s","10s","20s","30s","40s"], unit:"km/h", color:"#FF6FA5", trend:"increasing", min:10, max:180 },
-  { title:"Combustible restante", labels:["Inicio","1h","2h","3h","4h"], unit:"%", color:"#FF8C42", trend:"decreasing", min:5, max:100 },
-  { title:"Temperatura en la estación", labels:["00h","06h","12h","18h","24h"], unit:"°C", color:"#3EC6FF", trend:"any", min:-10, max:30 },
-];
-const GROUPED_SCENARIOS = [
-  { title:"Ventas anuales (miles S/)", labels:["Q1","Q2","Q3","Q4"], nameA:"2023", nameB:"2024", unit:"miles S/" },
-  { title:"Gatonautas por base", labels:["Base A","Base B","Base C"], nameA:"Mes 1", nameB:"Mes 2", unit:"gatonautas" },
-];
-
-function genValuesFor(labelsLen,min,max,trend){
-  let values=[];
-  if(trend==='increasing'){
-    let v=rnd(min,min+Math.floor((max-min)/3));
-    for(let i=0;i<labelsLen;i++){ values.push(v); v+=rnd(3,Math.max(4,Math.floor((max-min)/labelsLen))); }
-  } else if(trend==='decreasing'){
-    let v=rnd(max-Math.floor((max-min)/3),max);
-    for(let i=0;i<labelsLen;i++){ values.push(Math.max(min,v)); v-=rnd(3,Math.max(4,Math.floor((max-min)/labelsLen))); }
+function prevSlide(){ playClick(); if(slideIdx>0){ slideIdx--; renderSlide(); } }
+function nextSlide(){
+  playClick();
+  if(slideIdx < SLIDES_GRAFICOS.length-1){ slideIdx++; renderSlide(); }
+  else { goHome(); mascotSay("¡Excelente! Ahora demuestra lo aprendido 🚀"); }
+}
+function miniCheck(btn, isOk){
+  const fb = document.getElementById('mini-feedback');
+  if(isOk){
+    fb.style.color="#1f7a49"; fb.textContent="¡Correcto! Hace parecer los cambios mucho mayores. ✨";
+    playCorrect(); launchConfetti(20);
   } else {
-    for(let i=0;i<labelsLen;i++) values.push(rnd(min,max));
+    fb.style.color="#a13438"; fb.textContent="¡Incorrecto! Al no iniciar en 0, distorsiona la proporción visual.";
+    playWrong();
   }
-  return values.map(v=>Math.round(v));
 }
 
-function genEasyQuestion(usedKeys){
-  let attempt=0;
-  while(attempt<60){
-    attempt++;
-    const chartType = pick(['bar','line']);
-    let q=null;
-    if(chartType==='bar'){
-      const sc=pick(BAR_SCENARIOS);
-      const values=genValuesFor(sc.labels.length,sc.min,sc.max,'any');
-      const key=`easy-bar-${sc.title}-${values.join('_')}`;
-      if(usedKeys.has(key)) continue;
-      const subtype=pick(['max','min']);
-      const visual=`<div class="chart-wrap">${makeBarSVG(sc.labels,values,sc.color)}</div>`;
-      const targetV = subtype==='max' ? Math.max(...values) : Math.min(...values);
-      const idx = values.indexOf(targetV);
-      const opts=new Set([sc.labels[idx]]); while(opts.size<4) opts.add(pick(sc.labels));
-      q={ key, text:`En "${sc.title}", ¿en qué categoría hubo ${subtype==='max'?'más':'menos'} ${sc.unit}?`,
-          visualHTML:visual, options:shuffle([...opts]), answer:sc.labels[idx],
-          explain:`${sc.labels[idx]} tiene el valor ${subtype==='max'?'más alto':'más bajo'}: ${targetV}.` };
-    } else {
-      const sc=pick(LINE_SCENARIOS);
-      const values=genValuesFor(sc.labels.length,sc.min,sc.max,sc.trend);
-      const key=`easy-line-${sc.title}-${values.join('_')}`;
-      if(usedKeys.has(key)) continue;
-      const subtype=pick(['max','min']);
-      const visual=`<div class="chart-wrap">${makeLineSVG(sc.labels,values,sc.color)}</div>`;
-      const targetV = subtype==='max' ? Math.max(...values) : Math.min(...values);
-      const idx = values.indexOf(targetV);
-      const opts=new Set([sc.labels[idx]]); while(opts.size<4) opts.add(pick(sc.labels));
-      q={ key, text:`En "${sc.title}", ¿en qué momento el valor fue ${subtype==='max'?'más alto':'más bajo'}?`,
-          visualHTML:visual, options:shuffle([...opts]), answer:sc.labels[idx],
-          explain:`El punto ${subtype==='max'?'más alto':'más bajo'} ocurre en ${sc.labels[idx]} (${targetV} ${sc.unit}).` };
-    }
-    if(q){ usedKeys.add(q.key); return q; }
+/* 7. PREGUNTAS (DIAGNOSTICO, INTERMEDIO, AVANZADO) */
+
+// BANCO DE DIAGNÓSTICO (20 PREGUNTAS BÁSICAS)
+const QUESTIONS_DIAGNOSTICO = [
+  { q: "En un gráfico de barras, ¿qué representa la altura de cada barra?", opts: ["La cantidad o valor", "El título del gráfico", "El color preferido", "El tiempo total"], correct: 0, diff: "b", tema: "Lectura Básica", exp: "La altura indica el valor o frecuencia de esa categoría." },
+  { q: "¿En qué eje se suelen colocar las categorías en un gráfico de barras vertical?", opts: ["Eje vertical (Y)", "Eje horizontal (X)", "En la leyenda", "En el título"], correct: 1, diff: "b", tema: "Elementos del Gráfico", exp: "Las categorías van horizontalmente en el eje X." },
+  { q: "¿Qué elemento nos explica qué significa cada color en un gráfico?", opts: ["El título", "El eje X", "La leyenda", "La escala"], correct: 2, diff: "b", tema: "Elementos del Gráfico", exp: "La leyenda o clave define los colores o símbolos usados." },
+  { q: "Si el eje Y marca los valores 0, 5, 10, 15, ¿de cuánto en cuánto es la escala?", opts: ["De 1 en 1", "De 2 en 2", "De 5 en 5", "De 10 en 10"], correct: 2, diff: "b", tema: "Escala", exp: "La diferencia entre valores consecutivos es 5." },
+  { q: "¿Para qué tipo de datos es ideal un gráfico de líneas?", opts: ["Comprar frutas", "Ver cambios a lo largo del tiempo", "Contar personas", "Medir estaturas"], correct: 1, diff: "b", tema: "Tipos de Gráfico", exp: "Los gráficos de líneas son perfectos para series de tiempo." },
+  { q: "En un gráfico de barras, si la barra A mide 10 y la B mide 20, ¿cuál es mayor?", opts: ["La barra A", "La barra B", "Son iguales", "No se puede saber"], correct: 1, diff: "b", tema: "Comparación Directa", exp: "20 es mayor que 10." },
+  { q: "¿Qué indica una línea horizontal plana en un gráfico de líneas?", opts: ["Que el valor aumentó", "Que el valor disminuyó", "Que el valor se mantuvo constante", "Que no hay datos"], correct: 2, diff: "b", tema: "Gráficos de Líneas", exp: "Sin pendiente significa que no hubo cambio." },
+  { q: "¿Qué debe incluir todo gráfico para saber de qué trata?", opts: ["Un título", "Muchos colores", "Líneas rojas", "Una imagen"], correct: 0, diff: "b", tema: "Elementos del Gráfico", exp: "El título indica claramente el tema de los datos." },
+  { q: "Si una barra llega a la mitad entre el 10 y el 20 en la escala, ¿cuál es su valor?", opts: ["12", "15", "18", "25"], correct: 1, diff: "b", tema: "Lectura de Escala", exp: "El punto medio entre 10 y 20 es 15." },
+  { q: "¿Qué representa la totalidad en un gráfico circular (pastel)?", opts: ["50%", "75%", "100%", "200%"], correct: 2, diff: "b", tema: "Gráfico Circular", exp: "Un círculo completo representa el 100% de los datos." },
+  { q: "Si el gráfico muestra barras con valores 4, 6 y 10, ¿cuál es el total acumulado?", opts: ["18", "20", "24", "16"], correct: 1, diff: "b", tema: "Suma de Datos", exp: "4 + 6 + 10 = 20." },
+  { q: "En un gráfico de líneas, si la línea sube de izquierda a derecha, ¿qué ocurre?", opts: ["Aumenta el valor", "Disminuye el valor", "Se mantiene igual", "Desaparece"], correct: 0, diff: "b", tema: "Gráficos de Líneas", exp: "La pendiente positiva indica crecimiento." },
+  { q: "¿Cuál categoría tiene el menor valor si las barras miden: Rojo (8), Azul (3), Verde (5)?", opts: ["Rojo", "Verde", "Azul", "Todas son iguales"], correct: 2, diff: "b", tema: "Comparación Directa", exp: "3 es la medida más pequeña." },
+  { q: "¿Qué nombre recibe el eje vertical en un plano o gráfico cartesiano?", opts: ["Eje X", "Eje Y", "Eje Z", "Eje T"], correct: 1, diff: "b", tema: "Elementos del Gráfico", exp: "El eje vertical se denomina tradicionalmente eje Y." },
+  { q: "Si una barra tiene valor 0, ¿dónde quedará dibujada?", opts: ["En la parte superior", "En la línea base del eje X", "Fuera del gráfico", "En la leyenda"], correct: 1, diff: "b", tema: "Lectura Básica", exp: "El valor 0 coincide con el eje de origen." },
+  { q: "¿Qué información nos da el eje vertical generalmente?", opts: ["Las fechas", "Las cantidades o frecuencias", "Los nombres de los alumnos", "Los colores"], correct: 1, diff: "b", tema: "Elementos del Gráfico", exp: "En el eje Y se mide la escala numérica." },
+  { q: "En una encuesta a 10 personas, si a 6 les gusta el fútbol, ¿cuántos representan esa barra?", opts: ["4 personas", "6 personas", "10 personas", "60 personas"], correct: 1, diff: "b", tema: "Frecuencia", exp: "La barra indicará el número directo: 6 personas." },
+  { q: "Si dos barras tienen la misma altura, significa que:", opts: ["Tienen diferente valor", "Una es mejor que otra", "Tienen el mismo valor", "Hubo un error"], correct: 2, diff: "b", tema: "Comparación Directa", exp: "Misma altura equivale a igual magnitud." },
+  { q: "¿Qué tipo de gráfico usa símbolos o dibujos para representar cantidades?", opts: ["Pictograma", "Historial", "Polígono", "Circular"], correct: 0, diff: "b", tema: "Tipos de Gráfico", exp: "Un pictograma utiliza figuras ilustrativas." },
+  { q: "Si en un gráfico de líneas la temperatura pasa de 15°C a 10°C, ¿qué pasó?", opts: ["Subió 5°C", "Bajó 5°C", "Bajó 10°C", "No cambió"], correct: 1, diff: "b", tema: "Lectura Básica", exp: "15 - 10 = 5°C de disminución." }
+];
+
+// BANCO INTERMEDIO (30 PREGUNTAS)
+const QUESTIONS_INTERMEDIO = [
+  { q: "Observa el gráfico. ¿En qué día se registró la mayor venta de cohetes?", vis: () => makeBarSVG(["Lun","Mar","Mié","Jue"],[12,25,18,30],"#FF8C42"), opts: ["Lunes", "Martes", "Miércoles", "Jueves"], correct: 3, diff: "i", tema: "Lectura de Barras", exp: "Jueves tiene la barra más alta con 30 ventas." },
+  { q: "¿Cuál es la diferencia entre las ventas del Jueves y del Lunes?", vis: () => makeBarSVG(["Lun","Mar","Mié","Jue"],[12,25,18,30],"#FF8C42"), opts: ["12", "18", "25", "30"], correct: 1, diff: "i", tema: "Diferencias", exp: "30 (Jueves) - 12 (Lunes) = 18." },
+  { q: "¿Cuál es el total de cohetes vendidos entre los 4 días?", vis: () => makeBarSVG(["Lun","Mar","Mié","Jue"],[12,25,18,30],"#FF8C42"), opts: ["75", "85", "80", "90"], correct: 1, diff: "i", tema: "Suma de Datos", exp: "12 + 25 + 18 + 30 = 85." },
+  { q: "Según el gráfico de líneas, ¿en qué año bajó la producción de satélites?", vis: () => makeLineSVG(["2020","2021","2022","2023"],[10,22,15,28],"#3EC6FF"), opts: ["2021", "2022", "2023", "En ninguno"], correct: 1, diff: "i", tema: "Tendencias", exp: "En 2022 cayó de 22 a 15." },
+  { q: "¿Cuánto aumentó la producción de 2020 a 2021?", vis: () => makeLineSVG(["2020","2021","2022","2023"],[10,22,15,28],"#3EC6FF"), opts: ["10", "12", "15", "22"], correct: 1, diff: "i", tema: "Variación Absoluta", exp: "22 - 10 = 12 satélites." },
+  { q: "Si en un gráfico circular la sección de 'Oxígeno' representa el 25% de un total de 400 tanques, ¿cuántos tanques son?", opts: ["50", "100", "150", "200"], correct: 1, diff: "i", tema: "Porcentajes", exp: "400 × 0.25 = 100 tanques." },
+  { q: "En este gráfico agrupado, ¿quién tuvo más puntos en el Mes 2?", vis: () => makeGroupedBarSVG(["M1","M2","M3"],[20,40,35],[25,30,45],"#6C3CE0","#FFD23F","Equipo A","Equipo B"), opts: ["Equipo A", "Equipo B", "Empataron", "No se puede saber"], correct: 0, diff: "i", tema: "Gráficos Agrupados", exp: "El Equipo A (morado) tiene 40 vs 30 del Equipo B." },
+  { q: "¿En qué mes el Equipo B superó al Equipo A por mayor diferencia?", vis: () => makeGroupedBarSVG(["M1","M2","M3"],[20,40,35],[25,30,45],"#6C3CE0","#FFD23F","Equipo A","Equipo B"), opts: ["Mes 1", "Mes 2", "Mes 3", "Nunca lo superó"], correct: 2, diff: "i", tema: "Gráficos Agrupados", exp: "En Mes 3, Equipo B tiene 45 vs 35 de A (diferencia de 10)." },
+  { q: "¿Cuál es el promedio de puntos del Equipo A durante los 3 meses?", vis: () => makeGroupedBarSVG(["M1","M2","M3"],[20,40,35],[25,30,45],"#6C3CE0","#FFD23F","Equipo A","Equipo B"), opts: ["30", "31.6", "35", "40"], correct: 1, diff: "i", tema: "Promedio", exp: "(20 + 40 + 35) / 3 = 95 / 3 = 31.66..." },
+  { q: "¿Cuál es la moda en el siguiente grupo de lecturas de energía: 12, 15, 12, 18, 20, 12, 15?", opts: ["12", "15", "18", "20"], correct: 0, diff: "i", tema: "Moda", exp: "El valor 12 se repite 3 veces." },
+  { q: "¿Cuál es la mediana de los valores: 5, 8, 12, 15, 22?", opts: ["8", "12", "15", "10"], correct: 1, diff: "i", tema: "Mediana", exp: "12 está justo en la posición central." },
+  { q: "Si sumamos las barras A(15), B(25), C(10), ¿qué porcentaje del total representa B?", opts: ["25%", "40%", "50%", "60%"], correct: 2, diff: "i", tema: "Porcentajes", exp: "Total = 50. B es 25/50 = 50%." },
+  { q: "Un gráfico de barras muestra temperaturas: Ene(10°), Feb(15°), Mar(20°). ¿Cuál fue el incremento total de Ene a Mar?", opts: ["5°", "10°", "15°", "20°"], correct: 1, diff: "i", tema: "Variación", exp: "20° - 10° = 10°." },
+  { q: "Si la escala del eje Y va de 0 a 100 con divisiones cada 20, ¿cuántas líneas de división hay entre 0 y 100?", opts: ["3", "4", "5", "6"], correct: 1, diff: "i", tema: "Escala", exp: "Líneas intermedias en 20, 40, 60, 80 (son 4)." },
+  { q: "¿En qué mes las ventas fueron exactamente el doble que en Enero?", vis: () => makeBarSVG(["Ene","Feb","Mar","Abr"],[10,15,20,12],"#3CCB7F"), opts: ["Febrero", "Marzo", "Abril", "Ninguno"], correct: 1, diff: "i", tema: "Proporciones", exp: "Enero es 10; Marzo es 20 (el doble)." },
+  { q: "Si el 60% de los gatonautas prefiere explorar Marte y son 120 gatonautas en total, ¿cuántos prefieren Marte?", opts: ["60", "72", "80", "100"], correct: 1, diff: "i", tema: "Porcentajes", exp: "120 × 0.60 = 72." },
+  { q: "¿Qué mes registró el menor nivel de combustible?", vis: () => makeLineSVG(["Ene","Feb","Mar","Abr"],[80,60,40,70],"#FF5A5F"), opts: ["Enero", "Febrero", "Marzo", "Abril"], correct: 2, diff: "i", tema: "Mínimos", exp: "En Marzo cayó a 40." },
+  { q: "¿Cuánto combustible se recuperó entre Marzo y Abril?", vis: () => makeLineSVG(["Ene","Feb","Mar","Abr"],[80,60,40,70],"#FF5A5F"), opts: ["20", "30", "40", "70"], correct: 1, diff: "i", tema: "Recuperación", exp: "70 - 40 = 30 unidades." },
+  { q: "Si en un pictograma una 🚀 representa 5 cohetes, ¿cuántos representan 4 🚀?", opts: ["9", "15", "20", "25"], correct: 2, diff: "i", tema: "Pictogramas", exp: "4 × 5 = 20 cohetes." },
+  { q: "¿Cuál es el rango de los datos de este gráfico?", vis: () => makeBarSVG(["A","B","C","D"],[5,12,25,8],"#3EC6FF"), opts: ["20", "25", "12", "8"], correct: 0, diff: "i", tema: "Rango Estadístico", exp: "Rango = Valor Máximo (25) - Valor Mínimo (5) = 20." },
+  { q: "¿Qué porcentaje del total (40) representan las categorías A(10) y B(10) juntas?", opts: ["25%", "50%", "75%", "100%"], correct: 1, diff: "i", tema: "Porcentajes", exp: "(10+10)/40 = 20/40 = 50%." },
+  { q: "En una gráfica de líneas de velocidad vs tiempo, ¿qué indica una línea inclinada hacia abajo?", opts: ["Aceleración", "Desaceleración (frenado)", "Velocidad constante", "Detenido"], correct: 1, diff: "i", tema: "Interpretación Física", exp: "Disminución de velocidad con respecto al tiempo." },
+  { q: "Si la barra de 'Materia Oscura' mide 45 y la de 'Energía' mide 15, ¿cuántas veces mayor es la primera?", opts: ["2 veces", "3 veces", "4 veces", "5 veces"], correct: 1, diff: "i", tema: "Razones", exp: "45 / 15 = 3 veces mayor." },
+  { q: "¿Cuál es la media aritmética de las barras: 10, 20, 30, 40?", opts: ["20", "25", "30", "35"], correct: 1, diff: "i", tema: "Promedio", exp: "(10+20+30+40)/4 = 100/4 = 25." },
+  { q: "Si en un gráfico circular hay 4 sectores iguales, ¿cuántos grados mide cada sector?", opts: ["45°", "90°", "120°", "180°"], correct: 1, diff: "i", tema: "Gráfico Circular", exp: "360° / 4 = 90°." },
+  { q: "Según la gráfica, ¿cuándo se igualaron los niveles de oxígeno de Nave A y Nave B?", vis: () => makeGroupedBarSVG(["D1","D2","D3"],[50,40,30],[30,40,50],"#FF6FA5","#3EC6FF","Nave A","Nave B"), opts: ["Día 1", "Día 2", "Día 3", "Nunca"], correct: 1, diff: "i", tema: "Intersección", exp: "En el Día 2 ambas naves registran 40." },
+  { q: "¿Cuál fue el consumo total de la Nave A en los 3 días?", vis: () => makeGroupedBarSVG(["D1","D2","D3"],[50,40,30],[30,40,50],"#FF6FA5","#3EC6FF","Nave A","Nave B"), opts: ["120", "100", "90", "150"], correct: 0, diff: "i", tema: "Suma", exp: "50 + 40 + 30 = 120." },
+  { q: "Si un gráfico representa datos de 500 estudiantes y el 10% sacó A, ¿cuántos sacaron A?", opts: ["10", "25", "50", "100"], correct: 2, diff: "i", tema: "Porcentajes", exp: "500 × 0.10 = 50." },
+  { q: "Si el valor inicial era 50 y en el gráfico sube a 75, ¿cuál fue el aumento absoluto?", opts: ["15", "20", "25", "50"], correct: 2, diff: "i", tema: "Variación", exp: "75 - 50 = 25." },
+  { q: "¿Qué gráfica es más útil para mostrar la proporción de presupuesto gastado?", opts: ["Líneas", "Barras horizontales", "Circular (pastel)", "Dispersión"], correct: 2, diff: "i", tema: "Selección de Gráficos", exp: "El gráfico circular ilustra partes de un todo." }
+];
+
+// BANCO AVANZADO (20 PREGUNTAS)
+const QUESTIONS_AVANZADO = [
+  { q: "¿Por qué el 'Gráfico A' puede ser engañoso a simple vista?", vis: () => makeMisleadingPairSVG("Producto A","48","Producto B","52","left"), opts: ["Porque no tiene colores", "Porque el eje Y no inicia en cero", "Porque usó barras en lugar de líneas", "Porque tiene etiquetas borrosas"], correct: 1, diff: "a", tema: "Gráficos Engañosos", exp: "Al recortar el eje Y, la diferencia de 4 unidades parece gigantesca." },
+  { q: "¿Cuál es el porcentaje de incremento real del valor de 40 a 50?", opts: ["10%", "20%", "25%", "50%"], correct: 2, diff: "a", tema: "Variación Porcentual", exp: "[(50 - 40) / 40] × 100 = (10/40) × 100 = 25%." },
+  { q: "Si las ventas crecieron de 80 a 100 unidades, ¿cuál fue la variación porcentual?", opts: ["20%", "25%", "15%", "30%"], correct: 1, diff: "a", tema: "Variación Porcentual", exp: "[(100 - 80) / 80] × 100 = (20 / 80) × 100 = 25%." },
+  { q: "Si una población disminuye de 200 a 150 habitantes, ¿cuál es el Porcentaje de Disminución?", opts: ["20%", "25%", "30%", "50%"], correct: 1, diff: "a", tema: "Variación Porcentual", exp: "[(150 - 200) / 200] × 100 = (-50 / 200) × 100 = -25%." },
+  { q: "Un gráfico circular de 360° asigna un ángulo de 108° a la opción 'Exploración'. ¿Qué porcentaje representa?", opts: ["25%", "30%", "35%", "40%"], correct: 1, diff: "a", tema: "Gráficos Circulares", exp: "(108 / 360) × 100 = 0.30 × 100 = 30%." },
+  { q: "Si el promedio de 4 barras es 15 y tres de ellas valen 10, 12 y 18, ¿cuánto vale la cuarta barra?", opts: ["15", "20", "22", "25"], correct: 1, diff: "a", tema: "Despeje Estadístico", exp: "Suma total = 15 × 4 = 60. Cuarta = 60 - (10 + 12 + 18) = 60 - 40 = 20." },
+  { q: "¿Qué distorsión genera cambiar el ancho de una sola barra en un gráfico 2D?", opts: ["Altera la percepcion de área haciendo parecer que vale más", "Ninguna, la altura manda", "Cambia el valor en la leyenda", "Hace que el gráfico sea más exacto"], correct: 0, diff: "a", tema: "Sesgo Visual", exp: "El ojo humano percibe área; una barra más ancha aparenta mayor magnitud." },
+  { q: "Un gráfico muestra ganancias: Q1(100), Q2(120), Q3(150), Q4(180). ¿Cuál es la tasa de crecimiento de Q1 a Q4?", opts: ["50%", "80%", "100%", "120%"], correct: 1, diff: "a", tema: "Variación Porcentual", exp: "[(180 - 100) / 100] × 100 = 80%." },
+  { q: "Si recortamos el eje Y de 90 a 100 para comparar valores de 92 y 98, visualmente la segunda barra se verá:", opts: ["Un poco más grande", "El doble de grande", "4 veces más grande", "No cambia"], correct: 2, diff: "a", tema: "Gráficos Engañosos", exp: "Mide (92-90)=2 vs (98-90)=8. ¡Visualmente se ve 4 veces mayor!" },
+  { q: "En un gráfico de dispersión, si los puntos forman una línea que baja de izquierda a derecha, existe una relación:", opts: ["Correlación positiva", "Correlación negativa", "Sin correlación", "Correlación nula"], correct: 1, diff: "a", tema: "Correlación", exp: "Cuando una variable aumenta, la otra disminuye (pendiente negativa)." },
+  { q: "Si en un histograma la 'cola' de los datos se extiende hacia la derecha, la distribución es:", opts: ["Simétrica", "Sesgada a la derecha (positiva)", "Sesgada a la izquierda", "Uniforme"], correct: 1, diff: "a", tema: "Distribuciones", exp: "El sesgo toma la dirección de la cola más larga." },
+  { q: "¿Qué sucede con el promedio si añadimos un dato atípico (outlier) extremadamente alto?", opts: ["Permanece igual", "Disminuye", "Aumenta considerablemente", "Se convierte en cero"], correct: 2, diff: "a", tema: "Robusteza Estadística", exp: "La media es sensible a valores extremos y es arrastrada hacia ellos." },
+  { q: "Mediana vs Media: Si un gráfico de ingresos tiene valores atípicos muy altos, ¿cuál medida es más representativa?", opts: ["La media", "La mediana", "La moda", "El rango"], correct: 1, diff: "a", tema: "Medidas de Tendencia", exp: "La mediana no se ve afectada por valores atípicos extremos." },
+  { q: "Si la desviación estándar de un conjunto de barras es 0, significa que:", opts: ["Todos los datos son cero", "Todas las barras tienen la misma altura", "Hay un error en el gráfico", "Los datos están muy dispersos"], correct: 1, diff: "a", tema: "Dispersión", exp: "Sin desviación significa que no hay variabilidad entre los datos." },
+  { q: "Un gráfico 3D inclinado puede ser engañoso porque:", opts: ["Las barras del frente parecen más grandes que las del fondo", "No se pueden usar colores", "Ocupa mucho espacio", "Es imposible de imprimir"], correct: 0, diff: "a", tema: "Sesgo Visual 3D", exp: "La perspectiva 3D altera la proporción de las áreas en pantalla." },
+  { q: "Si una escala es logarítmica, un incremento constante en la gráfica representa:", opts: ["Un aumento lineal", "Un aumento exponencial o multiplicativo", "Sin cambio real", "Una disminución"], correct: 1, diff: "a", tema: "Escalas complejas", exp: "Las escalas logarítmicas transforman crecimientos exponenciales en líneas rectas." },
+  { q: "Si el índice de masa solar sube de 2.0 a 2.5 x 10^6, ¿cuántas unidades puras aumentó?", opts: ["0.5", "500,000", "5,000", "50,000"], correct: 1, diff: "a", tema: "Notación Científica en Ejes", exp: "(2.5 - 2.0) × 10^6 = 0.5 × 1,000,000 = 500,000." },
+  { q: "En un gráfico de caja (box plot), ¿qué representa la línea central dentro de la caja?", opts: ["La media", "La mediana (Q2)", "La moda", "El rango máximo"], correct: 1, diff: "a", tema: "Box Plot", exp: "La línea dentro de la caja señala el segundo cuartil o mediana." },
+  { q: "¿Cuál es el Rango Intercuartílico (IQR) si Q3 = 75 y Q1 = 25?", opts: ["50", "100", "30", "2.5"], correct: 0, diff: "a", tema: "Estadística Avanzada", exp: "IQR = Q3 - Q1 = 75 - 25 = 50." },
+  { q: "Si en un gráfico de líneas la pendiente pasa de +2 a 0 y luego a -3, la variable:", opts: ["Creció, se congeló y luego cayó", "Siempre estuvo cayendo", "Siempre estuvo creciendo", "Se mantuvo constante"], correct: 0, diff: "a", tema: "Análisis de Pendientes", exp: "Pendiente positiva = sube; cero = constante; negativa = baja." }
+];
+
+/* 8. LÓGICA DE EJERCICIOS Y MODOS */
+let currentMode = ""; // 'diagnostico', 'intermedio', 'avanzado'
+let questionBank = [];
+let currentQIdx = 0;
+let score = 0;
+let streak = 0;
+
+function startModo(modo){
+  playClick();
+  currentMode = modo;
+  currentQIdx = 0;
+  score = 0;
+  streak = 0;
+  
+  if(modo === 'diagnostico'){
+    questionBank = shuffle(QUESTIONS_DIAGNOSTICO).slice(0,20);
+    document.getElementById('exercise-tema-label').textContent = "📋 DIAGNÓSTICO BÁSICO (20 PREGUNTAS)";
+  } else if(modo === 'intermedio'){
+    questionBank = shuffle(QUESTIONS_INTERMEDIO).slice(0,30);
+    document.getElementById('exercise-tema-label').textContent = "⚙️ NIVEL INTERMEDIO (30 PREGUNTAS)";
+  } else if(modo === 'avanzado'){
+    questionBank = shuffle(QUESTIONS_AVANZADO).slice(0,20);
+    document.getElementById('exercise-tema-label').textContent = "🔥 NIVEL AVANZADO (20 PREGUNTAS)";
   }
-  return { key:`fallback-e-${Math.random()}`, text:'¿Cuál es el valor mayor?', visualHTML:`<div class="chart-wrap">${makeBarSVG(["A","B","C"],[3,7,5],"#FFD23F")}</div>`, options:shuffle(['A','B','C']), answer:'B', explain:'B tiene el valor más alto.' };
+  
+  showScreen('screen-exercise');
+  renderQuestion();
 }
-
-function genMediumQuestion(usedKeys){
-  let attempt=0;
-  while(attempt<60){
-    attempt++;
-    const chartType=pick(['bar','line']);
-    let q=null;
-    if(chartType==='bar'){
-      const sc=pick(BAR_SCENARIOS);
-      const values=genValuesFor(sc.labels.length,sc.min,sc.max,'any');
-      const key=`med-bar-${sc.title}-${values.join('_')}`;
-      if(usedKeys.has(key)) continue;
-      const subtype=pick(['diff','sum']);
-      const visual=`<div class="chart-wrap">${makeBarSVG(sc.labels,values,sc.color)}</div>`;
-      let i=rnd(0,sc.labels.length-1), j=rnd(0,sc.labels.length-1);
-      let tries=0; while(i===j && tries<10){ j=rnd(0,sc.labels.length-1); tries++; }
-      if(subtype==='diff'){
-        const diff=Math.abs(values[i]-values[j]);
-        const opts=new Set([diff]); let g=0; while(opts.size<4&&g<30){g++; const d=Math.max(0,diff+pick([-2,-1,1,2])); opts.add(d);}
-        q={ key, text:`¿Cuál es la diferencia entre ${sc.labels[i]} y ${sc.labels[j]}?`, visualHTML:visual,
-            options:shuffle([...opts].map(String)), answer:String(diff), explain:`|${values[i]} - ${values[j]}| = ${diff}.` };
-      } else {
-        const sum=values[i]+values[j];
-        const opts=new Set([sum]); let g=0; while(opts.size<4&&g<30){g++; const d=Math.max(0,sum+pick([-3,-2,2,3])); opts.add(d);}
-        q={ key, text:`¿Cuánto suman ${sc.labels[i]} y ${sc.labels[j]} juntos?`, visualHTML:visual,
-            options:shuffle([...opts].map(String)), answer:String(sum), explain:`${values[i]} + ${values[j]} = ${sum}.` };
-      }
-    } else {
-      const sc=pick(LINE_SCENARIOS);
-      const values=genValuesFor(sc.labels.length,sc.min,sc.max,sc.trend);
-      const key=`med-line-${sc.title}-${values.join('_')}`;
-      if(usedKeys.has(key)) continue;
-      const subtype=pick(['read','trend']);
-      const visual=`<div class="chart-wrap">${makeLineSVG(sc.labels,values,sc.color)}</div>`;
-      if(subtype==='read'){
-        const idx=rnd(0,sc.labels.length-1); const correct=values[idx];
-        const opts=new Set([correct]); let g=0; while(opts.size<4&&g<30){g++; const d=Math.max(0,correct+pick([-3,-2,2,3])); opts.add(d);}
-        q={ key, text:`¿Cuál fue el valor en "${sc.labels[idx]}"?`, visualHTML:visual,
-            options:shuffle([...opts].map(String)), answer:String(correct), explain:`En ${sc.labels[idx]} el valor fue ${correct} ${sc.unit}.` };
-      } else {
-        let i=rnd(0,sc.labels.length-2); let j=rnd(i+1,sc.labels.length-1);
-        if(values[i]===values[j]){ j=Math.min(sc.labels.length-1,j+1); }
-        if(values[i]===values[j]) continue;
-        const went = values[j]>values[i] ? 'Aumentó 📈' : 'Disminuyó 📉';
-        q={ key, text:`Entre ${sc.labels[i]} y ${sc.labels[j]}, ¿el valor aumentó o disminuyó?`, visualHTML:visual,
-            options:['Aumentó 📈','Disminuyó 📉'], answer:went, explain:`Pasó de ${values[i]} a ${values[j]} ${sc.unit}.` };
-      }
-    }
-    if(q){ usedKeys.add(q.key); return q; }
-  }
-  return { key:`fallback-m-${Math.random()}`, text:'¿Cuánto suman A y B?', visualHTML:`<div class="chart-wrap">${makeBarSVG(["A","B","C"],[3,7,5],"#FFD23F")}</div>`, options:shuffle(['10','9','11','8']), answer:'10', explain:'3 + 7 = 10.' };
-}
-
-function genHardQuestion(usedKeys){
-  let attempt=0;
-  while(attempt<60){
-    attempt++;
-    const subtype=pick(['average','percentChange','grouped','misleading']);
-    let q=null;
-
-    if(subtype==='average'){
-      const sc=pick(BAR_SCENARIOS);
-      const n = sc.labels.length;
-      // generate values whose sum is divisible by n for a clean average
-      let values;
-      let avg;
-      let tries=0;
-      do{
-        values = genValuesFor(n, sc.min, sc.max, 'any');
-        avg = values.reduce((a,b)=>a+b,0)/n;
-        tries++;
-      } while(!Number.isInteger(avg) && tries<25);
-      if(!Number.isInteger(avg)){ avg = Math.round(avg*10)/10; }
-      const key=`hard-avg-${sc.title}-${values.join('_')}`;
-      if(usedKeys.has(key)) continue;
-      const visual=`<div class="chart-wrap">${makeBarSVG(sc.labels,values,sc.color)}</div>`;
-      const opts=new Set([avg]); let g=0; while(opts.size<4&&g<30){g++; const d=Math.max(0, Math.round((avg+pick([-2,-1,1,2]))*10)/10); opts.add(d);}
-      q={ key, text:`¿Cuál es el promedio de ${sc.unit} en "${sc.title}"?`, visualHTML:visual,
-          options:shuffle([...opts].map(String)), answer:String(avg),
-          explain:`Suma: ${values.join(' + ')} = ${values.reduce((a,b)=>a+b,0)}. Dividido entre ${n} = ${avg}.` };
-    }
-    else if(subtype==='percentChange'){
-      const sc=pick(LINE_SCENARIOS.filter(s=>s.trend!=='any'));
-      const values=genValuesFor(sc.labels.length,Math.max(sc.min,5),sc.max,sc.trend);
-      const key=`hard-pct-${sc.title}-${values.join('_')}`;
-      if(usedKeys.has(key)) continue;
-      const i=0, j=sc.labels.length-1;
-      const initial=values[i], final=values[j];
-      if(initial===0) continue;
-      const pct = Math.round(((final-initial)/initial)*100);
-      const visual=`<div class="chart-wrap">${makeLineSVG(sc.labels,values,sc.color)}</div>`;
-      const opts=new Set([pct]); let g=0; while(opts.size<4&&g<30){g++; const d=pct+pick([-15,-10,10,15,20]); opts.add(d);}
-      const sign = pct>=0?'aumentó':'disminuyó';
-      q={ key, text:`¿Cuál fue la variación porcentual entre ${sc.labels[i]} y ${sc.labels[j]} en "${sc.title}"?`, visualHTML:visual,
-          options:shuffle([...opts].map(v=>v+'%')), answer:pct+'%',
-          explain:`[(${final} − ${initial}) ÷ ${initial}] × 100 = ${pct}%. El valor ${sign}.` };
-    }
-    else if(subtype==='grouped'){
-      const sc=pick(GROUPED_SCENARIOS);
-      const valuesA=genValuesFor(sc.labels.length,10,60,'any');
-      const valuesB=genValuesFor(sc.labels.length,10,60,'any');
-      const key=`hard-grp-${sc.title}-${valuesA.join('_')}-${valuesB.join('_')}`;
-      if(usedKeys.has(key)) continue;
-      const visual=`<div class="chart-wrap">${makeGroupedBarSVG(sc.labels,valuesA,valuesB,"#1E2A5E","#F5B942",sc.nameA,sc.nameB)}</div>`;
-      const diffs = sc.labels.map((_,i)=>valuesB[i]-valuesA[i]);
-      const maxDiffIdx = diffs.indexOf(Math.max(...diffs));
-      const opts=new Set([sc.labels[maxDiffIdx]]); while(opts.size<Math.min(4,sc.labels.length)) opts.add(pick(sc.labels));
-      q={ key, text:`En "${sc.title}", ¿en qué categoría ${sc.nameB} superó más a ${sc.nameA}?`, visualHTML:visual,
-          options:shuffle([...opts]), answer:sc.labels[maxDiffIdx],
-          explain:`En ${sc.labels[maxDiffIdx]}, ${sc.nameB} (${valuesB[maxDiffIdx]}) superó a ${sc.nameA} (${valuesA[maxDiffIdx]}) por ${diffs[maxDiffIdx]}.` };
-    }
-    else {
-      const valA = rnd(30,60), valB = valA + rnd(3, Math.round(valA*0.15));
-      const truncatedSide = pick(['left','right']);
-      const key=`hard-mis-${valA}-${valB}-${truncatedSide}`;
-      if(usedKeys.has(key)) continue;
-      const visual = makeMisleadingPairSVG("A", valA, "B", valB, truncatedSide);
-      const answer = truncatedSide==='left' ? 'El gráfico A (izquierda)' : 'El gráfico B (derecha)';
-      q={ key, text:`Ambos gráficos muestran los mismos datos (A=${valA}, B=${valB}). ¿Cuál de los dos EXAGERA la diferencia al recortar el eje Y?`, visualHTML:visual,
-          options:shuffle(['El gráfico A (izquierda)','El gráfico B (derecha)']), answer,
-          explain:`El gráfico cuyo eje Y no empieza en 0 hace que la diferencia se vea mucho más grande de lo real.` };
-    }
-    if(q){ usedKeys.add(q.key); return q; }
-  }
-  return { key:`fallback-h-${Math.random()}`, text:'¿Cuál es el promedio de 10, 20 y 30?', visualHTML:'', options:shuffle(['20','15','25','30']), answer:'20', explain:'(10+20+30)/3 = 20.' };
-}
-
-function genQuestionByTier(usedKeys, tier){
-  if(tier==='easy') return genEasyQuestion(usedKeys);
-  if(tier==='medium') return genMediumQuestion(usedKeys);
-  return genHardQuestion(usedKeys);
-}
-
-/* 8. MOTOR DE EJERCICIOS (ESTILO KAHOOT) */
-let exState={ mode:'clase', temaLabel:'GRÁFICOS', questions:[], index:0, correct:0, wrong:0, streak:0, maxStreak:0, startTime:0, onFinish:null };
-
-function startExerciseSet(questions, temaLabel, mode, onFinish){
-  exState={ mode, temaLabel, questions, index:0, correct:0, wrong:0, streak:0, maxStreak:0, startTime:Date.now(), onFinish };
-  showScreen('screen-exercise'); renderQuestion();
-}
-
-const DIFF_LABEL = { easy:['BÁSICO','b'], medium:['INTERMEDIO','i'], hard:['AVANZADO','a'] };
 
 function renderQuestion(){
-  const total=exState.questions.length;
-  const q=exState.questions[exState.index];
-  document.getElementById('exercise-tema-label').textContent =
-    exState.mode==='practica' ? `🏆 MISIÓN FINAL · ${exState.temaLabel}` : exState.temaLabel;
-  document.getElementById('exercise-streak').textContent = `🔥 Racha: ${exState.streak}`;
-  document.getElementById('q-counter').textContent = `Pregunta ${exState.index+1} / ${total}`;
+  const q = questionBank[currentQIdx];
+  const total = questionBank.length;
+  
+  setProgress(((currentQIdx) / total) * 100);
+  setHud(`<span>❓ ${currentQIdx + 1}/${total}</span> <span>⭐ Puntos: ${score}</span>`);
+  
+  document.getElementById('exercise-streak').textContent = `🔥 Racha: ${streak}`;
+  document.getElementById('q-counter').textContent = `Pregunta ${currentQIdx + 1} de ${total}`;
+  
   const diffPill = document.getElementById('q-diffpill');
-  const [dLabel,dClass] = DIFF_LABEL[q.tier] || ['',''];
-  diffPill.textContent = dLabel;
-  diffPill.className = 'pill diffpill ' + dClass;
-  document.getElementById('q-text').textContent = q.text;
-  document.getElementById('q-visual').innerHTML = q.visualHTML||'';
-  const optsWrap=document.getElementById('q-options'); optsWrap.innerHTML='';
-  const shapes=['▲','◆','●','■'];
-  q.options.forEach((opt,i)=>{
-    const b=document.createElement('button');
-    b.className=`opt-btn k${i%4}`;
-    b.innerHTML=`<span class="shape">${shapes[i%4]}</span><span>${opt}</span>`;
-    b.onclick=()=>checkAnswer(b,opt,q);
-    optsWrap.appendChild(b);
+  if(q.diff === 'b'){ diffPill.textContent = "BÁSICO"; diffPill.className = "pill diffpill b"; }
+  else if(q.diff === 'i'){ diffPill.textContent = "INTERMEDIO"; diffPill.className = "pill diffpill i"; }
+  else { diffPill.textContent = "AVANZADO"; diffPill.className = "pill diffpill a"; }
+  
+  document.getElementById('q-text').textContent = q.q;
+  
+  const visContainer = document.getElementById('q-visual');
+  visContainer.innerHTML = q.vis ? q.vis() : '';
+  
+  const optsContainer = document.getElementById('q-options');
+  optsContainer.innerHTML = '';
+  
+  const shapes = ['▲','■','●','✦'];
+  q.opts.forEach((optText, i) => {
+    const btn = document.createElement('button');
+    btn.className = `opt-btn k${i}`;
+    btn.innerHTML = `<span class="shape">${shapes[i]}</span> <span>${optText}</span>`;
+    btn.onclick = (e) => checkAnswer(i, e);
+    optsContainer.appendChild(btn);
   });
-  const fb=document.getElementById('q-feedback'); fb.className='feedback-box'; fb.textContent='';
-  document.getElementById('btn-siguiente').classList.remove('show');
-  setProgress((exState.index)/total*100);
-  setHud(`<span>✅ ${exState.correct}</span><span>❌ ${exState.wrong}</span>`);
+  
+  const fb = document.getElementById('q-feedback');
+  fb.className = 'feedback-box';
+  fb.style.display = 'none';
+  
+  const nextBtn = document.getElementById('btn-siguiente');
+  nextBtn.classList.remove('show');
 }
 
-function checkAnswer(btn, chosen, q){
-  const optsWrap=document.getElementById('q-options');
-  const allBtns=[...optsWrap.querySelectorAll('.opt-btn')];
-  allBtns.forEach(b=>b.onclick=null);
-  const isCorrect = chosen.toString().trim() === q.answer.toString().trim();
-  const fb=document.getElementById('q-feedback');
-  if(isCorrect){
-    btn.classList.add('correct');
-    exState.correct++; exState.streak++; exState.maxStreak=Math.max(exState.maxStreak,exState.streak);
+function checkAnswer(selectedIdx, evt){
+  const q = questionBank[currentQIdx];
+  const buttons = document.querySelectorAll('.opt-btn');
+  buttons.forEach(b => b.onclick = null);
+  
+  const fb = document.getElementById('q-feedback');
+  fb.classList.add('show');
+  
+  if(selectedIdx === q.correct){
     playCorrect();
-    const r=btn.getBoundingClientRect(); starBurstAt(r.left+r.width/2, r.top+r.height/2, 10);
-    if(exState.streak>0 && exState.streak%5===0) launchConfetti(30);
-    fb.classList.add('ok'); fb.classList.add('show');
-    fb.textContent = `✅ ¡Correcto! ${q.explain}`;
+    buttons[selectedIdx].classList.add('correct');
+    buttons.forEach((b,i) => { if(i !== selectedIdx) b.classList.add('dim'); });
+    
+    score += 10;
+    streak++;
+    
+    if(evt) starBurstAt(evt.clientX, evt.clientY, 8);
+    if(streak % 5 === 0) launchConfetti(30);
+    
+    fb.classList.add('ok');
+    fb.innerHTML = `<b>¡Correcto! 🎉</b><br>${q.exp}`;
     mascotSay(pick(MSG_CORRECTO));
   } else {
-    btn.classList.add('wrong');
-    allBtns.forEach(b=>{ if(b.textContent.trim()===q.answer.toString().trim()) b.classList.add('correct'); });
-    exState.wrong++; exState.streak=0;
     playWrong();
-    fb.classList.add('bad'); fb.classList.add('show');
-    fb.textContent = `❌ No era esa. ${q.explain}`;
+    buttons[selectedIdx].classList.add('wrong');
+    buttons[q.correct].classList.add('correct');
+    buttons.forEach((b,i) => { if(i !== selectedIdx && i !== q.correct) b.classList.add('dim'); });
+    
+    streak = 0;
+    fb.classList.add('bad');
+    fb.innerHTML = `<b>¡Casi! 🛰️</b><br>${q.exp}`;
     mascotSay(pick(MSG_INCORRECTO));
   }
-  allBtns.forEach(b=>{ if(b!==btn && b.textContent.trim()!==q.answer.toString().trim()) b.classList.add('dim'); });
-  document.getElementById('exercise-streak').textContent = `🔥 Racha: ${exState.streak}`;
-  setHud(`<span>✅ ${exState.correct}</span><span>❌ ${exState.wrong}</span>`);
+  
+  document.getElementById('exercise-streak').textContent = `🔥 Racha: ${streak}`;
+  setHud(`<span>❓ ${currentQIdx + 1}/${questionBank.length}</span> <span>⭐ Puntos: ${score}</span>`);
+  
   document.getElementById('btn-siguiente').classList.add('show');
 }
 
 function nextQuestion(){
-  playClick(); exState.index++;
-  if(exState.index<exState.questions.length){ renderQuestion(); }
-  else { setProgress(100); exState.onFinish(); }
-}
-
-/* 9. FLUJO "CLASE" — 10 ejercicios con dificultad creciente */
-function buildClaseQuestions(){
-  const used = new Set();
-  const qs = [];
-  for(let i=0;i<4;i++) qs.push({...genQuestionByTier(used,'easy'), tier:'easy'});
-  for(let i=0;i<3;i++) qs.push({...genQuestionByTier(used,'medium'), tier:'medium'});
-  for(let i=0;i<3;i++) qs.push({...genQuestionByTier(used,'hard'), tier:'hard'});
-  return qs; // ya en orden de dificultad creciente
-}
-
-function startClase(){
   playClick();
-  openSlides(SLIDES_GRAFICOS, ()=>{
-    playWhoosh();
-    const qs = buildClaseQuestions();
-    startExerciseSet(qs, '📊 GRÁFICOS', 'clase', onFinishClase);
-  });
-}
-function onFinishClase(){
-  launchConfetti(60); playFanfare(); mascotSay('¡Misión de clase completada! 🎓🚀');
-  showInterstitial('🏆','¡Clase completada!', `¡Excelente trabajo, gatonauta! Completaste 10 retos de dificultad creciente sobre lectura de gráficos. Cuando quieras, ve a "🎮 Práctica" para la misión final con 20 retos nuevos.`, ()=>{ goHome(); }, true);
+  currentQIdx++;
+  if(currentQIdx < questionBank.length){
+    renderQuestion();
+  } else {
+    finishQuiz();
+  }
 }
 
-let interCallback=null;
-function showInterstitial(emoji,title,sub,callback,isFinal){
-  document.getElementById('inter-emoji').textContent=emoji;
-  document.getElementById('inter-title').textContent=title;
-  document.getElementById('inter-sub').textContent=sub;
-  document.querySelector('#screen-inter .nav-btn').textContent = isFinal ? '🏠 Ir a la base' : 'Continuar ➡️';
-  interCallback=callback; showScreen('screen-inter');
-  if(!isFinal) launchConfetti(25);
-}
-function interContinue(){ playClick(); if(interCallback) interCallback(); }
-
-/* 10. FLUJO "PRÁCTICA" — 20 ejercicios NUEVOS mezclados (todas las dificultades) */
-let practicaStart=0;
-function startPractica(){
-  playClick();
-  const used = new Set();
-  const qs = [];
-  for(let i=0;i<7;i++) qs.push({...genQuestionByTier(used,'easy'), tier:'easy'});
-  for(let i=0;i<7;i++) qs.push({...genQuestionByTier(used,'medium'), tier:'medium'});
-  for(let i=0;i<6;i++) qs.push({...genQuestionByTier(used,'hard'), tier:'hard'});
-  const all = shuffle(qs);
-  practicaStart=Date.now();
-  startExerciseSet(all, '🚀 MISIÓN MIXTA', 'practica', onFinishPractica);
-  mascotSay('🏆 ¡Hora de demostrar lo aprendido, gatonauta!');
-}
-function onFinishPractica(){
-  const elapsedMs=Date.now()-practicaStart;
-  showResults(exState.correct, exState.wrong, exState.questions.length, elapsedMs, exState.maxStreak);
-}
-
-/* 11. RESULTADOS */
-function formatTime(ms){ const s=Math.floor(ms/1000); const m=Math.floor(s/60); const rem=s%60; return `${m}m ${rem}s`; }
-function showResults(correct,wrong,total,elapsedMs,maxStreak){
-  const pct=Math.round((correct/total)*100);
-  let medal,title,msg;
-  if(pct>=95){ medal='🥇'; title='¡Medalla de Oro Espacial!'; msg='¡Eres un genio leyendo gráficos! Dominas desde lo básico hasta lo avanzado.'; }
-  else if(pct>=80){ medal='🥈'; title='¡Medalla de Plata Estelar!'; msg='¡Muy buen trabajo! Estás cada vez más cerca de la perfección espacial.'; }
-  else if(pct>=60){ medal='🥉'; title='¡Medalla de Bronce Cósmico!'; msg='¡Buen esfuerzo! Sigue practicando, sobre todo los retos avanzados.'; }
-  else { medal='💪'; title='¡Vamos con todo, gatonauta!'; msg='¡Podemos seguir practicando! Repasa las diapositivas y vuelve a intentarlo.'; }
-  document.getElementById('result-medal').textContent=medal;
-  document.getElementById('result-title').textContent=title;
-  document.getElementById('result-pct').textContent=pct+'%';
+function finishQuiz(){
+  setProgress(100);
+  const total = questionBank.length;
+  const maxScore = total * 10;
+  const pct = Math.round((score / maxScore) * 100);
+  
+  document.getElementById('result-pct').textContent = `${pct}%`;
   document.getElementById('result-stats').innerHTML = `
-    <div class="stat">✅ Aciertos<br>${correct}</div>
-    <div class="stat">❌ Errores<br>${wrong}</div>
-    <div class="stat">⏱️ Tiempo<br>${formatTime(elapsedMs)}</div>
-    <div class="stat">🔥 Mejor racha<br>${maxStreak}</div>
-    <div class="stat">⭐ Puntos<br>${correct*10}</div>`;
-  document.getElementById('result-msg').textContent=msg;
+    <div class="stat">🎯 Aciertos: ${score/10}/${total}</div>
+    <div class="stat">⭐ Puntos: ${score}</div>
+  `;
+  
+  let medal = "🥉";
+  let title = "¡Misión Completada!";
+  let msg = "¡Sigue practicando para dominar todos los gráficos!";
+  
+  if(pct >= 90){
+    medal = "🏆";
+    title = "¡Excelente Trabajo, Gatonauta!";
+    msg = "¡Has demostrado un dominio magistral de la lectura de gráficos!";
+    playFanfare();
+    launchConfetti(80);
+  } else if(pct >= 70){
+    medal = "🥇";
+    title = "¡Muy Buen Desempeño!";
+    msg = "Tienes bases sólidas. ¡Un par de repasos más y serás invencible!";
+    playFanfare();
+    launchConfetti(50);
+  } else if(pct >= 50){
+    medal = "🥈";
+    title = "¡Buen Intento!";
+    msg = "Vas por buen camino. Revisa los conceptos que te fallaron.";
+  } else {
+    playWrong();
+  }
+  
+  document.getElementById('result-medal').textContent = medal;
+  document.getElementById('result-title').textContent = title;
+  document.getElementById('result-msg').textContent = msg;
+  
   showScreen('screen-results');
-  document.getElementById('topbar').classList.remove('show');
-  if(pct>=60){ launchConfetti(80); playFanfare(); } else { playTone(300,0.3,'sine',0,0.15); }
-  mascotSay(pct>=80 ? '¡Estoy muy orgulloso de ti! 🎉🐱' : '¡Sigamos practicando juntos! 💪🚀');
+}
+
+function interContinue(){
+  playClick();
+  showScreen('screen-exercise');
 }
 </script>
 </body>
