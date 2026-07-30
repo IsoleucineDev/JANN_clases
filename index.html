@@ -573,7 +573,7 @@ function currentQuizIcon(){
 function renderQuizQuestion(){
   clearTimer();
   state.answered = false;
-  state.timeLeft = 20;
+  state.timeLeft = 60;
   const list = currentQuizData();
   const q = list[state.quizIndex];
   const shapes = ["shape-triangle","shape-diamond","shape-circle","shape-square"];
